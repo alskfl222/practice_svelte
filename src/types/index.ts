@@ -1,4 +1,4 @@
-import type { BossInfo } from '../stores';
+import type { bossInfo } from '../stores';
 
 export enum BossDifficulty {
 	'easy',
@@ -9,7 +9,8 @@ export enum BossDifficulty {
 }
 
 export type BossType = {
-	name: keyof typeof BossInfo;
+	name: keyof typeof bossInfo;
+	image: string;
 	difficulty: BossDifficulty[];
 };
 

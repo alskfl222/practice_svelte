@@ -10,11 +10,12 @@ export const newBossArr = (
 	arr: BossType[],
 	index: number,
 	name: keyof typeof BossInfo,
+	image: string,
 	difficulty: BossDifficulty
 ) => {
 	let res = arr.slice();
 	if (index === -1) {
-		res.push({ name, difficulty: [difficulty] });
+		res.push({ name, image, difficulty: [difficulty] });
 	} else {
 		if (res[index].difficulty.includes(difficulty)) {
 			res[index].difficulty = res[index].difficulty.filter((str) => str !== difficulty);
@@ -51,9 +52,9 @@ export const getTotalBossCount = (totalBossInfo: {
 	[key in keyof typeof BossInfo]?: CharType[];
 }) => {
 	let count = 0;
+	type BossKey = keyof typeof BossInfo;
 
 	Object.keys(totalBossInfo).forEach((boss) => {
-		type BossKey = keyof typeof BossInfo;
 		totalBossInfo[boss as BossKey]!.map((char) => {
 			count += char.difficulty.length;
 		});
