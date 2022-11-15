@@ -1,7 +1,7 @@
-import type { BossInfo } from '../stores';
+import { bossInfo } from '../stores';
 import type { CharBoss, BossType, CharType, BossDifficulty } from '../types';
 
-export const searchBossIndex = (arr: BossType[], name: keyof typeof BossInfo) => {
+export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) => {
 	const nameArr = arr.map((boss) => boss.name);
 	return nameArr.indexOf(name);
 };
@@ -9,9 +9,9 @@ export const searchBossIndex = (arr: BossType[], name: keyof typeof BossInfo) =>
 export const newBossArr = (
 	arr: BossType[],
 	index: number,
-	name: keyof typeof BossInfo,
+	name: keyof typeof bossInfo,
 	image: string,
-	difficulty: BossDifficulty
+	difficulty: keyof BossDifficulty
 ) => {
 	let res = arr.slice();
 	if (index === -1) {
@@ -31,7 +31,7 @@ export const newBossArr = (
 
 export const getTotalBossInfo = (data: CharBoss[]) => {
 	const obj: {
-		[key in keyof typeof BossInfo]?: CharType[];
+		[key in keyof typeof bossInfo]?: CharType[];
 	} = {};
 	data.forEach((char) => {
 		char.boss.forEach((boss) => {
@@ -49,16 +49,29 @@ export const getTotalBossInfo = (data: CharBoss[]) => {
 };
 
 export const getTotalBossCount = (totalBossInfo: {
-	[key in keyof typeof BossInfo]?: CharType[];
+	[key in keyof typeof bossInfo]?: CharType[];
 }) => {
 	let count = 0;
-	type BossKey = keyof typeof BossInfo;
 
-	Object.keys(totalBossInfo).forEach((boss) => {
-		totalBossInfo[boss as BossKey]!.map((char) => {
+	Object.values(totalBossInfo).forEach((bossInfo) => {
+		bossInfo!.forEach((char) => {
 			count += char.difficulty.length;
 		});
 	});
 
 	return count;
+};
+
+export const getTotalBossPrice = (data: CharBoss[]) => {
+	let price = 0;
+
+	Object.values(data).forEach((char) => {
+		char.boss.forEach(boss => {
+			boss.difficulty.forEach(diff => {
+				price += bossInfo[boss.name].difficulty[diff]!
+			})
+		})
+	});
+
+	return price;
 };

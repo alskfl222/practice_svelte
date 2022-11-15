@@ -1,9 +1,14 @@
 import { writable } from 'svelte/store';
-import type { CharBoss } from '../types';
+import type { BossDifficulty, CharBoss } from '../types';
 
 export const store = writable<CharBoss[]>([]);
 
-export const bossInfo = {
+export const bossInfo: {
+	[key in string]: {
+		image: string;
+		difficulty: BossDifficulty;
+	}
+} = {
 	a: {
 		image: './src/images/boss/pexels-kelvin-valerio-617278.jpeg',
 		difficulty: {

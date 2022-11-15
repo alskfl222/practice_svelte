@@ -1,23 +1,23 @@
 import type { bossInfo } from '../stores';
 
-export enum BossDifficulty {
-	'easy',
-	'normal',
-	'hard',
-	'chaos',
-	'extreme',
+export type BossDifficulty = {
+	easy?: number,
+	normal?: number,
+	hard?: number,
+	chaos?: number,
+	extreme?: number,
 }
 
 export type BossType = {
 	name: keyof typeof bossInfo;
 	image: string;
-	difficulty: BossDifficulty[];
+	difficulty: (keyof BossDifficulty)[];
 };
 
 export type CharType = {
 	name?: string;
 	class?: string;
-	difficulty: BossDifficulty[];
+	difficulty: (keyof BossDifficulty)[];
 }
 
 export interface CharBoss {

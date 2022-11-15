@@ -3,15 +3,12 @@
 
 	import { store, bossInfo } from '../stores';
 	import type { BossDifficulty } from '../types';
-	import { getTotalBossInfo, getTotalBossCount, newBossArr, searchBossIndex } from '../utils';
+	import { newBossArr, searchBossIndex } from '../utils';
 
 	let charIndex = 0;
 
 	let bossName: keyof typeof bossInfo | '' = '';
-	let bossDifficulty: BossDifficulty | '' = '';
-
-	$: totalBossinfo = getTotalBossInfo($store);
-	$: totalBossCount = getTotalBossCount(totalBossinfo);
+	let bossDifficulty: keyof BossDifficulty | '' = '';
 
 	function changeChar(index: number) {
 		charIndex = index;
