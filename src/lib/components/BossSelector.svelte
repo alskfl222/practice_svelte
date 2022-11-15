@@ -39,30 +39,32 @@
 	}
 </script>
 
-<section>
-	<div class="flex gap-4">
-		{#each Object.keys(bossInfo) as boss}
-			<img
-				on:click={() => selectBoss(boss)}
-				class:selected={boss === bossName}
-				src={bossInfo[boss].image}
-				alt="boss"
-			/>
-		{/each}
-	</div>
-	<p>{bossName}</p>
-	{#if bossName !== ''}
-		{#each Object.keys(bossInfo[bossName].difficulty) as difficulty}
-			<span
-				on:click={() => selectDifficulty(difficulty)}
-				class:selected={difficulty === bossDifficulty}
-			>
-				{difficulty}</span
-			>
-		{/each}
-	{/if}
-	<button on:click={addBoss} disabled={bossName === '' || bossDifficulty === ''}> 추가 </button>
-</section>
+{#if $store.length > 0}
+	<section>
+		<div class="flex gap-4">
+			{#each Object.keys(bossInfo) as boss}
+				<img
+					on:click={() => selectBoss(boss)}
+					class:selected={boss === bossName}
+					src={bossInfo[boss].image}
+					alt="boss"
+				/>
+			{/each}
+		</div>
+		<p>{bossName}</p>
+		{#if bossName !== ''}
+			{#each Object.keys(bossInfo[bossName].difficulty) as difficulty}
+				<span
+					on:click={() => selectDifficulty(difficulty)}
+					class:selected={difficulty === bossDifficulty}
+				>
+					{difficulty}</span
+				>
+			{/each}
+		{/if}
+		<button on:click={addBoss} disabled={bossName === '' || bossDifficulty === ''}> 추가 </button>
+	</section>
+{/if}
 
 <style lang="scss">
 	img {
