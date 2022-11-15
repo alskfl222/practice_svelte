@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import type { BossDifficulty, CharBoss } from '../types';
 
+export const charIndex = writable<number>(0);
 export const store = writable<CharBoss[]>([]);
 
 export const bossInfo: {
