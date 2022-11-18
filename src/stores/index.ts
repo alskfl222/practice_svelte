@@ -11,7 +11,7 @@ export const bossInfo: {
 	};
 } = {
 	a: {
-		image: './src/images/boss/pexels-kelvin-valerio-617278.jpeg',
+		image: './src/images/boss/a.jpeg',
 		dc: {
 			easy: 100,
 			normal: 200,
@@ -19,14 +19,14 @@ export const bossInfo: {
 		}
 	},
 	b: {
-		image: './src/images/boss/pexels-pixabay-45201.jpeg',
+		image: './src/images/boss/b.jpeg',
 		dc: {
 			normal: 250,
 			chaos: 400
 		}
 	},
 	c: {
-		image: './src/images/boss/pexels-pixabay-104827.jpeg',
+		image: './src/images/boss/c.jpeg',
 		dc: {
 			normal: 320,
 			hard: 450

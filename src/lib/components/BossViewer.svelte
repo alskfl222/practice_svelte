@@ -20,7 +20,7 @@
 	}
 </script>
 
-{#if $charIndex !== undefined}
+{#if $charIndex !== undefined && $store[$charIndex].boss.length > 0}
 	<div class="p-2 grid grid-cols-4 gap-4 border">
 		{#each $store[$charIndex].boss as boss, idx}
 			<div
@@ -28,12 +28,16 @@
 				style={`background-image: url(${boss.image})`}
 			>
 				<div class="h-[100%] p-4 flex flex-col justify-between">
-					<div class="text-lg text-white font-bold">{boss.name}</div>
-					<div class="flex flex-col">
+					<div class="text-lg text-white font-bold drop-shadow-lg">{boss.name}</div>
+					<div class="flex flex-col items-end">
 						{#each boss.dc as dc}
-							<p on:click={() => deleteBoss(idx, dc)} class="text-white">
+							<span
+								on:click={() => deleteBoss(idx, dc)}
+								class="text-white drop-shadow-lg cursor-pointer
+                  hover:text-xl transition-all duration-500 ease-in-out"
+							>
 								{dc}
-							</p>
+							</span>
 						{/each}
 					</div>
 				</div>
