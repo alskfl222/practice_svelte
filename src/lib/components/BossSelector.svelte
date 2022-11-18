@@ -18,6 +18,10 @@
 			console.log('캐릭터를 추가해주세요');
 			return;
 		}
+    if ($charIndex === undefined) {
+			console.log('캐릭터를 선택해주세요');
+			return;
+		}
 		if (!bossName) {
 			console.log('보스를 선택해주세요');
 			return;
@@ -27,7 +31,7 @@
 			return;
 		}
 
-		const charBossIndex = searchBossIndex($store[$charIndex].boss, bossName);
+		const charBossIndex = searchBossIndex($store[$charIndex!].boss, bossName);
 		const bossImage = bossInfo[bossName].image;
 		$store[$charIndex].boss = newBossArr(
 			$store[$charIndex].boss,
@@ -39,7 +43,7 @@
 	}
 </script>
 
-{#if $store.length > 0}
+{#if $charIndex !== undefined}
 	<section>
 		<div class="flex gap-4">
 			{#each Object.keys(bossInfo) as boss}
