@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { BossDifficulty, CharBoss } from '../types';
+import type { BossDC, CharBoss } from '../types';
 
 export const charIndex = writable<number | undefined>(undefined);
 export const store = writable<CharBoss[]>([]);
@@ -7,12 +7,12 @@ export const store = writable<CharBoss[]>([]);
 export const bossInfo: {
 	[key in string]: {
 		image: string;
-		difficulty: BossDifficulty;
-	}
+		dc: BossDC;
+	};
 } = {
 	a: {
 		image: './src/images/boss/pexels-kelvin-valerio-617278.jpeg',
-		difficulty: {
+		dc: {
 			easy: 100,
 			normal: 200,
 			hard: 300
@@ -20,14 +20,14 @@ export const bossInfo: {
 	},
 	b: {
 		image: './src/images/boss/pexels-pixabay-45201.jpeg',
-		difficulty: {
+		dc: {
 			normal: 250,
 			chaos: 400
 		}
 	},
 	c: {
 		image: './src/images/boss/pexels-pixabay-104827.jpeg',
-		difficulty: {
+		dc: {
 			normal: 320,
 			hard: 450
 		}

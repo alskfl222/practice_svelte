@@ -1,26 +1,20 @@
 <script lang="ts">
-	import type { BossDifficulty } from 'src/types';
-	import { store, charIndex, bossInfo } from '../../stores';
+	import type { BossDC } from 'src/types';
+	import { store, charIndex } from '../../stores';
 
-	function deleteBoss(
-		idx: number,
-		bossName: keyof typeof bossInfo,
-		difficulty: keyof BossDifficulty
-	) {
-		let charBossObjIdx = 0;
-		for (let i = 0; i < $store[idx].boss.length; i++) {
-			if ($store[idx].boss[i].name === bossName) {
-				break;
-			}
-			charBossObjIdx++;
+	function deleteBoss(idx: number, dc: keyof BossDC) {
+		if ($charIndex === undefined) {
+			console.log('캐릭터를 선택해주세요?');
+			return;
 		}
-		let charBossDifficulty = $store[idx].boss[charBossObjIdx].difficulty;
-		charBossDifficulty = charBossDifficulty.filter((x) => x !== difficulty);
-		$store[idx].boss[charBossObjIdx].difficulty = charBossDifficulty;
-		if (charBossDifficulty.length === 0) {
-			$store[idx].boss = [
-				...$store[idx].boss.slice(0, charBossObjIdx),
-				...$store[idx].boss.slice(charBossObjIdx + 1)
+
+		let charBossDC = $store[$charIndex].boss[idx].dc;
+		charBossDC = charBossDC.filter((x) => x !== dc);
+		$store[$charIndex].boss[idx].dc = charBossDC;
+		if (charBossDC.length === 0) {
+			$store[$charIndex].boss = [
+				...$store[$charIndex].boss.slice(0, idx),
+				...$store[$charIndex].boss.slice(idx + 1)
 			];
 		}
 	}
@@ -36,9 +30,9 @@
 				<div class="h-[100%] p-4 flex flex-col justify-between">
 					<div class="text-lg text-white font-bold">{boss.name}</div>
 					<div class="flex flex-col">
-						{#each boss.difficulty as difficulty}
-							<p on:click={() => deleteBoss(idx, boss.name, difficulty)} class="text-white">
-								{difficulty}
+						{#each boss.dc as dc}
+							<p on:click={() => deleteBoss(idx, dc)} class="text-white">
+								{dc}
 							</p>
 						{/each}
 					</div>
