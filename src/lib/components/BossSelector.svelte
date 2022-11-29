@@ -68,40 +68,40 @@
 	}
 </script>
 
-{#if $charIndex !== undefined}
-	<section>
-		<div class="flex gap-4">
+<div class="bg-sky-100">
+	<div class="p-4 grid grid-cols-4 gap-8">
+		<div class="col-span-3 flex gap-6">
 			{#each Object.keys(bossInfo) as boss}
-				<img
-					on:click={() => selectBoss(boss)}
-					class:selected={boss === bossName}
-					src={bossInfo[boss].image}
-					alt="boss"
-				/>
+				<div class="flex">
+					<img
+						on:click={() => selectBoss(boss)}
+						class={`w-[200px] rounded-3xl object-cover border-4 ${
+							boss === bossName ? 'border-amber-400' : ''
+						}`}
+						src={bossInfo[boss].image}
+						alt="boss"
+					/>
+				</div>
 			{/each}
 		</div>
-		<p>{bossName}</p>
-		{#if bossName !== ''}
-			{#each Object.keys(bossInfo[bossName].dc) as dc}
-				<span on:click={() => selectDC(dc)} class:selected={dc === bossDC}> {dc}</span>
-			{/each}
-		{/if}
-		<button on:click={addBoss} disabled={bossName === '' || bossDC === ''}> 추가 </button>
-	</section>
-{/if}
-
-<style lang="scss">
-	img {
-		width: 80px;
-		height: 80px;
-		object-fit: cover;
-	}
-	.selected {
-		border: 1px dashed black;
-	}
-	button {
-		&:disabled {
-			background-color: darkgray;
-		}
-	}
-</style>
+		<div class="grow-1 flex flex-col gap-2">
+			{#if bossName !== ''}
+				<div class="flex justify-between">
+					<span class="text-4xl font-bold">{bossName}</span>
+					<div class="flex gap-2">
+						<button on:click={() => selectBoss('')}> 취소 </button>
+						<button on:click={addBoss} disabled={bossName === '' || bossDC === ''}> 추가 </button>
+					</div>
+				</div>
+				{#each Object.keys(bossInfo[bossName].dc) as dc}
+					<div
+						on:click={() => selectDC(dc)}
+						class={`p-2 border rounded ${dc === bossDC ? 'border-zinc-800' : ''}`}
+					>
+						{dc}
+					</div>
+				{/each}
+			{/if}
+		</div>
+	</div>
+</div>

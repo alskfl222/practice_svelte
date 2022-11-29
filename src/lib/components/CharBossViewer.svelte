@@ -3,14 +3,17 @@
 	import BossViewer from './BossViewer.svelte';
 	import BossSelector from './BossSelector.svelte';
 
-	import { store } from '../../stores';
+	import { store, charIndex } from '../../stores';
 </script>
 
 {#if $store.length > 0}
 	<section class="flex flex-col gap-4">
 		<CharViewer />
-		<BossViewer />
-		<BossSelector />
+		<div class="grid grid-cols-3">
+			<BossViewer />
+			<BossSelector />
+		</div>
 	</section>
+{:else}
+	<section>캐릭터를 추가해주세요</section>
 {/if}
-

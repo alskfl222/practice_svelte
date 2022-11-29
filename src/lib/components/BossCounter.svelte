@@ -55,7 +55,27 @@
 				}
 			});
 		});
-		return obj;
+
+    const sortObj: {
+			[key in keyof typeof bossInfo]: {
+				count: { [dc in keyof BossDC | string]: number };
+				chars: CharType[];
+			};
+		} = {}
+
+    for (let boss in bossInfo) {
+      if (boss in obj) {
+        const sortDC: { [dc in keyof BossDC | string]: number } = {}
+        for (let dc of ['easy', 'normal', 'hard', 'chaos', 'extreme']) {
+          if (dc in obj[boss].count) {
+            sortDC[dc] = obj[boss].count[dc]
+          }
+        }
+        sortObj[boss] = obj[boss]
+        sortObj[boss].count = sortDC
+      }
+    }
+		return sortObj;
 	};
 
 	$: totalBossInfo = getTotalBossInfo($store);
