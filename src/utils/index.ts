@@ -6,39 +6,6 @@ export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) =>
 	return nameArr.indexOf(name);
 };
 
-export const getTotalBossInfo = (data: CharBoss[]) => {
-	const obj: {
-		[key in keyof typeof bossInfo]?: CharType[];
-	} = {};
-	data.forEach((char) => {
-		char.boss.forEach((boss) => {
-			const row: CharType = { dc: boss.dc };
-			row.name = char.name || '';
-			row.class = char.class || '';
-			if (Array.isArray(obj[boss.name])) {
-				obj[boss.name]?.push(row);
-			} else {
-				obj[boss.name] = [row];
-			}
-		});
-	});
-	return obj;
-};
-
-export const getTotalBossCount = (totalBossInfo: {
-	[key in keyof typeof bossInfo]?: CharType[];
-}) => {
-	let count = 0;
-
-	Object.values(totalBossInfo).forEach((bossInfo) => {
-		bossInfo!.forEach((char) => {
-			count += char.dc.length;
-		});
-	});
-
-	return count;
-};
-
 export const getTotalBossPrice = (data: CharBoss[]) => {
 	let price = 0;
 

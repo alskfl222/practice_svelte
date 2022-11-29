@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CharViewer from './CharViewer.svelte';
 	import BossViewer from './BossViewer.svelte';
+	import BossSelector from './BossSelector.svelte';
 
 	import { store } from '../../stores';
 </script>
@@ -9,6 +10,7 @@
 	<section class="flex flex-col gap-4">
 		<CharViewer />
 		<BossViewer />
+		<BossSelector />
 	</section>
 {/if}
 

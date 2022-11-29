@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CharInput from '$lib/components/CharInput.svelte';
 	import CharBossViewer from '$lib/components/CharBossViewer.svelte';
-	import BossSelector from '$lib/components/BossSelector.svelte';
+	import BossCounter from '$lib/components/BossCounter.svelte';
 </script>
 
 <svelte:head>
@@ -13,4 +13,4 @@
 
 <CharBossViewer />
 
-<BossSelector />
+<BossCounter />

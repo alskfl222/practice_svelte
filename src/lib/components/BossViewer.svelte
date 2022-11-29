@@ -28,13 +28,13 @@
 				style={`background-image: url(${boss.image})`}
 			>
 				<div class="h-[100%] p-4 flex flex-col justify-between">
-					<div class="text-lg text-white font-bold drop-shadow-lg">{boss.name}</div>
+					<div class="text-4xl text-white font-bold">{boss.name}</div>
 					<div class="flex flex-col items-end">
 						{#each boss.dc as dc}
 							<span
 								on:click={() => deleteBoss(idx, dc)}
-								class="text-white drop-shadow-lg cursor-pointer
-                  hover:text-xl transition-all duration-500 ease-in-out"
+								class="p-1 rounded text-white drop-shadow-lg cursor-pointer
+                  hover:bg-gray-500/30 transition duration-150 ease-in-out"
 							>
 								{dc}
 							</span>
