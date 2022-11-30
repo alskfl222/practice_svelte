@@ -79,7 +79,6 @@
 	};
 
 	$: totalBossInfo = getTotalBossInfo($store);
-	$: console.log(totalBossInfo);
 </script>
 
 <section class="grid grid-cols-3 gap-4">

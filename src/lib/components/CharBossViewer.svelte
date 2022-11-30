@@ -9,9 +9,11 @@
 {#if $store.length > 0}
 	<section class="flex flex-col gap-4">
 		<CharViewer />
-		<div class="grid grid-cols-3">
+		<div class="grid grid-cols-4">
 			<BossViewer />
-			<BossSelector />
+			{#if $charIndex !== undefined}
+				<BossSelector />
+			{/if}
 		</div>
 	</section>
 {:else}

@@ -31,6 +31,28 @@ export const bossInfo: {
 			normal: 320,
 			hard: 450
 		}
+	},
+	d: {
+		image: './src/images/boss/a.jpeg',
+		dc: {
+			easy: 100,
+			normal: 200,
+			hard: 300
+		}
+	},
+	e: {
+		image: './src/images/boss/b.jpeg',
+		dc: {
+			normal: 250,
+			chaos: 400
+		}
+	},
+	f: {
+		image: './src/images/boss/c.jpeg',
+		dc: {
+			normal: 320,
+			hard: 450
+		}
 	}
 };
 

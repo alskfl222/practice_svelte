@@ -3,28 +3,40 @@
 	import { store, charIndex } from '../../stores';
 
 	function deleteBoss(idx: number, dc: keyof BossDC) {
-		if ($charIndex === undefined) {
-			console.log('캐릭터를 선택해주세요?');
-			return;
+		if ($charIndex !== undefined) {
+			let charBossDC = $store[$charIndex].boss[idx].dc;
+			charBossDC = charBossDC.filter((x) => x !== dc);
+			$store[$charIndex].boss[idx].dc = charBossDC;
+			if (charBossDC.length === 0) {
+				$store[$charIndex].boss = [
+					...$store[$charIndex].boss.slice(0, idx),
+					...$store[$charIndex].boss.slice(idx + 1)
+				];
+			}
 		}
+	}
 
-		let charBossDC = $store[$charIndex].boss[idx].dc;
-		charBossDC = charBossDC.filter((x) => x !== dc);
-		$store[$charIndex].boss[idx].dc = charBossDC;
-		if (charBossDC.length === 0) {
-			$store[$charIndex].boss = [
-				...$store[$charIndex].boss.slice(0, idx),
-				...$store[$charIndex].boss.slice(idx + 1)
-			];
+	function getCharBossCount(bossArr: any[]) {
+		let count = 0;
+		if ($charIndex !== undefined) {
+			bossArr.forEach((boss) => {
+				count += boss.dc.length;
+			});
 		}
+		return count;
+	}
+	let count = 0;
+
+	$: if ($charIndex !== undefined) {
+		count = getCharBossCount($store[$charIndex].boss)
 	}
 </script>
 
 {#if $charIndex !== undefined}
 	{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
-		<div class="col-span-2 flex flex-col">
-			<div>{$store[$charIndex].boss.length} 보스</div>
-			<div class="p-2 flex gap-4 border">
+		<div class="col-span-3 flex flex-col">
+			<div class="p-4">총 {$store[$charIndex].boss.length}종 {count}개</div>
+			<div class="p-4 grid grid-cols-4 gap-4">
 				{#each $store[$charIndex].boss as boss, idx}
 					<div
 						class="w-[240px] aspect-square rounded-3xl bg-cover bg-center bg-no-repeat"
@@ -49,6 +61,6 @@
 			</div>
 		</div>
 	{:else}
-		<div class="col-span-2">등록된 보스가 아직 없습니다</div>
+		<div class="col-span-3">등록된 보스가 아직 없습니다</div>
 	{/if}
 {/if}
