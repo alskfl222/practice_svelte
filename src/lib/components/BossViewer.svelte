@@ -28,14 +28,14 @@
 	let count = 0;
 
 	$: if ($charIndex !== undefined) {
-		count = getCharBossCount($store[$charIndex].boss)
+		count = getCharBossCount($store[$charIndex].boss);
 	}
 </script>
 
 {#if $charIndex !== undefined}
-	{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
-		<div class="col-span-3 flex flex-col">
-			<div class="p-4">총 {$store[$charIndex].boss.length}종 {count}개</div>
+	<div class="col-span-3 flex flex-col">
+		<div class="p-4">총 {$store[$charIndex].boss.length}종 {count}개</div>
+		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
 			<div class="p-4 grid grid-cols-4 gap-4">
 				{#each $store[$charIndex].boss as boss, idx}
 					<div
@@ -59,8 +59,6 @@
 					</div>
 				{/each}
 			</div>
-		</div>
-	{:else}
-		<div class="col-span-3">등록된 보스가 아직 없습니다</div>
-	{/if}
+		{/if}
+	</div>
 {/if}
