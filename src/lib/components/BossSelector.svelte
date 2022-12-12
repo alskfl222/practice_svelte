@@ -2,7 +2,7 @@
 	import { store, charIndex, bossInfo } from '../../stores';
 	import type { BossType, BossDC } from '../../types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '../../utils';
-	import Drowdown from './common/Drowdown.svelte';
+	import Dropdown from './common/Dropdown.svelte';
 
 	let bossName: keyof typeof bossInfo | '' = '';
 	let bossDC: keyof BossDC | '' = '';
@@ -85,14 +85,14 @@
 				</button>
 			</div>
 		</div>
-		<Drowdown
+		<Dropdown
 			type="bossName"
 			value={bossName}
 			options={Object.keys(bossInfo)}
 			on:bossName={handleSelect}
 		/>
 		{#if bossName !== ''}
-			<Drowdown
+			<Dropdown
 				type="bossDC"
 				value={bossDC}
 				options={Object.keys(bossInfo[bossName].dc)}
