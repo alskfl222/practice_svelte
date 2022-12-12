@@ -32,7 +32,6 @@
 	<button
 		on:click={addChar}
 		class="w-[90px] p-2 border rounded-full bg-gradient-to-r from-sky-500 to-indigo-500
-			text-white"
-		><i class="fa-solid fa-user-plus fa-xl" /></button
+			text-white"><i class="fa-solid fa-user-plus fa-xl" /></button
 	>
 </section>
