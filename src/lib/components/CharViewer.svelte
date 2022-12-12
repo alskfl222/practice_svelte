@@ -5,22 +5,31 @@
 
 	function selectChar(e: MouseEvent) {
 		const el = e.target as HTMLDivElement;
-		const value = el.getAttribute('data-value')
+		const value = el.getAttribute('data-value');
 		if (charContainer.contains(el) && value) {
 			$charIndex = parseInt(value, 10);
 		} else {
 			$charIndex = undefined;
 		}
 	}
-	function deleteChar(idx: number) {
-		$store = [...$store.slice(0, idx), ...$store.slice(idx + 1)];
+	function deleteChar(e: MouseEvent) {
+		const el = e.target as HTMLButtonElement;
+		const value = parseInt(el.value, 10)
+		$store = [...$store.slice(0, value), ...$store.slice(value + 1)];
 		$charIndex = undefined;
 	}
 </script>
 
 <div class="flex flex-col" bind:this={charContainer} on:click={(e) => selectChar(e)}>
-	<div>{$store.length} 캐릭터</div>
-	<div class="grid grid-cols-3 gap-4">
+	<div class="p-4 font-bold">
+		{#if $charIndex === undefined}
+			<div>
+				{$store.length} 캐릭터
+			</div>
+		{:else}
+		<div>{$store[$charIndex].name} {$store[$charIndex].class}</div>{/if}
+	</div>
+	<div class="p-2 grid grid-cols-6 gap-4">
 		{#each $store as char, idx}
 			<div
 				class={idx === $charIndex
@@ -32,7 +41,7 @@
 						<span>{char.name || '이름 없음'}</span>
 						<span>{char.class || '직업 없음'}</span>
 					</div>
-					<button on:click|stopPropagation={() => deleteChar(idx)}>삭제</button>
+					<button value={idx} on:click|stopPropagation={(e) => deleteChar(e)}>삭제</button>
 				</div>
 			</div>
 		{/each}

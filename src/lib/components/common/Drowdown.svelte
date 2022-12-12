@@ -23,11 +23,11 @@
 <svelte:window on:click={onDropdownClick} />
 
 <div class="relative border" bind:this={container}>
-	<div on:click={() => (show = !show)}>{value ? value : '선택해주세요'}</div>
+	<div class='p-2 border border-1 border-black bg-white' on:click={() => (show = !show)}>{value ? value : '선택해주세요'}</div>
 	{#if show}
-		<ul class="absolute">
+		<ul class="w-[100%] absolute border border-1 border-t-0 border-black bg-white">
 			{#each options as opt}
-				<div on:click={() => selectOption(opt)}>{opt}</div>
+				<li class='p-2 hover:bg-slate-500' on:click={() => selectOption(opt)}>{opt}</li>
 			{/each}
 		</ul>
 	{/if}
