@@ -1,8 +1,10 @@
-import { writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
+import { getBossReport } from '../utils';
 import type { BossDC, CharBoss } from '../types';
 
 export const charIndex = writable<number | undefined>(undefined);
 export const store = writable<CharBoss[]>([]);
+export const bossReport = derived(store, getBossReport)
 
 export const bossInfo: {
 	[key in string]: {

@@ -14,6 +14,13 @@ export type BossType = {
 	dc: (keyof BossDC)[];
 };
 
+export type BossReport = {
+	[key in keyof typeof bossInfo]: {
+		count: { [dc in keyof BossDC | string]: number };
+		chars: CharType[];
+	};
+};
+
 export type CharType = {
 	name?: string;
 	class?: string;

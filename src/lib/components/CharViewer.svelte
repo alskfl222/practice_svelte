@@ -38,7 +38,7 @@
 						<span>{char.name || '이름 없음'}</span>
 						<span>{char.class || '직업 없음'}</span>
 					</div>
-					<button value={idx} on:click|stopPropagation={() => deleteChar(idx)}>삭제</button>
+					<button on:click|stopPropagation={() => deleteChar(idx)}>삭제</button>
 				</div>
 			</div>
 		{/each}

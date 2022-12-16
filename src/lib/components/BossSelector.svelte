@@ -2,6 +2,7 @@
 	import { store, charIndex, bossInfo } from '../../stores';
 	import type { BossType, BossDC } from '../../types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '../../utils';
+	import Button from './common/Button.svelte';
 	import Dropdown from './common/Dropdown.svelte';
 
 	let bossName: keyof typeof bossInfo | '' = '';
@@ -24,6 +25,7 @@
 	function addBoss() {
 		const charBossIndex = searchBossIndex($store[$charIndex!].boss, bossName);
 		const bossImage = bossInfo[bossName].image;
+		console.log('click2')
 		if (bossDC) {
 			$store[$charIndex!].boss = newBossArr(
 				$store[$charIndex!].boss,
@@ -33,8 +35,8 @@
 				bossDC
 			);
 		}
-		bossName = ''
-		bossDC = ''
+		bossName = '';
+		bossDC = '';
 	}
 
 	function newBossArr(
@@ -61,29 +63,29 @@
 		res = sortByBoss(res);
 		return res;
 	}
+	$: addable = $charIndex !== undefined && bossName !== '' && bossDC !== '';
 </script>
 
 <div class="bg-sky-100 p-4 gap-8">
 	<div class="flex flex-col gap-6">
-		<div class="flex justify-between">
+		<div class="flex flex-col">
 			{#if bossName}
 				<img
-					class="w-[120px] h-[120px] object-cover"
+					class="w-[180px] h-[180px] object-cover"
 					src={`${bossInfo[bossName].image}`}
 					alt="boss img"
 				/>
+				<div class="w-[180px] h-[60px] border border-black flex justify-center items-center">
+					{bossDC}
+				</div>
 			{:else}
-				<div class="w-[120px] h-[120px] border border-black flex justify-center items-center">보스 이미지</div>
+				<div class="w-[180px] h-[180px] border border-black flex justify-center items-center">
+					보스 이미지
+				</div>
+				<div class="w-[180px] h-[60px] border border-black flex justify-center items-center">
+					보스 난이도
+				</div>
 			{/if}
-			<span>{bossDC}</span>
-			<div class="flex gap-2">
-				<button
-					on:click={addBoss}
-					disabled={$charIndex === undefined || bossName === '' || bossDC === ''}
-				>
-				<i class="fa-regular fa-square-plus fa-xl"></i>
-				</button>
-			</div>
 		</div>
 		<Dropdown
 			type="bossName"
@@ -98,6 +100,16 @@
 				options={Object.keys(bossInfo[bossName].dc)}
 				on:bossDC={handleSelect}
 			/>
+		{/if}
+	</div>
+	<div class="flex gap-2">
+		{#if addable}
+		<button on:click={addBoss}>
+			<i class="fa-regular fa-square-plus fa-xl" />
+		</button>
+		<Button type='addBoss' text='추가 버튼' on:click={() => {console.log('clickbutton'); addBoss()}} />
+		{:else}
+			추가 불가
 		{/if}
 	</div>
 </div>

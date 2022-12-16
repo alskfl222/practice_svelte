@@ -9,8 +9,8 @@
 	<meta name="description" content="Practice Sveltekit" />
 </svelte:head>
 
-<div class='flex'>
-	<div>
+<div class='w-full flex'>
+	<div class='w-full'>
 		<CharBossViewer />
 		<BossCounter />
 	</div>
