@@ -1,4 +1,4 @@
-import { bossInfo, bossSortByPrice } from '../stores';
+import { bossInfo } from '../stores';
 import type { CharBoss, BossType, BossReport, CharType, BossDC } from '../types';
 
 export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) => {
@@ -6,80 +6,33 @@ export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) =>
 	return nameArr.indexOf(name);
 };
 
-const getBossCount = (dcArr: (keyof BossDC)[]) => {
-	const obj: {
-		[key in keyof BossDC]: number;
-	} = {};
-	dcArr.forEach((dc) => {
-		if (obj[dc]) {
-			obj[dc]! += 1;
-		} else {
-			obj[dc] = 1;
-		}
-	});
-	return obj;
-};
-
-const addCharBossCount = (
-	prev: {
-		[key in keyof BossDC]: number;
-	},
-	curr: {
-		[key in keyof BossDC]: number;
-	}
-) => {
-	const res = Object.assign({}, prev);
-	Object.keys(curr).forEach((key) => {
-		if (key in res) {
-			res[key as keyof BossDC]! += 1;
-		} else {
-			res[key as keyof BossDC] = 1;
-		}
-	});
-	return res;
-};
-
 export const getBossReport = (data: CharBoss[]) => {
 	const obj: {
 		[key in keyof typeof bossInfo]: {
-			count: { [dc in keyof BossDC | string]: number };
 			chars: CharType[];
+			dc: { [dc in keyof BossDC | string]: [string, string][] };
 		};
 	} = {};
+
 	data.forEach((char) => {
 		char.boss.forEach((boss) => {
-			const row: CharType = { dc: boss.dc };
-			row.name = char.name || '';
-			row.class = char.class || '';
-			if (obj[boss.name]) {
-				obj[boss.name]!.chars.push(row);
-				obj[boss.name]!.count = addCharBossCount(obj[boss.name]!.count, getBossCount(row.dc));
-			} else {
-				obj[boss.name] = { count: getBossCount(row.dc), chars: [row] };
-			}
+			const row: CharType = { name: char.name || '', class: char.class || '', dc: boss.dc };
+			boss.dc.forEach((dc) => {
+				if (!obj[boss.name]) {
+					obj[boss.name] = { chars: [row], dc: { [dc]: [[char.name || '', char.class || '']] } };
+				} else {
+					const bossDCObj = obj[boss.name]!.dc
+					const isExistDC = dc in obj[boss.name]!.dc;
+					if (isExistDC) {
+						bossDCObj[dc].push([char.name || '', char.class || '']);
+					} else {
+						bossDCObj[dc] = [[char.name || '', char.class || '']];
+					}
+				}
+			});
 		});
 	});
-
-	const sortObj: {
-		[key in keyof typeof bossInfo]: {
-			count: { [dc in keyof BossDC | string]: number };
-			chars: CharType[];
-		};
-	} = {};
-
-	for (const boss in bossInfo) {
-		if (boss in obj) {
-			const sortDC: { [dc in keyof BossDC | string]: number } = {};
-			for (const dc of ['easy', 'normal', 'hard', 'chaos', 'extreme']) {
-				if (dc in obj[boss].count) {
-					sortDC[dc] = obj[boss].count[dc];
-				}
-			}
-			sortObj[boss] = obj[boss];
-			sortObj[boss].count = sortDC;
-		}
-	}
-	return sortObj;
+	return obj;
 };
 
 export function getCharBossCount(bossArr: BossType[]) {
@@ -92,13 +45,13 @@ export function getCharBossCount(bossArr: BossType[]) {
 
 export function getTotalBossCount(data: BossReport) {
 	let count = 0;
-	Object.values(data).forEach(boss => {
-		Object.values(boss.count).forEach(dc => {
-			count += dc
-		})
-	})
+	Object.values(data).forEach((boss) => {
+		Object.keys(boss.dc).forEach((dc) => {
+			count += boss.dc[dc as keyof BossDC]!.length;
+		});
+	});
 
-	return count
+	return count;
 }
 
 export const getTotalBossPrice = (data: CharBoss[]) => {
@@ -117,7 +70,7 @@ export const getTotalBossPrice = (data: CharBoss[]) => {
 
 export const sortByBoss = (bossArr: BossType[]) => {
 	const bossNames = Object.keys(bossInfo);
-	return bossArr.slice().sort((a, b) => bossNames.indexOf(a.name) - bossNames.indexOf(b.name));
+	return bossArr.slice().sort((a, b) => bossNames.indexOf(b.name) - bossNames.indexOf(a.name));
 };
 
 export const sortByDC = (arr: (keyof BossDC)[]) => {
@@ -126,25 +79,29 @@ export const sortByDC = (arr: (keyof BossDC)[]) => {
 };
 
 export const sortByPrice = (data: typeof bossInfo) => {
-	const arr: [string, string, number][] = []
-	Object.entries(data).forEach(boss => {
-		Object.entries(boss[1].dc).forEach(entry => {
-			arr.push([boss[0], ...entry])
-		})
-	})
-	arr.sort((a, b) => b[2] - a[2])
-	return arr
-}
+	const arr: [string, string, number][] = [];
+	Object.entries(data).forEach((boss) => {
+		Object.entries(boss[1].dc).forEach((entry) => {
+			arr.push([boss[0], ...entry]);
+		});
+	});
+	arr.sort((a, b) => b[2] - a[2]);
+	return arr;
+};
 
 export const reportSortByPrice = (report: BossReport) => {
-	const arr: [string, string, number, number][] = []
 	if (Object.keys(report).length === 0) return [];
-	bossSortByPrice.forEach(item => {
-		const [boss, dc] = item
+	const arr: [string, string, number, number][] = [];
+	const bossSortByPrice = sortByPrice(bossInfo);
+	bossSortByPrice.forEach((item) => {
+		const [boss, dc] = item;
 		if (report[boss]) {
-			const count = report[boss].count[dc]
-			if (count) arr.push([...item, count]);
+			const aBoss = report[boss];
+			if (aBoss.dc[dc as keyof BossDC]) {
+				const count = aBoss.dc[dc as keyof BossDC]!.length;
+				arr.push([...item, count]);
+			}
 		}
-	})
-	return arr
-}
+	});
+	return arr;
+};

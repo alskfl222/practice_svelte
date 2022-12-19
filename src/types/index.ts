@@ -1,4 +1,4 @@
-import type { bossInfo } from '../stores';
+import type { bossInfo, classInfo } from '../stores';
 
 export type BossDC = {
 	easy?: number;
@@ -16,8 +16,8 @@ export type BossType = {
 
 export type BossReport = {
 	[key in keyof typeof bossInfo]: {
-		count: { [dc in keyof BossDC | string]: number };
 		chars: CharType[];
+		dc: { [dc in keyof BossDC]: [string, keyof typeof classInfo][] }
 	};
 };
 

@@ -29,6 +29,7 @@
 	function addBoss() {
 		const charBossIndex = searchBossIndex($store[$charIndex!].boss, bossName);
 		const bossImage = bossInfo[bossName].image;
+
 		if (bossDC) {
 			$store[$charIndex!].boss = newBossArr(
 				$store[$charIndex!].boss,

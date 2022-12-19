@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import { getBossReport, reportSortByPrice, sortByPrice } from '../utils';
+import { getBossReport } from '../utils';
 import type { BossDC, CharBoss } from '../types';
 
 export const charIndex = writable<number | undefined>(undefined);
@@ -57,9 +57,6 @@ export const bossInfo: {
 		}
 	}
 };
-
-export const bossSortByPrice = sortByPrice(bossInfo)
-export const bossReportSortByPrice = derived(bossReport, reportSortByPrice)
 
 export const classInfo = {
 	A1: {

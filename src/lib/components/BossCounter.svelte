@@ -1,15 +1,17 @@
 <script lang="ts">
-	import { bossInfo, bossReportSortByPrice } from '../../stores';
-	$: console.log($bossReportSortByPrice);
+	import { bossReport, bossInfo } from '../../stores';
+	import { reportSortByPrice } from '../../utils'
+	$: data = reportSortByPrice($bossReport)
 </script>
 
-<section class="flex gap-4">
-	{#each $bossReportSortByPrice as item}
+<section class="min-h-[240px] flex flex-col gap-4">
+	{#each data as item}
 		<div
-			class="w-full h-[80px] p-4 flex justify-end items-center rounded-3xl object-cover"
+			class="w-full h-[80px] p-4 flex justify-between items-center bg-center rounded-3xl object-cover"
 			style={`background-image: url(${bossInfo[item[0]].image}`}
 		>
-			<span class="right-0 top-0 text-white">{`${item[1]} ${item[2]} ${item[3]}`}</span>
+			<span class="text-white">{item[0]}</span>
+			<span class="text-white">{`${item[1]} ${item[2]} ${item[3]}`}</span>
 		</div>
 	{/each}
 </section>
