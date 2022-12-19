@@ -1,4 +1,4 @@
-import { bossInfo } from '../stores';
+import { bossInfo, bossSortByPrice } from '../stores';
 import type { CharBoss, BossType, BossReport, CharType, BossDC } from '../types';
 
 export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) => {
@@ -124,3 +124,27 @@ export const sortByDC = (arr: (keyof BossDC)[]) => {
 	const difficulties = ['easy', 'normal', 'hard', 'chaos', 'extreme'];
 	return arr.slice().sort((a, b) => difficulties.indexOf(a) - difficulties.indexOf(b));
 };
+
+export const sortByPrice = (data: typeof bossInfo) => {
+	const arr: [string, string, number][] = []
+	Object.entries(data).forEach(boss => {
+		Object.entries(boss[1].dc).forEach(entry => {
+			arr.push([boss[0], ...entry])
+		})
+	})
+	arr.sort((a, b) => b[2] - a[2])
+	return arr
+}
+
+export const reportSortByPrice = (report: BossReport) => {
+	const arr: [string, string, number, number][] = []
+	if (Object.keys(report).length === 0) return [];
+	bossSortByPrice.forEach(item => {
+		const [boss, dc] = item
+		if (report[boss]) {
+			const count = report[boss].count[dc]
+			if (count) arr.push([...item, count]);
+		}
+	})
+	return arr
+}

@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import { getBossReport } from '../utils';
+import { getBossReport, reportSortByPrice, sortByPrice } from '../utils';
 import type { BossDC, CharBoss } from '../types';
 
 export const charIndex = writable<number | undefined>(undefined);
@@ -37,26 +37,29 @@ export const bossInfo: {
 	d: {
 		image: './src/images/boss/a.jpeg',
 		dc: {
-			easy: 100,
-			normal: 200,
-			hard: 300
+			easy: 110,
+			normal: 220,
+			hard: 330
 		}
 	},
 	e: {
 		image: './src/images/boss/b.jpeg',
 		dc: {
-			normal: 250,
-			chaos: 400
+			normal: 270,
+			chaos: 440
 		}
 	},
 	f: {
 		image: './src/images/boss/c.jpeg',
 		dc: {
-			normal: 320,
-			hard: 450
+			normal: 360,
+			hard: 490
 		}
 	}
 };
+
+export const bossSortByPrice = sortByPrice(bossInfo)
+export const bossReportSortByPrice = derived(bossReport, reportSortByPrice)
 
 export const classInfo = {
 	A1: {

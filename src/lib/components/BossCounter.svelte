@@ -1,17 +1,15 @@
 <script lang="ts">
-	import { bossReport, bossInfo } from '../../stores';
+	import { bossInfo, bossReportSortByPrice } from '../../stores';
+	$: console.log($bossReportSortByPrice);
 </script>
 
-<section class="grid grid-cols-3 gap-4">
-	{#each Object.keys($bossReport) as boss}
-		<div>
-			<div
-				class="aspect-[4/1] rounded bg-auto bg-center bg-no-repeat"
-				style={`background-image: url(${bossInfo[boss].image})`}
-			/>
-			{#each Object.keys($bossReport[boss].count) as dc}
-				<span>{dc}</span><span>{$bossReport[boss].count[dc]}</span>
-			{/each}
+<section class="flex gap-4">
+	{#each $bossReportSortByPrice as item}
+		<div
+			class="w-full h-[80px] p-4 flex justify-end items-center rounded-3xl object-cover"
+			style={`background-image: url(${bossInfo[item[0]].image}`}
+		>
+			<span class="right-0 top-0 text-white">{`${item[1]} ${item[2]} ${item[3]}`}</span>
 		</div>
 	{/each}
 </section>

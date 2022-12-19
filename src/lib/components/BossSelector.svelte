@@ -1,9 +1,9 @@
 <script lang="ts">
+	import Button from './common/Button.svelte';
+	import Dropdown from './common/Dropdown.svelte';
 	import { store, charIndex, bossInfo } from '../../stores';
 	import type { BossType, BossDC } from '../../types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '../../utils';
-	import Button from './common/Button.svelte';
-	import Dropdown from './common/Dropdown.svelte';
 
 	let bossName: keyof typeof bossInfo | '' = '';
 	let bossDC: keyof BossDC | '' = '';
