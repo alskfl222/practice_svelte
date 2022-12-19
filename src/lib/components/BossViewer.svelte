@@ -36,20 +36,20 @@
 	<div class="col-span-3 flex flex-col">
 		<div class="p-4">총 {$store[$charIndex].boss.length}종 {count}개</div>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
-			<div class="p-4 grid grid-cols-4 gap-4">
+			<div class="p-4 flex flex-col gap-4">
 				{#each $store[$charIndex].boss as boss, idx}
 					<div
-						class="w-[240px] aspect-square rounded-3xl bg-cover bg-center bg-no-repeat"
+						class="w-full h-[80px] rounded-3xl bg-cover bg-center bg-no-repeat"
 						style={`background-image: url(${boss.image})`}
 					>
-						<div class="h-[100%] p-4 flex flex-col justify-between">
+						<div class="h-[100%] p-4 flex justify-between items-center">
 							<div class="text-4xl text-white font-bold">{boss.name}</div>
-							<div class="flex flex-col items-end">
+							<div class="flex">
 								{#each boss.dc as dc}
 									<span
 										on:click={() => deleteBoss(idx, dc)}
 										class="p-1 rounded text-white drop-shadow-lg cursor-pointer
-										hover:bg-gray-500/30 transition duration-150 ease-in-out"
+													 hover:bg-gray-500/30 transition duration-150 ease-in-out"
 									>
 										{dc}
 									</span>
