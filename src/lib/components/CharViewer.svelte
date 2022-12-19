@@ -30,8 +30,8 @@
 		{#each $store as char, idx}
 			<div
 				class={idx === $charIndex
-					? 'w-[180px] bg-gradient-to-r from-cyan-500 to-blue-500 rounded'
-					: 'w-[180px] border rounded border-cyan-500'}
+					? 'w-[200px] bg-gradient-to-r from-cyan-500 to-blue-500 rounded'
+					: 'w-[200px] border rounded border-cyan-500'}
 			>
 				<div class="p-4 flex justify-between" on:click|stopPropagation={(e) => selectChar(e, idx)}>
 					<div class="flex gap-2">

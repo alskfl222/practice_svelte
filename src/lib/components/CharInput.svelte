@@ -6,12 +6,12 @@
 	let charClass: keyof typeof classInfo | '' = '';
 
 	function addChar() {
-		const newInfo: CharBoss = { boss: [] };
-		newInfo.name = charName;
-		newInfo.class = charClass;
-		store.update((data) => [...data, newInfo]);
-		charName = '';
-		charClass = '';
+		if (isActive) {
+			const newInfo: CharBoss = { name: charName, class: charClass, boss: [] };
+			store.update((data) => [...data, newInfo]);
+			charName = '';
+			charClass = '';
+		}
 	}
 
 	$: isActive = charName && charClass ? true : false;

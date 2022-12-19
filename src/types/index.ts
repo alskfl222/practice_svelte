@@ -28,7 +28,7 @@ export type CharType = {
 };
 
 export interface CharBoss {
-	name?: string;
-	class?: string;
+	name: string;
+	class: string;
 	boss: BossType[];
 }
