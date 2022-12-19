@@ -22,10 +22,13 @@
 		}
 	}
 
+	function handleClick(event: CustomEvent) {
+		if (event.type === 'click') addBoss();
+	}
+
 	function addBoss() {
 		const charBossIndex = searchBossIndex($store[$charIndex!].boss, bossName);
 		const bossImage = bossInfo[bossName].image;
-		console.log('click2')
 		if (bossDC) {
 			$store[$charIndex!].boss = newBossArr(
 				$store[$charIndex!].boss,
@@ -66,7 +69,7 @@
 	$: addable = $charIndex !== undefined && bossName !== '' && bossDC !== '';
 </script>
 
-<div class="bg-sky-100 p-4 gap-8">
+<div class="flex justify-center bg-sky-100 p-4 gap-8">
 	<div class="flex flex-col gap-6">
 		<div class="flex flex-col">
 			{#if bossName}
@@ -101,15 +104,11 @@
 				on:bossDC={handleSelect}
 			/>
 		{/if}
-	</div>
-	<div class="flex gap-2">
-		{#if addable}
-		<button on:click={addBoss}>
-			<i class="fa-regular fa-square-plus fa-xl" />
-		</button>
-		<Button type='addBoss' text='추가 버튼' on:click={() => {console.log('clickbutton'); addBoss()}} />
-		{:else}
-			추가 불가
-		{/if}
+
+		<Button
+			disabled={!addable}
+			text={addable ? '추가' : '조건을 선택해주세요'}
+			on:click={handleClick}
+		/>
 	</div>
 </div>
