@@ -13,9 +13,14 @@
 		charName = '';
 		charClass = '';
 	}
+
+	$: isActive = charName && charClass ? true : false;
+	$: buttonStyle = isActive
+		? 'w-[90px] p-2 border rounded-full bg-gradient-to-r from-sky-500 to-indigo-500	text-white'
+		: 'w-[90px] p-2 border rounded-full bg-slate-500 text-white';
 </script>
 
-<section class="flex justify-between">
+<div class="p-8 flex justify-between">
 	<div class="flex gap-10">
 		<input
 			bind:value={charName}
@@ -29,9 +34,5 @@
 			{/each}
 		</select>
 	</div>
-	<button
-		on:click={addChar}
-		class="w-[90px] p-2 border rounded-full bg-gradient-to-r from-sky-500 to-indigo-500
-			text-white"><i class="fa-solid fa-user-plus fa-xl" /></button
-	>
-</section>
+	<button on:click={addChar} class={buttonStyle}><i class="fa-solid fa-user-plus fa-xl" /></button>
+</div>
