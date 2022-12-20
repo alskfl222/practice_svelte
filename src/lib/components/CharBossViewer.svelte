@@ -7,7 +7,7 @@
 	import { store } from '../../stores';
 </script>
 
-<section>
+<section class="rounded-3xl bg-white">
 	<Title text="캐릭터 관리" />
 	<Hbar />
 	<CharInput />

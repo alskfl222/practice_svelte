@@ -3,6 +3,7 @@ import { getBossReport } from '../utils';
 import type { BossDC, ClassType, CharBoss } from '../types';
 
 export const charIndex = writable<number | undefined>(undefined);
+export const counterIndex = writable<number | undefined>(undefined);
 export const store = writable<CharBoss[]>([]);
 export const bossReport = derived(store, getBossReport)
 

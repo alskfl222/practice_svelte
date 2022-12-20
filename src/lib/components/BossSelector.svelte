@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from './common/Button.svelte';
 	import Dropdown from './common/Dropdown.svelte';
-	import { store, charIndex, bossInfo } from '../../stores';
+	import { store, charIndex, counterIndex, bossInfo } from '../../stores';
 	import type { BossType, BossDC } from '../../types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '../../utils';
 
@@ -41,6 +41,7 @@
 		}
 		bossName = '';
 		bossDC = '';
+		$counterIndex = undefined;
 	}
 
 	function newBossArr(
