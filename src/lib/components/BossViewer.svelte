@@ -35,7 +35,11 @@
 {#if $charIndex !== undefined}
 	<div class="col-span-3 flex flex-col">
 		<div class="p-4 text-xl font-bold text-slate-700">
-			총 {$store[$charIndex].boss.length}종 {count}개
+			{#if count === 0}
+				보스를 추가해주세요
+			{:else}
+				총 {$store[$charIndex].boss.length}종 {count}개
+			{/if}
 		</div>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
 			<div class="p-4 flex flex-col gap-4">

@@ -23,7 +23,7 @@
 		let moving = false;
 		let x = 0;
 		const minX = 0;
-		const maxX = $store.length * (270 + 16) - 894;
+		const maxX = $store.length * (270 + 16) - (894 - 32 * 2);
 
 		node.style.position = 'relative';
 		node.style.left = `${x}px`;
@@ -45,31 +45,15 @@
 		window.addEventListener('mouseup', () => {
 			moving = false;
 		});
-
-		onDestroy(() => {
-			window.addEventListener('mousemove', (e) => {
-				if (moving) {
-					x += e.movementX;
-					if (minX < maxX) {
-						if (x > minX) x = 0;
-						if (x < -maxX) x = -maxX;
-						node.style.left = `${x}px`;
-					}
-				}
-			});
-			window.addEventListener('mouseup', () => {
-				moving = false;
-			});
-		});
 	};
 </script>
 
 <div
-	class="max-w-[894px] flex flex-col overflow-hidden"
+	class="flex flex-col overflow-hidden"
 	bind:this={charContainer}
 	on:click={(e) => selectChar(e, -1)}
 >
-	<div class="p-2 flex gap-4" bind:this={charScroll} use:dragEl>
+	<div class="max-w-[830px] p-2 flex gap-4" bind:this={charScroll} use:dragEl>
 		{#each $store as char, idx}
 			<div
 				class={idx === $charIndex

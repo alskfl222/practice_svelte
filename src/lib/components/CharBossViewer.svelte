@@ -13,13 +13,13 @@
 	<CharInput />
 	<Hbar />
 
-	<div class="px-8">
+	<div class="px-8 pb-16">
 		<Title text="캐릭터 상세" type="s" />
 		{#if $store.length > 0}
 			<CharViewer />
 			<BossViewer />
 		{:else}
-			<div class="px-4 pb-16 text-lg font-bold text-slate-700">캐릭터를 추가해주세요</div>
+			<div class="px-4 text-lg font-bold text-slate-700">캐릭터를 추가해주세요</div>
 		{/if}
 	</div>
 </section>
