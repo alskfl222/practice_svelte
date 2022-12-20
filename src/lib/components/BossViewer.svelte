@@ -34,7 +34,9 @@
 
 {#if $charIndex !== undefined}
 	<div class="col-span-3 flex flex-col">
-		<div class="p-4">총 {$store[$charIndex].boss.length}종 {count}개</div>
+		<div class="p-4 text-xl font-bold text-slate-700">
+			총 {$store[$charIndex].boss.length}종 {count}개
+		</div>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
 			<div class="p-4 flex flex-col gap-4">
 				{#each $store[$charIndex].boss as boss, idx}
@@ -61,4 +63,6 @@
 			</div>
 		{/if}
 	</div>
+{:else}
+	<div class="p-4 text-xl font-bold text-slate-700">캐릭터를 선택해주세요</div>
 {/if}

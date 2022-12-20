@@ -23,7 +23,7 @@
 		let moving = false;
 		let x = 0;
 		const minX = 0;
-		const maxX = $store.length * (270 + 16) - 904;
+		const maxX = $store.length * (270 + 16) - 894;
 
 		node.style.position = 'relative';
 		node.style.left = `${x}px`;
@@ -65,18 +65,10 @@
 </script>
 
 <div
-	class="w-[904px] flex flex-col overflow-hidden"
+	class="max-w-[894px] flex flex-col overflow-hidden"
 	bind:this={charContainer}
 	on:click={(e) => selectChar(e, -1)}
 >
-	<div class="p-4 font-bold">
-		{#if $charIndex === undefined}
-			<div>
-				{$store.length} 캐릭터
-			</div>
-		{:else}
-			<div>{$store[$charIndex].name} {$store[$charIndex].class}</div>{/if}
-	</div>
 	<div class="p-2 flex gap-4" bind:this={charScroll} use:dragEl>
 		{#each $store as char, idx}
 			<div
@@ -85,11 +77,18 @@
 					: 'w-[270px] flex-none border rounded border-cyan-500'}
 			>
 				<div class="p-4 flex justify-between" on:click|stopPropagation={(e) => selectChar(e, idx)}>
-					<div class="flex gap-2">
+					<div
+						class={idx === $charIndex
+							? 'flex gap-2 text-lg font-bold text-slate-100'
+							: 'flex gap-2 text-lg font-bold text-slate-700'}
+					>
 						<span>{char.name}</span>
 						<span>{char.class}</span>
 					</div>
-					<button on:click|stopPropagation={() => deleteChar(idx)}>삭제</button>
+					<button
+						class={idx === $charIndex ? 'text-slate-100' : 'text-slate-700'}
+						on:click|stopPropagation={() => deleteChar(idx)}>삭제</button
+					>
 				</div>
 			</div>
 		{/each}
