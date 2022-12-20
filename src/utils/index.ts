@@ -74,8 +74,8 @@ export const sortByBoss = (bossArr: BossType[]) => {
 };
 
 export const sortByDC = (arr: (keyof BossDC)[]) => {
-	const difficulties = ['easy', 'normal', 'hard', 'chaos', 'extreme'];
-	return arr.slice().sort((a, b) => difficulties.indexOf(a) - difficulties.indexOf(b));
+	const difficulties = ['EASY', 'NORMAL', 'HARD', 'CHAOS', 'EXTREME'];
+	return arr.slice().sort((a, b) => difficulties.indexOf(b) - difficulties.indexOf(a));
 };
 
 export const sortByPrice = (data: typeof bossInfo) => {

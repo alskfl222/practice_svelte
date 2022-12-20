@@ -71,9 +71,9 @@
 	$: addable = $charIndex !== undefined && bossName !== '' && bossDC !== '';
 </script>
 
-<div class="flex justify-center bg-sky-100 p-4 gap-8">
+<div class="py-8 flex justify-center rounded-2xl bg-sky-100 gap-8">
 	<div class="flex flex-col gap-6">
-		<div class="flex flex-col">
+		<div class="flex flex-col gap-3">
 			{#if bossName}
 				<img
 					class="w-[180px] h-[180px] object-cover"
@@ -92,24 +92,28 @@
 				</div>
 			{/if}
 		</div>
-		<Dropdown
-			type="bossName"
-			value={bossName}
-			options={Object.keys(bossInfo)}
-			on:bossName={handleSelect}
-		/>
-		{#if bossName !== ''}
+		<div>
+			보스
+			<Dropdown
+				type="bossName"
+				value={bossName}
+				options={Object.keys(bossInfo)}
+				on:bossName={handleSelect}
+			/>
+		</div>
+		<div>
+			난이도
 			<Dropdown
 				type="bossDC"
 				value={bossDC}
-				options={Object.keys(bossInfo[bossName].dc)}
+				options={bossName !== '' ? Object.keys(bossInfo[bossName].dc) : []}
 				on:bossDC={handleSelect}
 			/>
-		{/if}
+		</div>
 
 		<Button
 			disabled={!addable}
-			text={addable ? '추가' : '조건을 선택해주세요'}
+			text={addable ? '추가' : '먼저 모두 선택해주세요'}
 			on:click={handleClick}
 		/>
 	</div>

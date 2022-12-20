@@ -1,11 +1,11 @@
 import type { bossInfo, classInfo } from '../stores';
 
 export type BossDC = {
-	easy?: number;
-	normal?: number;
-	hard?: number;
-	chaos?: number;
-	extreme?: number;
+	EASY?: number;
+	NORMAL?: number;
+	HARD?: number;
+	CHAOS?: number;
+	EXTREME?: number;
 };
 
 export type BossType = {

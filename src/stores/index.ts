@@ -16,45 +16,45 @@ export const bossInfo: {
 	a: {
 		image: './src/images/boss/a.jpeg',
 		dc: {
-			easy: 100,
-			normal: 200,
-			hard: 300
+			EASY: 100,
+			NORMAL: 200,
+			HARD: 300
 		}
 	},
 	b: {
 		image: './src/images/boss/b.jpeg',
 		dc: {
-			normal: 250,
-			chaos: 400
+			NORMAL: 250,
+			CHAOS: 400
 		}
 	},
 	c: {
 		image: './src/images/boss/c.jpeg',
 		dc: {
-			normal: 320,
-			hard: 450
+			NORMAL: 320,
+			HARD: 450
 		}
 	},
 	d: {
 		image: './src/images/boss/a.jpeg',
 		dc: {
-			easy: 110,
-			normal: 220,
-			hard: 330
+			EASY: 110,
+			NORMAL: 220,
+			HARD: 330
 		}
 	},
 	e: {
 		image: './src/images/boss/b.jpeg',
 		dc: {
-			normal: 270,
-			chaos: 440
+			NORMAL: 270,
+			CHAOS: 440
 		}
 	},
 	f: {
 		image: './src/images/boss/c.jpeg',
 		dc: {
-			normal: 360,
-			hard: 490
+			NORMAL: 360,
+			HARD: 490
 		}
 	}
 };

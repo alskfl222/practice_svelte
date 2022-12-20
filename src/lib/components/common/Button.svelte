@@ -10,8 +10,8 @@
 	};
 
 	$: buttonStyle = disabled
-		? 'w-full p-2 bg-slate-500 hover:bg-slate-700'
-		: 'w-full p-2 bg-white hover:bg-slate-300';
+		? 'w-full p-2 rounded-xl bg-slate-500 hover:bg-slate-700 text-white'
+		: 'w-full p-2 rounded-xl bg-white hover:bg-slate-300';
 </script>
 
 <div class="w-full border">

@@ -18,7 +18,7 @@
 	$: isActive = charName && charClass ? true : false;
 	$: buttonStyle = isActive
 		? 'w-[90px] p-2 border rounded-full bg-gradient-to-r from-sky-500 to-indigo-500	text-white'
-		: 'w-[90px] p-2 border rounded-full bg-slate-500 text-white';
+		: 'w-[90px] h-[42px] p-2 flex justify-center items-center border rounded-full bg-slate-500 text-white';
 </script>
 
 <div class="p-8 pt-0 flex flex-col justify-between">
@@ -27,17 +27,28 @@
 		<div class="flex gap-16">
 			<input
 				bind:value={charName}
-				class="w-[300px] p-1 border-b"
+				class="w-[300px] p-1 border-b border-slate-700"
 				placeholder="캐릭터 이름을 입력해주세요"
 			/>
-			<select bind:value={charClass} class="w-[120px] p-1 border" required>
+			<select
+				bind:value={charClass}
+				class="w-[120px] p-1 border rounded-lg border-slate-700"
+				required
+			>
 				<option value="" disabled selected hidden>직업</option>
 				{#each Object.keys(classInfo) as className}
 					<option value={className}>{className}</option>
 				{/each}
 			</select>
 		</div>
-		<button on:click={addChar} class={buttonStyle}><i class="fa-solid fa-user-plus fa-xl" /></button
-		>
+		{#if isActive}
+			<button on:click={addChar} class={buttonStyle}
+				><i class="fa-solid fa-user-plus fa-xl" /></button
+			>
+		{:else}
+			<span class={buttonStyle}
+				><i class="fa-solid fa-user-plus fa-xl" /></span
+			>
+		{/if}
 	</div>
 </div>

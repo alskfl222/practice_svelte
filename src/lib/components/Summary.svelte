@@ -6,6 +6,6 @@
 	$: bossPrice = getTotalBossPrice($store)
 </script>
 
-<div>
+<div class='bg-white'>
 	{charCount} 캐릭터 {bossCount} 보스 {bossPrice} 원
 </div>
