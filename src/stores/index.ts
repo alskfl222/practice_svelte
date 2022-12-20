@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store';
 import { getBossReport } from '../utils';
-import type { BossDC, CharBoss } from '../types';
+import type { BossDC, ClassType, CharBoss } from '../types';
 
 export const charIndex = writable<number | undefined>(undefined);
 export const store = writable<CharBoss[]>([]);
@@ -58,7 +58,11 @@ export const bossInfo: {
 	}
 };
 
-export const classInfo = {
+export const classInfo: {
+	[key in keyof ClassType] : {
+		group: string;
+	};
+} = {
 	A1: {
 		group: 'A'
 	},

@@ -21,6 +21,45 @@ export type BossReport = {
 	};
 };
 
+export type ClassType = {
+	A1?: {
+		group: string;
+	},
+	A2?: {
+		group: string;
+	},
+	A3?: {
+		group: string;
+	},
+	B1?: {
+		group: string;
+	},
+	B2?: {
+		group: string;
+	},
+	B3?: {
+		group: string;
+	},
+	C1?: {
+		group: string;
+	},
+	C2?: {
+		group: string;
+	},
+	C3?: {
+		group: string;
+	},
+	D1?: {
+		group: string;
+	},
+	D2?: {
+		group: string;
+	},
+	D3?: {
+		group: string;
+	}
+}
+
 export type CharType = {
 	name?: string;
 	class?: string;

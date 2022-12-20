@@ -1,4 +1,4 @@
-import { bossInfo } from '../stores';
+import { bossInfo, classInfo } from '../stores';
 import type { CharBoss, BossType, BossReport, CharType, BossDC } from '../types';
 
 export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) => {
@@ -79,10 +79,10 @@ export const sortByDC = (arr: (keyof BossDC)[]) => {
 };
 
 export const sortByPrice = (data: typeof bossInfo) => {
-	const arr: [string, string, number][] = [];
+	const arr: [string, keyof BossDC, number][] = [];
 	Object.entries(data).forEach((boss) => {
 		Object.entries(boss[1].dc).forEach((entry) => {
-			arr.push([boss[0], ...entry]);
+			arr.push([boss[0], entry[0] as keyof BossDC, entry[1]]);
 		});
 	});
 	arr.sort((a, b) => b[2] - a[2]);
@@ -91,15 +91,14 @@ export const sortByPrice = (data: typeof bossInfo) => {
 
 export const reportSortByPrice = (report: BossReport) => {
 	if (Object.keys(report).length === 0) return [];
-	const arr: [string, string, number, number][] = [];
+	const arr: [string, string, number, [string, keyof typeof classInfo][]][] = [];
 	const bossSortByPrice = sortByPrice(bossInfo);
 	bossSortByPrice.forEach((item) => {
 		const [boss, dc] = item;
 		if (report[boss]) {
 			const aBoss = report[boss];
 			if (aBoss.dc[dc as keyof BossDC]) {
-				const count = aBoss.dc[dc as keyof BossDC]!.length;
-				arr.push([...item, count]);
+				arr.push([...item, aBoss.dc[dc as keyof BossDC]!]);
 			}
 		}
 	});

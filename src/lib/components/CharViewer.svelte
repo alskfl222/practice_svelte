@@ -19,7 +19,7 @@
 		charScroll.style.left = '0px';
 	}
 
-	$: dragChar = (node: HTMLElement) => {
+	$: dragEl = (node: HTMLElement) => {
 		let moving = false;
 		let x = 0;
 		const minX = 0;
@@ -77,7 +77,7 @@
 		{:else}
 			<div>{$store[$charIndex].name} {$store[$charIndex].class}</div>{/if}
 	</div>
-	<div class="p-2 flex gap-4" bind:this={charScroll} use:dragChar>
+	<div class="p-2 flex gap-4" bind:this={charScroll} use:dragEl>
 		{#each $store as char, idx}
 			<div
 				class={idx === $charIndex
