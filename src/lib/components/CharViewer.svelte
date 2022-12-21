@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
 	import { store, charIndex } from '../../stores';
 
 	let charContainer: HTMLDivElement;
@@ -19,11 +18,10 @@
 		charScroll.style.left = '0px';
 	}
 
-	$: dragEl = (node: HTMLElement) => {
+	function dragEl(node: HTMLElement) {
 		let moving = false;
 		let x = 0;
 		const minX = 0;
-		const maxX = $store.length * (270 + 16) - (894 - 32 * 2);
 
 		node.style.position = 'relative';
 		node.style.left = `${x}px`;
@@ -45,7 +43,9 @@
 		window.addEventListener('mouseup', () => {
 			moving = false;
 		});
-	};
+	}
+
+	$: maxX = $store.length * (270 + 16) - (894 - 32 * 2);
 </script>
 
 <div
@@ -53,7 +53,7 @@
 	bind:this={charContainer}
 	on:click={(e) => selectChar(e, -1)}
 >
-	<div class="max-w-[830px] p-2 flex gap-4" bind:this={charScroll} use:dragEl>
+	<div class="w-[830px] p-2 flex gap-4" bind:this={charScroll} use:dragEl>
 		{#each $store as char, idx}
 			<div
 				class={idx === $charIndex
