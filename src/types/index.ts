@@ -21,6 +21,8 @@ export type BossReport = {
 	};
 };
 
+export type Price = number;
+
 export type ClassType = {
 	A1?: {
 		group: string;
