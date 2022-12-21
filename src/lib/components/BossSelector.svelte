@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Button from './common/Button.svelte';
 	import Dropdown from './common/Dropdown.svelte';
+	import Title from './common/Title.svelte';
+	import Hbar from './common/Hbar.svelte';
 	import { store, charIndex, counterIndex, bossInfo } from '../../stores';
 	import type { BossType, BossDC } from '../../types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '../../utils';
@@ -71,8 +73,10 @@
 	$: addable = $charIndex !== undefined && bossName !== '' && bossDC !== '';
 </script>
 
-<div class="py-8 flex justify-center rounded-2xl bg-sky-100 gap-8">
-	<div class="flex flex-col gap-6">
+<div class="flex flex-col rounded-2xl bg-white">
+	<Title text='보스 선택' />
+	<Hbar />
+	<div class="pb-12 flex flex-col items-center gap-6">
 		<div class="flex flex-col gap-3">
 			{#if bossName}
 				<img
@@ -92,8 +96,8 @@
 				</div>
 			{/if}
 		</div>
-		<div>
-			보스
+		<div class="w-[180px]">
+			<span class='font-bold'>보스</span>
 			<Dropdown
 				type="bossName"
 				value={bossName}
@@ -101,19 +105,19 @@
 				on:bossName={handleSelect}
 			/>
 		</div>
-		<div>
-			난이도
+		<div class="w-[180px]">
+			<span class='font-bold'>난이도</span>
 			<Dropdown
 				type="bossDC"
 				value={bossDC}
-				options={bossName !== '' ? Object.keys(bossInfo[bossName].dc) : []}
+				options={bossName !== '' ? Object.keys(bossInfo[bossName].dc) : ['보스를 먼저 선택해주세요']}
 				on:bossDC={handleSelect}
 			/>
 		</div>
 
 		<Button
 			disabled={!addable}
-			text={addable ? '추가' : '먼저 모두 선택해주세요'}
+			text={addable ? '추가' : '선택을 완료해주세요'}
 			on:click={handleClick}
 		/>
 	</div>
