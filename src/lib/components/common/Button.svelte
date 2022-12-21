@@ -3,7 +3,6 @@
 	const dispatch = createEventDispatcher();
 
 	export let disabled: boolean = false;
-	export let text: string = '';
 
 	const onClick = () => {
 		dispatch('click');
@@ -16,6 +15,6 @@
 
 <div class="w-[180px]">
 	<button class={buttonStyle} {disabled} on:click={onClick}>
-		{text}
+		<slot />
 	</button>
 </div>

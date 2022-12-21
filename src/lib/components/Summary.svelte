@@ -9,7 +9,7 @@
 
 <div class="flex flex-col rounded-2xl bg-white">
 	<div class="w-full flex justity-end">
-		<Title text="요약" />
+		<Title>요약</Title>
 	</div>
 	<Hbar />
 	<div class="w-full px-8 pt-8 pb-4 flex justify-end text-xl text-slate-700">

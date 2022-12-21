@@ -25,7 +25,7 @@
 	bind:this={container}
 	on:click={(e) => selectBoss(e)}
 >
-	<Title text="보스별 정리" />
+	<Title>보스별 정리</Title>
 	<Hbar />
 	<div class="flex flex-col gap-4 px-8 pt-8 overflow-auto">
 		{#each data as item, idx}

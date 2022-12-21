@@ -74,7 +74,7 @@
 </script>
 
 <div class="flex flex-col rounded-2xl bg-white">
-	<Title text='보스 선택' />
+	<Title>보스 선택</Title>
 	<Hbar />
 	<div class="pb-12 flex flex-col items-center gap-6">
 		<div class="flex flex-col gap-3">
@@ -117,8 +117,7 @@
 
 		<Button
 			disabled={!addable}
-			text={addable ? '추가' : '선택을 완료해주세요'}
 			on:click={handleClick}
-		/>
+		>{addable ? '추가' : '선택을 완료해주세요'}</Button>
 	</div>
 </div>
