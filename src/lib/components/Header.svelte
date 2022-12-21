@@ -9,10 +9,10 @@
 	<nav class="w-full h-full">
 		<ul class="w-full h-full flex justify-between items-center">
 			<li class={$page.url.pathname === '/' ? selectedStyle : normalStyle}>
-				<a sveltekit:prefetch href="/">Home</a>
+				<a sveltekit:prefetch href="/"><i class="fa-solid fa-house" /></a>
 			</li>
-			<li class:text-3xl={$page.url.pathname === '/about' ? selectedStyle : normalStyle}>
-				<a sveltekit:prefetch href="/about">About</a>
+			<li class={$page.url.pathname === '/about' ? selectedStyle : normalStyle}>
+				<a sveltekit:prefetch href="/about"><i class="fa-solid fa-circle-question" /></a>
 			</li>
 		</ul>
 	</nav>
