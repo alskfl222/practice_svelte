@@ -37,7 +37,18 @@
 				{#if idx === $counterIndex}
 					<Hbar />
 					<div class="grow px-4 flex justify-between items-center border rounded-b-3xl">
-						{item[3].map((char) => char[0]).toString()}
+						<div class='flex gap-2'>
+							{#each item[3] as char}
+								<span>{char[0]}</span>
+							{/each}
+						</div>
+						<div>
+
+							<span>{item[2]} 원</span>
+							<span>
+								총 {item[2] * item[3].length} 원
+							</span>
+						</div>
 					</div>
 				{/if}
 			</div>
