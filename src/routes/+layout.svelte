@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
-	import Sidebar from '$lib/sidebar/Sidebar.svelte';
+
 	import '../app.css';
 </script>
 
@@ -9,7 +9,7 @@
 		<Header />
 		<main class="min-h-[70vh] flex justify-center gap-8">
 			<slot />
-			<Sidebar />
+
 		</main>
 		<footer>
 			<p>by <strong>alskfl222</strong></p>
