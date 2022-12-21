@@ -1,13 +1,15 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
+	import Sidebar from '$lib/sidebar/Sidebar.svelte';
 	import '../app.css';
 </script>
 
 <div class='w-full min-h-[100vh] flex justify-center bg-slate-200'>
 	<div class="w-full max-w-[1200px] flex flex-col">
 		<Header />
-		<main class="min-h-[70vh] flex justify-center">
+		<main class="min-h-[70vh] flex justify-center gap-8">
 			<slot />
+			<Sidebar />
 		</main>
 		<footer>
 			<p>by <strong>alskfl222</strong></p>

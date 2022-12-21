@@ -4,13 +4,15 @@
 	let charContainer: HTMLDivElement;
 	let charScroll: HTMLElement;
 
-	function selectChar(e: MouseEvent, idx: number) {
-		const el = e.target as HTMLDivElement;
-		if (charContainer.contains(el) && idx !== -1) {
+	function selectChar(e: MouseEvent) {
+		const el = e.target as HTMLElement;
+		console.log(el)
+		if (el.getAttribute('data-index')) {
+			const idx = parseInt(el.getAttribute('data-index')!);
 			$charIndex = idx;
-		} else {
-			$charIndex = undefined;
+			return;
 		}
+		$charIndex = undefined;
 	}
 	function deleteChar(idx: number) {
 		$store = [...$store.slice(0, idx), ...$store.slice(idx + 1)];
@@ -51,7 +53,7 @@
 <div
 	class="flex flex-col overflow-hidden"
 	bind:this={charContainer}
-	on:click={(e) => selectChar(e, -1)}
+	on:click|stopPropagation={(e) => selectChar(e)}
 >
 	<div class="w-[830px] p-2 flex gap-4" bind:this={charScroll} use:dragEl>
 		{#each $store as char, idx}
@@ -59,8 +61,9 @@
 				class={idx === $charIndex
 					? 'w-[270px] flex-none border rounded border-white bg-gradient-to-r from-cyan-500 to-blue-500 '
 					: 'w-[270px] flex-none border rounded border-cyan-500'}
+				
 			>
-				<div class="p-4 flex justify-between" on:click|stopPropagation={(e) => selectChar(e, idx)}>
+				<div class="p-4 flex justify-between" data-index={idx}>
 					<div
 						class={idx === $charIndex
 							? 'flex gap-2 text-lg font-bold text-slate-100'

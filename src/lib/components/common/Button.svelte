@@ -11,10 +11,10 @@
 
 	$: buttonStyle = disabled
 		? 'w-full p-2 rounded-xl bg-slate-500 text-white'
-		: 'w-full p-2 rounded-xl bg-white hover:bg-slate-300';
+		: 'w-full p-2 border border-black rounded-xl bg-white hover:bg-slate-300';
 </script>
 
-<div class="w-[180px] border">
+<div class="w-[180px]">
 	<button class={buttonStyle} {disabled} on:click={onClick}>
 		{text}
 	</button>

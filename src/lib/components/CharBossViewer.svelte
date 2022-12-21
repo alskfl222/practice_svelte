@@ -4,7 +4,11 @@
 	import BossViewer from './BossViewer.svelte';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
-	import { store } from '../../stores';
+	import { store, charIndex } from '../../stores';
+
+	function deselectChar() {
+		$charIndex = undefined;
+	}
 </script>
 
 <section class="rounded-3xl bg-white">
@@ -14,11 +18,14 @@
 	<Hbar />
 
 	<div class="px-8 pb-16">
-		<Title text="캐릭터 상세" type="s" />
 		{#if $store.length > 0}
-			<CharViewer />
+			<div on:click={deselectChar}>
+				<Title text="캐릭터 상세" type="s" />
+				<CharViewer />
+			</div>
 			<BossViewer />
 		{:else}
+			<Title text="캐릭터 상세" type="s" />
 			<div class="px-4 text-lg font-bold text-slate-700">캐릭터를 추가해주세요</div>
 		{/if}
 	</div>
