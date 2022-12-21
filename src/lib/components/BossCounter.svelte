@@ -21,21 +21,21 @@
 </script>
 
 <section
-	class="min-h-[240px] max-h-[540px] pb-16 flex flex-col rounded-3xl bg-white"
+	class="min-h-[240px] max-h-[560px] pb-8 flex flex-col rounded-3xl bg-white"
 	bind:this={container}
 	on:click={(e) => selectBoss(e)}
 >
 	<Title text="보스별 정리" />
 	<Hbar />
-	<div class="flex flex-col gap-4 p-8 overflow-auto">
+	<div class="flex flex-col gap-4 px-8 pt-8 overflow-auto">
 		{#each data as item, idx}
 			<div
 				class={idx === $counterIndex
 					? 'flex-none w-full min-h-[160px] px-4 flex flex-col'
-					: 'flex-none w-full h-[80px] px-4 flex flex-col'}
+					: 'flex-none w-full h-[90px] px-4 flex flex-col'}
 			>
 				<div
-					class={`h-[80px] px-4 flex justify-between items-center text-white ${
+					class={`h-[90px] px-4 flex justify-between items-center text-white ${
 						idx === $counterIndex ? 'rounded-t-3xl' : 'rounded-3xl'
 					}`}
 					style={`background-image: url(${bossInfo[item[0]].image}`}
@@ -63,4 +63,7 @@
 			</div>
 		{/each}
 	</div>
+	{#if data.length === 0}
+		<span class="h-[80px] px-12 text-xl font-bold text-slate-700">아직 추가된 보스가 없습니다</span>
+	{/if}
 </section>

@@ -70,5 +70,5 @@
 		{/if}
 	</div>
 {:else}
-	<div class="p-4 text-xl font-bold text-slate-700">캐릭터를 선택해주세요</div>
+	<span class="p-4 text-xl font-bold text-slate-700">선택된 캐릭터가 없습니다</span>
 {/if}
