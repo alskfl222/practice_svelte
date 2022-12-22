@@ -6,7 +6,6 @@
 
 	function selectChar(e: MouseEvent) {
 		const el = e.target as HTMLElement;
-		console.log(el)
 		if (el.getAttribute('data-index')) {
 			const idx = parseInt(el.getAttribute('data-index')!);
 			$charIndex = idx;
@@ -47,11 +46,11 @@
 		});
 	}
 
-	$: maxX = $store.length * (270 + 16) - (894 - 32 * 2);
+	$: maxX = $store.length * (270 + 16) - (904 - 32 * 2);
 </script>
 
 <div
-	class="flex flex-col overflow-hidden"
+	class="pb-8 flex flex-col overflow-hidden"
 	bind:this={charContainer}
 	on:click|stopPropagation={(e) => selectChar(e)}
 >

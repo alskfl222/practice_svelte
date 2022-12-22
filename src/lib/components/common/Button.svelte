@@ -13,7 +13,7 @@
 		: 'w-full p-2 border border-black rounded-xl bg-white hover:bg-slate-300';
 </script>
 
-<div class="w-[180px]">
+<div class="w-[160px]">
 	<button class={buttonStyle} {disabled} on:click={onClick}>
 		<slot />
 	</button>

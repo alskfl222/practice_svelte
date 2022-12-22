@@ -8,7 +8,11 @@
 
 	function addChar() {
 		if (isActive) {
-			const newInfo: CharBoss = { name: charName, class: charClass, boss: [] };
+			const newInfo: CharBoss = {
+				name: charName,
+				class: charClass as keyof typeof classInfo,
+				boss: []
+			};
 			store.update((data) => [...data, newInfo]);
 			charName = '';
 			charClass = '';
@@ -21,8 +25,8 @@
 		: 'w-[90px] h-[42px] p-2 flex justify-center items-center border rounded-full bg-slate-500 text-white';
 </script>
 
-<div class="p-8 pt-0 flex flex-col justify-between">
-	<Title type="s" >캐릭터 추가</Title>
+<div class="px-4 pb-8 flex flex-col justify-between">
+	<Title type="s">캐릭터 추가</Title>
 	<div class="px-4 py-0 flex justify-between">
 		<div class="flex gap-16">
 			<input
@@ -46,9 +50,7 @@
 				><i class="fa-solid fa-user-plus fa-xl" /></button
 			>
 		{:else}
-			<span class={buttonStyle}
-				><i class="fa-solid fa-user-plus fa-xl" /></span
-			>
+			<span class={buttonStyle}><i class="fa-solid fa-user-plus fa-xl" /></span>
 		{/if}
 	</div>
 </div>

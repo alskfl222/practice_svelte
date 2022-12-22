@@ -5,7 +5,7 @@
 	function deleteBoss(idx: number, dc: keyof BossDC) {
 		if ($charIndex !== undefined) {
 			let charBossDC = $store[$charIndex].boss[idx].dc;
-			charBossDC = charBossDC.filter((x) => x !== dc);
+			charBossDC = charBossDC.filter((x) => x[0] !== dc);
 			$store[$charIndex].boss[idx].dc = charBossDC;
 			if (charBossDC.length === 0) {
 				$store[$charIndex].boss = [
@@ -33,7 +33,7 @@
 </script>
 
 {#if $charIndex !== undefined}
-	<div class="col-span-3 flex flex-col">
+	<div class="px-4 mt-4 flex flex-col">
 		<div class="p-4 text-xl font-bold text-slate-700">
 			{#if count === 0}
 				보스를 추가해주세요
@@ -55,7 +55,7 @@
 							<div class="flex">
 								{#each boss.dc as dc}
 									<span
-										on:click={() => deleteBoss(idx, dc)}
+										on:click={() => deleteBoss(idx, dc[0])}
 										class="p-1 rounded drop-shadow-lg cursor-pointer
 													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 									>
@@ -70,5 +70,5 @@
 		{/if}
 	</div>
 {:else}
-		<div class="p-4 text-xl font-bold text-slate-700">선택된 캐릭터가 없습니다</div>
+		<div class="mt-4 px-8 py-4 text-xl font-bold text-slate-700">선택된 캐릭터가 없습니다</div>
 {/if}

@@ -5,7 +5,7 @@
 	import { charIndex } from '../../stores';
 </script>
 
-<div class="min-w-[240px] flex flex-col">
+<div class="min-w-[200px] flex flex-col">
 	{#if $charIndex !== undefined}
 		<BossSelector />
 	{:else}

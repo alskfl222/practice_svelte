@@ -88,36 +88,36 @@
 </script>
 
 <div class="flex flex-col rounded-2xl bg-white">
-	<Title>보스 선택</Title>
+	<Title>보스</Title>
 	<Hbar />
-	<div class="pb-12 flex flex-col items-center gap-6">
-		<div class="flex flex-col gap-3">
+	<div class="pb-12 flex flex-col items-center gap-4">
+		<div class="flex flex-col gap-2">
 			{#if bossName}
 				<img
-					class="w-[180px] h-[180px] object-cover"
+					class="w-[160px] h-[160px] object-cover"
 					src={`${bossInfo[bossName].image}`}
 					alt="boss img"
 				/>
-				<div class="w-[180px] h-[48px] border border-black flex justify-center items-center">
+				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
 					{bossDC}
 				</div>
-				<div class="w-[180px] h-[48px] border border-black flex justify-center items-center">
+				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
 					{headcount}인 파티, {required ? '필수!' : '선택?'}
 				</div>
 			{:else}
-				<div class="w-[180px] h-[180px] border border-black flex justify-center items-center">
+				<div class="w-[160px] h-[160px] border border-black flex justify-center items-center">
 					<i class="fa-solid fa-question"></i>
 				</div>
-				<div class="w-[180px] h-[48px] border border-black flex justify-center items-center">
+				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
 					<i class="fa-solid fa-question"></i>
 				</div>
-				<div class="w-[180px] h-[48px] border border-black flex justify-center items-center">
+				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
 					<i class="fa-solid fa-list"></i>
 				</div>
 				
 			{/if}
 		</div>
-		<div class="w-[180px]">
+		<div class="w-[160px]">
 			<span class='font-bold'>보스</span>
 			<Dropdown
 				type="bossName"
@@ -126,7 +126,7 @@
 				on:bossName={handleSelect}
 			/>
 		</div>
-		<div class="w-[180px]">
+		<div class="w-[160px]">
 			<span class='font-bold'>난이도</span>
 			<Dropdown
 				type="bossDC"
