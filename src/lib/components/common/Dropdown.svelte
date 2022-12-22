@@ -9,6 +9,8 @@
 
 	let show = false;
 	let container: HTMLDivElement;
+	const headerBaseStyle =
+		'relative h-[40px] px-4 flex items-center border border-black bg-white z-1';
 
 	function selectOption(opt: string) {
 		dispatch(type, opt);
@@ -23,11 +25,23 @@
 <svelte:window on:click={onDropdownClick} />
 
 <div class="relative" bind:this={container}>
-	<div class='relative px-2 py-1 border border-1 border-black bg-white z-1' on:click={() => (show = !show)}>{value ? value : '선택해주세요'}</div>
+	<div
+		class={show
+			? headerBaseStyle + ' rounded-t-xl border-b-slate-300'
+			: headerBaseStyle + ' rounded-xl'}
+		on:click={() => (show = !show)}
+	>
+		{value ? value : '선택해주세요'}
+	</div>
 	{#if show}
-		<ul class="w-[100%] absolute border border-1 border-t-0 border-black bg-white z-10">
+		<ul class="w-[100%] absolute border border-t-0 rounded-b-xl border-black bg-white z-10">
 			{#each options as opt}
-				<li class='relative px-2 py-1 hover:bg-slate-500 hover:text-white' on:click={() => selectOption(opt)}>{opt}</li>
+				<li
+					class="relative h-[36px] px-4 flex items-center hover:bg-slate-500 hover:text-white"
+					on:click={() => selectOption(opt)}
+				>
+					{opt}
+				</li>
 			{/each}
 		</ul>
 	{/if}

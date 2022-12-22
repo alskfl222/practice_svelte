@@ -75,24 +75,34 @@
 		<div class="flex flex-col gap-2">
 			{#if bossName}
 				<img
-					class="w-[160px] h-[160px] object-cover"
+					class="w-[160px] h-[160px] rounded-xl object-cover"
 					src={`${bossInfo[bossName].image}`}
 					alt="boss img"
 				/>
-				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
+				<div
+					class="w-[160px] h-[48px] border rounded-xl border-black flex justify-center items-center"
+				>
 					{bossDC}
 				</div>
-				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
+				<div
+					class="w-[160px] h-[48px] border rounded-xl border-black flex justify-center items-center"
+				>
 					{headcount}인 파티, {required ? '필수!' : '선택?'}
 				</div>
 			{:else}
-				<div class="w-[160px] h-[160px] border border-black flex justify-center items-center">
+				<div
+					class="w-[160px] h-[160px] border rounded-xl border-black flex justify-center items-center"
+				>
 					<i class="fa-solid fa-question" />
 				</div>
-				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
+				<div
+					class="w-[160px] h-[48px] border rounded-xl border-black flex justify-center items-center"
+				>
 					<i class="fa-solid fa-question" />
 				</div>
-				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
+				<div
+					class="w-[160px] h-[48px] border rounded-xl border-black flex justify-center items-center"
+				>
 					<i class="fa-solid fa-list" />
 				</div>
 			{/if}
@@ -111,11 +121,32 @@
 			<Dropdown
 				type="bossDC"
 				value={bossDC}
-				options={bossName !== ''
-					? Object.keys(bossInfo[bossName].dc)
-					: ['보스를 먼저 선택해주세요']}
+				options={bossName !== '' ? Object.keys(bossInfo[bossName].dc) : ['보스가 없습니다']}
 				on:bossDC={handleSelect}
 			/>
+		</div>
+
+		<div class="w-[160px]">
+			<span class="font-bold">옵션</span>
+			<div
+				class="relative h-[40px] px-2 flex justify-center items-center gap-4 border rounded-xl border-black"
+			>
+				<span class="flex"
+					><input
+						type="text"
+						class="w-3 flex justify-center border-b border-b-slate-700"
+						bind:value={headcount}
+					/>인 파티</span
+				>
+				<span class="w-[30px] flex justify-between"
+					><input type="checkbox" bind:checked={required} />
+					{#if required}
+						<i class="fa-solid fa-exclamation" />
+					{:else}
+						<i class="fa-solid fa-question" />
+					{/if}</span
+				>
+			</div>
 		</div>
 
 		<Button disabled={!addable} on:click={handleClick}
