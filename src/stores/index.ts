@@ -64,7 +64,7 @@ export const bossInfo: {
 };
 
 export const classInfo: {
-	[key in keyof ClassType] : {
+	[key in string] : {
 		group: string;
 	};
 } = {

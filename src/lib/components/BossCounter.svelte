@@ -50,8 +50,8 @@
 		{#each data as item, idx}
 			<div
 				class={idx === $counterIndex
-					? 'flex-none w-full min-h-[160px] px-4 flex flex-col'
-					: 'flex-none w-full h-[90px] px-4 flex flex-col'}
+					? 'flex-none w-full px-4 flex flex-col'
+					: 'flex-none w-full px-4 flex flex-col'}
 			>
 				<div
 					class={`relative w-full h-[90px] flex border rounded-2xl ${
@@ -80,17 +80,27 @@
 				</div>
 				{#if idx === $counterIndex}
 					<div
-						class="grow px-4 flex justify-between items-center
+						class="grow p-4 flex justify-between items-center
 									 border border-t-0 rounded-b-2xl"
 					>
 						<div class="flex gap-2">
 							{#each item[3] as char}
 								<div
-									class="px-4 py-2 flex gap-2 border rounded-xl"
+									class="w-full px-4 py-2 flex flex-col gap-2 border rounded-xl"
 									on:click|stopPropagation={() => selectChar(char[0])}
 								>
-									<span>{char[0]}</span> |
-									<span>{char[2]} 인</span>
+									<div class="flex gap-2">
+										<span>{char[0]}</span> |
+										<span>{char[2]} 인</span>
+									</div>
+									<div class={`border-b border-slate-400`} />
+									<span class="self-center">
+										{#if char[3]}
+											<i class="fa-solid fa-exclamation" />
+										{:else}
+											<i class="fa-solid fa-question" />
+										{/if}
+									</span>
 								</div>
 							{/each}
 						</div>

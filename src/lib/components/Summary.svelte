@@ -7,7 +7,7 @@
 		$Count < 180 ? '더 가능!' : $Count === 180 ? '꽉 채움!' : '줄이람!';
 </script>
 
-<div class="flex flex-col rounded-2xl bg-white">
+<div class="pb-8 flex flex-col rounded-2xl bg-white">
 	<div class="w-full flex justity-end">
 		<Title>보스 요약</Title>
 	</div>

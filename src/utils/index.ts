@@ -1,5 +1,14 @@
-import { maxBossCount, bossInfo, classInfo } from '../stores';
-import type { CharBoss, BossType, BossReport, Price, CharType, BossDC, BossReportDC, SortReport } from '../types';
+import { maxBossCount, bossInfo } from '../stores';
+import type {
+	CharBoss,
+	BossType,
+	BossReport,
+	Price,
+	CharType,
+	BossDC,
+	BossReportDC,
+	SortReport
+} from '../types';
 
 export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) => {
 	const nameArr = arr.map((boss) => boss.name);
@@ -13,8 +22,8 @@ export const getBossReport = (data: CharBoss[]) => {
 		char.boss.forEach((boss) => {
 			const row: CharType = { name: char.name, class: char.class, dc: boss.dc };
 			boss.dc.forEach((item) => {
-				const [dc, headcount, required] = item
-				const charDC: BossReportDC = [char.name, char.class, headcount, required]
+				const [dc, headcount, required] = item;
+				const charDC: BossReportDC = [char.name, char.class, headcount, required];
 				if (!obj[boss.name]) {
 					obj[boss.name] = { chars: [row], dc: { [dc]: [charDC] } };
 				} else {
@@ -76,9 +85,64 @@ export const reportSortByPrice = (report: BossReport) => {
 	if (Object.keys(report).length === 0) return [];
 	const arr: SortReport = [];
 	const bossSortByPrice = sortByPrice(bossInfo);
+
+	// const reqReport: BossReport = {};
+	// const optReport: BossReport = {};
+	// Object.entries(report).forEach((boss) => {
+	// 	const bossName = boss[0] as keyof typeof bossInfo;
+	// 	Object.entries(boss[1].dc).forEach((dc) => {
+	// 		const bossDC = dc[0] as keyof BossDC;
+	// 		dc[1].forEach((char) => {
+	// 			const [charName, className, headcount, required] = char;
+	// 			// const price = bossInfo[bossName].dc[bossDC]!;
+	// 			const charsRow = {
+	// 				name: charName,
+	// 				class: className,
+	// 				dc: [[bossDC, headcount, required] as [keyof BossDC, number, boolean]]
+	// 			};
+	// 			const dcRow: [string, keyof ClassType, number, boolean] = [
+	// 				charName,
+	// 				className,
+	// 				headcount,
+	// 				required
+	// 			];
+	// 			if (required) {
+	// 				if (!reqReport[bossName]) {
+	// 					reqReport[bossName] = {
+	// 						chars: [charsRow],
+	// 						dc: { [bossDC]: dcRow }
+	// 					};
+	// 				} else {
+	// 					reqReport[bossName].chars.push(charsRow);
+	// 					if (reqReport[bossName].dc[bossDC]) {
+	// 						reqReport[bossName].dc[bossDC]!.push(dcRow);
+	// 					} else {
+	// 						reqReport[bossName].dc[bossDC] = [dcRow];
+	// 					}
+	// 				}
+	// 			} else {
+	// 				if (!optReport[bossName]) {
+	// 					optReport[bossName] = {
+	// 						chars: [charsRow],
+	// 						dc: { [bossDC]: dcRow }
+	// 					};
+	// 				} else {
+	// 					optReport[bossName].chars.push(charsRow);
+	// 					if (optReport[bossName].dc[bossDC]) {
+	// 						optReport[bossName].dc[bossDC]!.push(dcRow);
+	// 					} else {
+	// 						optReport[bossName].dc[bossDC] = [dcRow];
+	// 					}
+	// 				}
+	// 			}
+	// 		});
+	// 	});
+	// });
+
+	// console.log(reqReport);
+	// console.log(optReport);
+
 	let count = 0;
-	const requiredArr = []
-	const optionalArr = []
 	bossSortByPrice.forEach((item) => {
 		const [boss, dc] = item;
 		if (report[boss]) {
@@ -93,9 +157,7 @@ export const reportSortByPrice = (report: BossReport) => {
 	return arr;
 };
 
-export const getTotalBossPrice = (
-	sortArr: SortReport
-) => {
+export const getTotalBossPrice = (sortArr: SortReport) => {
 	let price = 0;
 
 	sortArr.forEach((item) => {
