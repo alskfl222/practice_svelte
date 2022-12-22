@@ -21,13 +21,13 @@
 </script>
 
 <section
-	class="min-h-[240px] max-h-[560px] pb-8 flex flex-col rounded-3xl bg-white"
+	class="max-h-[560px] px-8 pb-8 flex flex-col rounded-3xl bg-white"
 	bind:this={container}
 	on:click={(e) => selectBoss(e)}
 >
 	<Title>보스별 정리</Title>
 	<Hbar />
-	<div class="flex flex-col gap-4 px-8 pt-8 overflow-auto">
+	<div class="flex flex-col gap-4 py-8 overflow-auto">
 		{#each data as item, idx}
 			<div
 				class={idx === $counterIndex
@@ -64,6 +64,6 @@
 		{/each}
 	</div>
 	{#if data.length === 0}
-		<span class="h-[80px] px-12 text-xl font-bold text-slate-700">아직 추가된 보스가 없습니다</span>
+		<span class="h-[80px] px-8 text-xl font-bold text-slate-700">아직 추가된 보스가 없습니다</span>
 	{/if}
 </section>

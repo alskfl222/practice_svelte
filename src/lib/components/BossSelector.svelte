@@ -35,44 +35,25 @@
 		bossDC = '';
 		headcount = 1;
 		required = false;
-		$counterIndex = undefined;	
+		$counterIndex = undefined;
 	}
 
 	function addBoss() {
 		const charBossIndex = searchBossIndex($store[$charIndex!].boss, bossName);
-		const bossImage = bossInfo[bossName].image;
-
-		if (bossDC) {
-			$store[$charIndex!].boss = newBossArr(
-				$store[$charIndex!].boss,
-				charBossIndex,
-				bossName,
-				bossImage,
-				bossDC,
-				headcount,
-				required
-			);
-		}
-		resetStatus()
+		$store[$charIndex!].boss = newBossArr($store[$charIndex!].boss, charBossIndex);
+		resetStatus();
 	}
 
-	function newBossArr(
-		arr: BossType[],
-		index: number,
-		name: keyof typeof bossInfo,
-		image: string,
-		dc: keyof BossDC,
-		headcount: Headcount,
-		required: Required
-	) {
+	function newBossArr(arr: BossType[], index: number) {
 		let res = arr.slice();
-		const item: [keyof BossDC, Headcount, Required] = [dc, headcount, required]
+		const item: [keyof BossDC, Headcount, Required] = [bossDC as keyof BossDC, headcount, required];
+		const imgHref = bossInfo[bossName].image;
 		if (index === -1) {
-			res.push({ name, image, dc: [item] });
+			res.push({ name: bossName as keyof typeof bossInfo, image: imgHref, dc: [item] });
 		} else {
-			const dcArr = res[index].dc.map(x => x[0]);
-			if (dcArr.includes(dc)) {
-				res[index].dc = res[index].dc.filter((x) => x[0] !== dc);
+			const dcArr = res[index].dc.map((x) => x[0]);
+			if (dcArr.includes(bossDC as keyof BossDC)) {
+				res[index].dc = res[index].dc.filter((x) => x[0] !== (bossDC as keyof BossDC));
 				if (res[index].dc.length === 0) {
 					res = [...res.slice(0, index), ...res.slice(index + 1)];
 				}
@@ -106,19 +87,18 @@
 				</div>
 			{:else}
 				<div class="w-[160px] h-[160px] border border-black flex justify-center items-center">
-					<i class="fa-solid fa-question"></i>
+					<i class="fa-solid fa-question" />
 				</div>
 				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
-					<i class="fa-solid fa-question"></i>
+					<i class="fa-solid fa-question" />
 				</div>
 				<div class="w-[160px] h-[48px] border border-black flex justify-center items-center">
-					<i class="fa-solid fa-list"></i>
+					<i class="fa-solid fa-list" />
 				</div>
-				
 			{/if}
 		</div>
 		<div class="w-[160px]">
-			<span class='font-bold'>보스</span>
+			<span class="font-bold">보스</span>
 			<Dropdown
 				type="bossName"
 				value={bossName}
@@ -127,18 +107,19 @@
 			/>
 		</div>
 		<div class="w-[160px]">
-			<span class='font-bold'>난이도</span>
+			<span class="font-bold">난이도</span>
 			<Dropdown
 				type="bossDC"
 				value={bossDC}
-				options={bossName !== '' ? Object.keys(bossInfo[bossName].dc) : ['보스를 먼저 선택해주세요']}
+				options={bossName !== ''
+					? Object.keys(bossInfo[bossName].dc)
+					: ['보스를 먼저 선택해주세요']}
 				on:bossDC={handleSelect}
 			/>
 		</div>
 
-		<Button
-			disabled={!addable}
-			on:click={handleClick}
-		>{addable ? '추가' : '선택을 완료해주세요'}</Button>
+		<Button disabled={!addable} on:click={handleClick}
+			>{addable ? '추가' : '선택을 완료해주세요'}</Button
+		>
 	</div>
 </div>
