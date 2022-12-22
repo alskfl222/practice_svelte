@@ -46,15 +46,22 @@
 			<div class="p-4 flex flex-col gap-4">
 				{#each $store[$charIndex].boss as boss, idx}
 					<div class="w-full h-[90px]">
-						<div class="h-[100%] flex justify-between items-center">
-							<div
-								class="w-[480px] h-[100%] px-12 py-4 flex items-center rounded-3xl
-												bg-cover bg-center bg-no-repeat text-4xl text-white font-bold"
-								style={`background-image: url(${boss.image})`}
-							>
-								{boss.name}
+						<div class="w-full h-full flex justify-between items-center">
+							<div class="relative w-full h-full rounded-3xl">
+								<img
+									src={`${boss.image}`}
+									alt="boss img"
+									class="absolute w-[480px] h-full rounded-l-3xl object-cover"
+								/>
+								<div
+									class="absolute w-[480px] h-full px-12 py-4 flex items-center
+												 bg-gradient-to-l from-white via-transparent to-transparent
+												 text-4xl text-white font-bold"
+								>
+									{boss.name}
+								</div>
 							</div>
-							<div class="h-[100%]">
+							<div class="h-[100%] flex gap-4">
 								{#each boss.dc as dc}
 									<div
 										on:click={() => deleteBoss(idx, dc[0])}
