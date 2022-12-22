@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Report, bossInfo, counterIndex } from '../../stores';
+	import { store, Report, bossInfo, charIndex, counterIndex } from '../../stores';
+	import type { Name } from '../../types';
 	import { reportSortByPrice } from '../../utils';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
@@ -13,10 +14,28 @@
 			if ($counterIndex === undefined || $counterIndex !== idx) {
 				$counterIndex = idx;
 				return;
-			} 
+			}
 		}
 		$counterIndex = undefined;
 	}
+
+	function getABossPrice(idx: number) {
+		const aBossReport = data[idx];
+		const [crystalPrice, charArr] = [aBossReport[2], aBossReport[3]];
+		let price = 0;
+		charArr.forEach((char) => {
+			const headcount = char[2];
+			price += Math.floor(crystalPrice / headcount);
+		});
+		return price;
+	}
+
+	function selectChar(name: Name) {
+		const nameArr = $store.map((char) => char.name);
+		$charIndex = nameArr.indexOf(name);
+		window.scrollTo(0, 90);
+	}
+
 	$: data = reportSortByPrice($Report);
 </script>
 
@@ -27,7 +46,7 @@
 >
 	<Title>보스별 정리</Title>
 	<Hbar />
-	<div class="flex flex-col gap-4 py-8 overflow-auto">
+	<div class="px-4 py-8 flex flex-col gap-6 overflow-auto">
 		{#each data as item, idx}
 			<div
 				class={idx === $counterIndex
@@ -35,28 +54,48 @@
 					: 'flex-none w-full h-[90px] px-4 flex flex-col'}
 			>
 				<div
-					class={`h-[90px] px-4 flex justify-between items-center text-white ${
-						idx === $counterIndex ? 'rounded-t-3xl' : 'rounded-3xl'
+					class={`relative w-full h-[90px] flex border rounded-2xl ${
+						idx === $counterIndex ? 'rounded-b-none' : ''
 					}`}
-					style={`background-image: url(${bossInfo[item[0]].image}`}
 					data-index={idx}
 				>
-					<div>
-						<span>{`${item[0]} ${item[1]}`}</span>
-						<span>{item[2]} 원</span>
+					<img
+						src={`${bossInfo[item[0]].image}`}
+						alt="boss img"
+						class={`absolute w-[480px] h-full ${
+							idx === $counterIndex ? 'rounded-tl-2xl' : 'rounded-l-2xl'
+						} object-cover`}
+					/>
+					<div
+						class="absolute w-[480px] h-full px-12 flex items-center
+								 bg-gradient-to-l from-white via-transparent to-transparent
+								 text-4xl text-white font-bold"
+						data-index={idx}
+					>
+						{item[0]}
 					</div>
-					<span>{`X ${item[3].length}`}</span>
+					<div class="absolute right-0 h-full flex items-center">
+						<span class="px-4" data-index={idx}>{`X ${item[3].length}`}</span>
+					</div>
 				</div>
 				{#if idx === $counterIndex}
-					<Hbar />
-					<div class="grow px-4 flex justify-between items-center border rounded-b-3xl">
+					<div
+						class="grow px-4 flex justify-between items-center
+									 border border-t-0 rounded-b-2xl"
+					>
 						<div class="flex gap-2">
 							{#each item[3] as char}
-								<span>{char[0]}</span>
+								<div
+									class="px-4 py-2 flex gap-2 border rounded-xl"
+									on:click|stopPropagation={() => selectChar(char[0])}
+								>
+									<span>{char[0]}</span> |
+									<span>{char[2]} 인</span>
+								</div>
 							{/each}
 						</div>
 						<span>
-							총 {item[2] * item[3].length} 원
+							총 {getABossPrice(idx)} 원
 						</span>
 					</div>
 				{/if}

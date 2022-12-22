@@ -43,18 +43,18 @@
 			{/if}
 		</div>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
-			<div class="p-4 flex flex-col gap-4">
+			<div class="max-h-[360px] p-4 flex flex-col gap-4 overflow-auto">
 				{#each $store[$charIndex].boss as boss, idx}
-					<div class="w-full h-[90px]">
+					<div class="flex-none w-full h-[90px]">
 						<div class="w-full h-full flex justify-between items-center">
-							<div class="relative w-full h-full rounded-3xl">
+							<div class="relative w-full h-full">
 								<img
 									src={`${boss.image}`}
 									alt="boss img"
-									class="absolute w-[480px] h-full rounded-l-3xl object-cover"
+									class="absolute w-[480px] h-full rounded-l-2xl object-cover"
 								/>
 								<div
-									class="absolute w-[480px] h-full px-12 py-4 flex items-center
+									class="absolute w-[480px] h-full px-12 flex items-center
 												 bg-gradient-to-l from-white via-transparent to-transparent
 												 text-4xl text-white font-bold"
 								>
