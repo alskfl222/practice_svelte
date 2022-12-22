@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { store, charIndex } from '../../stores';
 
-	let charContainer: HTMLDivElement;
+	let charContainer: HTMLElement;
 	let charScroll: HTMLElement;
 
 	function selectChar(e: MouseEvent) {
@@ -60,16 +60,16 @@
 				class={idx === $charIndex
 					? 'w-[270px] flex-none border rounded border-white bg-gradient-to-r from-cyan-500 to-blue-500 '
 					: 'w-[270px] flex-none border rounded border-cyan-500'}
-				
 			>
 				<div class="p-4 flex justify-between" data-index={idx}>
 					<div
 						class={idx === $charIndex
 							? 'flex gap-2 text-lg font-bold text-slate-100'
 							: 'flex gap-2 text-lg font-bold text-slate-700'}
+						data-index={idx}
 					>
-						<span>{char.name}</span>
-						<span>{char.class}</span>
+						<span data-index={idx}>{char.name}</span>
+						<span data-index={idx}>{char.class}</span>
 					</div>
 					<button
 						class={idx === $charIndex ? 'text-slate-100' : 'text-slate-700'}

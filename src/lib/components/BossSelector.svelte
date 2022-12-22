@@ -69,7 +69,7 @@
 </script>
 
 <div class="flex flex-col rounded-2xl bg-white">
-	<Title>보스</Title>
+	<Title>보스 추가</Title>
 	<Hbar />
 	<div class="pb-12 flex flex-col items-center gap-4">
 		<div class="flex flex-col gap-2">
