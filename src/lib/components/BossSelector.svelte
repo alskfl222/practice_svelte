@@ -4,11 +4,13 @@
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
 	import { store, charIndex, counterIndex, bossInfo } from '../../stores';
-	import type { BossType, BossDC } from '../../types';
+	import type { BossType, BossDC, Headcount, Required } from '../../types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '../../utils';
 
 	let bossName: keyof typeof bossInfo | '' = '';
 	let bossDC: keyof BossDC | '' = '';
+	let headcount: number = 1;
+	let required: boolean = false;
 
 	function handleSelect(event: CustomEvent) {
 		switch (event.type) {
@@ -28,6 +30,14 @@
 		if (event.type === 'click') addBoss();
 	}
 
+	function resetStatus() {
+		bossName = '';
+		bossDC = '';
+		headcount = 1;
+		required = false;
+		$counterIndex = undefined;	
+	}
+
 	function addBoss() {
 		const charBossIndex = searchBossIndex($store[$charIndex!].boss, bossName);
 		const bossImage = bossInfo[bossName].image;
@@ -38,12 +48,12 @@
 				charBossIndex,
 				bossName,
 				bossImage,
-				bossDC
+				bossDC,
+				headcount,
+				required
 			);
 		}
-		bossName = '';
-		bossDC = '';
-		$counterIndex = undefined;
+		resetStatus()
 	}
 
 	function newBossArr(
@@ -51,19 +61,23 @@
 		index: number,
 		name: keyof typeof bossInfo,
 		image: string,
-		dc: keyof BossDC
+		dc: keyof BossDC,
+		headcount: Headcount,
+		required: Required
 	) {
 		let res = arr.slice();
+		const item: [keyof BossDC, Headcount, Required] = [dc, headcount, required]
 		if (index === -1) {
-			res.push({ name, image, dc: [dc] });
+			res.push({ name, image, dc: [item] });
 		} else {
-			if (res[index].dc.includes(dc)) {
-				res[index].dc = res[index].dc.filter((str) => str !== dc);
+			const dcArr = res[index].dc.map(x => x[0]);
+			if (dcArr.includes(dc)) {
+				res[index].dc = res[index].dc.filter((x) => x[0] !== dc);
 				if (res[index].dc.length === 0) {
 					res = [...res.slice(0, index), ...res.slice(index + 1)];
 				}
 			} else {
-				res[index].dc.push(dc);
+				res[index].dc.push(item);
 				res[index].dc = sortByDC(res[index].dc);
 			}
 		}
@@ -84,16 +98,23 @@
 					src={`${bossInfo[bossName].image}`}
 					alt="boss img"
 				/>
-				<div class="w-[180px] h-[60px] border border-black flex justify-center items-center">
+				<div class="w-[180px] h-[48px] border border-black flex justify-center items-center">
 					{bossDC}
+				</div>
+				<div class="w-[180px] h-[48px] border border-black flex justify-center items-center">
+					{headcount}인 파티, {required ? '필수!' : '선택?'}
 				</div>
 			{:else}
 				<div class="w-[180px] h-[180px] border border-black flex justify-center items-center">
-					보스 이미지
+					<i class="fa-solid fa-question"></i>
 				</div>
-				<div class="w-[180px] h-[60px] border border-black flex justify-center items-center">
-					보스 난이도
+				<div class="w-[180px] h-[48px] border border-black flex justify-center items-center">
+					<i class="fa-solid fa-question"></i>
 				</div>
+				<div class="w-[180px] h-[48px] border border-black flex justify-center items-center">
+					<i class="fa-solid fa-list"></i>
+				</div>
+				
 			{/if}
 		</div>
 		<div class="w-[180px]">

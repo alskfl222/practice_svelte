@@ -22,7 +22,7 @@
 </script>
 
 <div class="p-8 pt-0 flex flex-col justify-between">
-	<Title text="캐릭터 추가" type="s" />
+	<Title type="s" >캐릭터 추가</Title>
 	<div class="px-4 py-0 flex justify-between">
 		<div class="flex gap-16">
 			<input

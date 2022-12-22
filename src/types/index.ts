@@ -1,5 +1,11 @@
 import type { bossInfo, classInfo } from '../stores';
 
+export type Name = string;
+export type Price = number;
+export type Headcount = number;
+export type Required = boolean;
+export type BossCount = number;
+
 export type BossDC = {
 	EASY?: number;
 	NORMAL?: number;
@@ -11,17 +17,21 @@ export type BossDC = {
 export type BossType = {
 	name: keyof typeof bossInfo;
 	image: string;
-	dc: (keyof BossDC)[];
+	dc: [(keyof BossDC), number, Required][];
 };
+
+export type BossReportDC = [Name, keyof typeof classInfo, Headcount, Required]
 
 export type BossReport = {
 	[key in keyof typeof bossInfo]: {
 		chars: CharType[];
-		dc: { [dc in keyof BossDC]: [string, keyof typeof classInfo][] }
+		dc: { [dc in keyof BossDC]: BossReportDC[] }
 	};
 };
 
-export type Price = number;
+export type SortReportItem = [keyof typeof bossInfo, keyof BossDC, Price, BossReportDC[], BossCount]
+export type SortReport = SortReportItem[]
+
 
 export type ClassType = {
 	A1?: {
@@ -63,13 +73,13 @@ export type ClassType = {
 }
 
 export type CharType = {
-	name?: string;
-	class?: string;
-	dc: (keyof BossDC)[];
+	name: Name;
+	class: keyof typeof classInfo;
+	dc: [(keyof BossDC), number, Required][];
 };
 
 export interface CharBoss {
-	name: string;
-	class: string;
+	name: Name;
+	class: keyof typeof classInfo;
 	boss: BossType[];
 }

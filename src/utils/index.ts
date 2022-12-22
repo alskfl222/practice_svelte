@@ -1,5 +1,5 @@
 import { maxBossCount, bossInfo, classInfo } from '../stores';
-import type { CharBoss, BossType, BossReport, Price, CharType, BossDC } from '../types';
+import type { CharBoss, BossType, BossReport, Price, CharType, BossDC, BossReportDC, SortReport } from '../types';
 
 export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) => {
 	const nameArr = arr.map((boss) => boss.name);
@@ -7,26 +7,23 @@ export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) =>
 };
 
 export const getBossReport = (data: CharBoss[]) => {
-	const obj: {
-		[key in keyof typeof bossInfo]: {
-			chars: CharType[];
-			dc: { [dc in keyof BossDC | string]: [string, string][] };
-		};
-	} = {};
+	const obj: BossReport = {};
 
 	data.forEach((char) => {
 		char.boss.forEach((boss) => {
-			const row: CharType = { name: char.name || '', class: char.class || '', dc: boss.dc };
-			boss.dc.forEach((dc) => {
+			const row: CharType = { name: char.name, class: char.class, dc: boss.dc };
+			boss.dc.forEach((item) => {
+				const [dc, headcount, required] = item
+				const charDC: BossReportDC = [char.name, char.class, headcount, required]
 				if (!obj[boss.name]) {
-					obj[boss.name] = { chars: [row], dc: { [dc]: [[char.name || '', char.class || '']] } };
+					obj[boss.name] = { chars: [row], dc: { [dc]: [charDC] } };
 				} else {
 					const bossDCObj = obj[boss.name]!.dc;
 					const isExistDC = dc in obj[boss.name]!.dc;
 					if (isExistDC) {
-						bossDCObj[dc].push([char.name || '', char.class || '']);
+						bossDCObj[dc]!.push(charDC);
 					} else {
-						bossDCObj[dc] = [[char.name || '', char.class || '']];
+						bossDCObj[dc] = [charDC];
 					}
 				}
 			});
@@ -59,9 +56,9 @@ export const sortByBoss = (bossArr: BossType[]) => {
 	return bossArr.slice().sort((a, b) => bossNames.indexOf(b.name) - bossNames.indexOf(a.name));
 };
 
-export const sortByDC = (arr: (keyof BossDC)[]) => {
+export const sortByDC = (arr: BossType['dc']) => {
 	const difficulties = ['EASY', 'NORMAL', 'HARD', 'CHAOS', 'EXTREME'];
-	return arr.slice().sort((a, b) => difficulties.indexOf(b) - difficulties.indexOf(a));
+	return arr.slice().sort((a, b) => difficulties.indexOf(b[0]) - difficulties.indexOf(a[0]));
 };
 
 export const sortByPrice = (data: typeof bossInfo) => {
@@ -77,9 +74,11 @@ export const sortByPrice = (data: typeof bossInfo) => {
 
 export const reportSortByPrice = (report: BossReport) => {
 	if (Object.keys(report).length === 0) return [];
-	const arr: [string, string, Price, [string, keyof typeof classInfo][], number][] = [];
+	const arr: SortReport = [];
 	const bossSortByPrice = sortByPrice(bossInfo);
 	let count = 0;
+	const requiredArr = []
+	const optionalArr = []
 	bossSortByPrice.forEach((item) => {
 		const [boss, dc] = item;
 		if (report[boss]) {
@@ -95,7 +94,7 @@ export const reportSortByPrice = (report: BossReport) => {
 };
 
 export const getTotalBossPrice = (
-	sortArr: [string, string, Price, [string, keyof typeof classInfo][], number][]
+	sortArr: SortReport
 ) => {
 	let price = 0;
 
