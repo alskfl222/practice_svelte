@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { store, Count, Price } from '../../stores';
+	import { store, Count, Price, maxBossCount } from '../../stores';
 	import Hbar from './common/Hbar.svelte';
 	import Title from './common/Title.svelte';
 	$: charCount = $store.length;
 	$: countStatus =
-		$Count < 180 ? '더 가능!' : $Count === 180 ? '꽉 채움!' : '줄이람!';
+		$Count < maxBossCount ? '더 가능!' : $Count === maxBossCount ? '꽉 채움!' : '줄이람!';
 </script>
 
 <div class="pb-8 flex flex-col rounded-2xl bg-white">

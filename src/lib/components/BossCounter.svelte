@@ -46,12 +46,11 @@
 >
 	<Title>보스별 정리</Title>
 	<Hbar />
-	<div class="px-4 py-8 flex flex-col gap-6 overflow-auto">
+	<div class="px-4 py-8 flex flex-col gap-9 overflow-auto">
 		{#each data as item, idx}
 			<div
-				class={idx === $counterIndex
-					? 'flex-none w-full px-4 flex flex-col'
-					: 'flex-none w-full px-4 flex flex-col'}
+				class="flex-none w-full px-4 flex flex-col transition"
+				class:scale-105={idx === $counterIndex}
 			>
 				<div
 					class={`relative w-full h-[90px] flex border rounded-2xl ${
@@ -67,12 +66,12 @@
 						} object-cover`}
 					/>
 					<div
-						class="absolute w-[480px] h-full px-12 flex items-center
+						class="absolute w-[480px] h-full px-12 flex items-center gap-6
 								 bg-gradient-to-l from-white via-transparent to-transparent
-								 text-4xl text-white font-bold"
+								 text-white font-bold"
 						data-index={idx}
 					>
-						{item[0]}
+						<span class="text-3xl">{item[0]}</span><span class="text-2xl">{item[1]}</span>
 					</div>
 					<div class="absolute right-0 h-full flex items-center">
 						<span class="px-4" data-index={idx}>{`X ${item[3].length}`}</span>
@@ -86,7 +85,10 @@
 						<div class="flex gap-2">
 							{#each item[3] as char}
 								<div
-									class="w-full px-4 py-2 flex flex-col gap-2 border rounded-xl"
+									class="w-full px-4 py-2 flex flex-col gap-2 border rounded-xl
+												 drop-shadow-lg cursor-pointer hover:bg-gray-500/30
+												 transition duration-100 ease-in-out"
+									class:border-red-400={char[3]}
 									on:click|stopPropagation={() => selectChar(char[0])}
 								>
 									<div class="flex gap-2">
@@ -95,11 +97,7 @@
 									</div>
 									<div class={`border-b border-slate-400`} />
 									<span class="self-center">
-										{#if char[3]}
-											<i class="fa-solid fa-exclamation" />
-										{:else}
-											<i class="fa-solid fa-question" />
-										{/if}
+										{Math.floor(item[2] / char[2])} 원
 									</span>
 								</div>
 							{/each}

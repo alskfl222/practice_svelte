@@ -161,12 +161,17 @@ export const getTotalBossPrice = (sortArr: SortReport) => {
 	let price = 0;
 
 	sortArr.forEach((item) => {
-		if (item[4] <= 180) {
-			price += item[2] * item[3].length;
+		if (item[4] <= maxBossCount) {
+			item[3].forEach((char) => {
+				price += Math.floor(item[2] / char[2]);
+			});
 		} else {
 			const rest = maxBossCount + item[3].length - item[4];
-			if (rest < 0) return;
-			price += item[2] * rest;
+			if (rest <= 0) return;
+			const restArr = item[3].slice(rest);
+			restArr.forEach((char) => {
+				price += Math.floor(item[2] / char[2]);
+			});
 		}
 	});
 

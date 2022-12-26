@@ -43,9 +43,9 @@
 			{/if}
 		</div>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
-			<div class="max-h-[360px] p-4 flex flex-col gap-4 overflow-auto">
+			<div class="max-h-[360px] p-4 flex flex-col gap-9 overflow-auto">
 				{#each $store[$charIndex].boss as boss, idx}
-					<div class="flex-none w-full h-[90px]">
+					<div class="flex-none w-full h-[120px]">
 						<div class="w-full h-full flex justify-between items-center">
 							<div class="relative w-full h-full">
 								<img
@@ -66,18 +66,13 @@
 									<div
 										on:click={() => deleteBoss(idx, dc[0])}
 										class="h-[100%] px-4 flex flex-col justify-center gap-2
-													 border rounded-2xl drop-shadow-lg cursor-pointer
+													 border border-2 rounded-2xl drop-shadow-lg cursor-pointer
 													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
+										class:border-red-400={dc[2]}
 									>
-										<span>{dc[0]}</span>
-										<div class="w-full flex justify-center gap-2">
-											<span>{dc[1]}인</span><span
-												>{#if dc[2]}
-													<i class="fa-solid fa-exclamation" />
-												{:else}
-													<i class="fa-solid fa-question" />
-												{/if}</span
-											>
+										<span class='font-bold'>{dc[0]}</span>
+										<div class="w-full flex justify-center gap-3">
+											<span>{dc[1]}인</span>
 										</div>
 									</div>
 								{/each}

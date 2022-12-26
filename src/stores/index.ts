@@ -1,8 +1,8 @@
 import { writable, derived } from 'svelte/store';
 import { getBossReport, getTotalBossCount, getBossPrice } from '../utils';
-import type { BossDC, ClassType, CharBoss } from '../types';
+import type { BossDC, CharBoss } from '../types';
 
-export const maxBossCount = 180;
+export const maxBossCount = 3;
 
 export const charIndex = writable<number | undefined>(undefined);
 export const counterIndex = writable<number | undefined>(undefined);
