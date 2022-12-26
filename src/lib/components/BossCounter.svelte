@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { store, Report, bossInfo, charIndex, counterIndex, maxBossCount } from '../../stores';
-	import type { Name } from '../../types';
+	import type { CharName, SortReportItem } from '../../types';
 	import { reportSortByPrice } from '../../utils';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
@@ -30,17 +30,25 @@
 		return price;
 	}
 
-	function selectChar(name: Name) {
+	function selectChar(name: CharName) {
 		const nameArr = $store.map((char) => char.name);
 		$charIndex = nameArr.indexOf(name);
 		window.scrollTo(0, 90);
+	}
+
+	function hasRequired(item: SortReportItem) {
+		const dcArr = item[3];
+		for (let i = 0; i < dcArr.length; i++) {
+			if (dcArr[i][3]) return true;
+		}
+		return false;
 	}
 
 	$: data = reportSortByPrice($Report);
 </script>
 
 <section
-	class="max-h-[560px] px-8 pb-8 flex flex-col rounded-3xl bg-white"
+	class="max-h-[600px] px-8 pb-8 flex flex-col rounded-3xl bg-white"
 	bind:this={container}
 	on:click={(e) => selectBoss(e)}
 >
@@ -51,12 +59,12 @@
 			<div
 				class="flex-none w-full px-4 flex flex-col transition"
 				class:scale-105={idx === $counterIndex}
-				class:opacity-50={item[4] - item[3].length > maxBossCount}
+				class:opacity-50={item[4] - item[3].length >= maxBossCount}
 			>
 				<div
-					class={`relative w-full h-[90px] flex border rounded-2xl ${
-						idx === $counterIndex ? 'rounded-b-none' : ''
-					}`}
+					class="relative w-full h-[90px] flex border rounded-2xl"
+					class:rounded-b-none={idx === $counterIndex}
+					class:border-red-400={hasRequired(item)}
 					data-index={idx}
 				>
 					<img
@@ -82,6 +90,7 @@
 					<div
 						class="grow p-4 flex justify-between items-center
 									 border border-t-0 rounded-b-2xl"
+						class:border-red-400={hasRequired(item)}
 					>
 						<div class="flex gap-2">
 							{#each item[3] as char}
