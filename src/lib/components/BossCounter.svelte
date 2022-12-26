@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { store, Report, bossInfo, charIndex, counterIndex } from '../../stores';
+	import { store, Report, bossInfo, charIndex, counterIndex, maxBossCount } from '../../stores';
 	import type { Name } from '../../types';
 	import { reportSortByPrice } from '../../utils';
 	import Title from './common/Title.svelte';
@@ -51,6 +51,7 @@
 			<div
 				class="flex-none w-full px-4 flex flex-col transition"
 				class:scale-105={idx === $counterIndex}
+				class:opacity-50={item[4] - item[3].length > maxBossCount}
 			>
 				<div
 					class={`relative w-full h-[90px] flex border rounded-2xl ${
@@ -91,8 +92,8 @@
 									class:border-red-400={char[3]}
 									on:click|stopPropagation={() => selectChar(char[0])}
 								>
-									<div class="flex gap-2">
-										<span>{char[0]}</span> |
+									<div class="flex flex-col items-center">
+										<span>{char[0]}</span>
 										<span>{char[2]} 인</span>
 									</div>
 									<div class={`border-b border-slate-400`} />
