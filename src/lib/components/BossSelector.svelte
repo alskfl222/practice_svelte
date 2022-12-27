@@ -46,7 +46,11 @@
 
 	function newBossArr(arr: BossType[], index: number) {
 		let res = arr.slice();
-		const item: [keyof BossDC, Headcount, Required] = [bossDC as keyof BossDC, headcount, required];
+		const item: [keyof BossDC, Headcount, Required] = [
+			bossDC as keyof BossDC,
+			Math.trunc(headcount),
+			required
+		];
 		const imgHref = bossInfo[bossName].image;
 		if (index === -1) {
 			res.push({ name: bossName as keyof typeof bossInfo, image: imgHref, dc: [item] });
@@ -129,21 +133,23 @@
 		<div class="w-[160px]">
 			<span class="font-bold">옵션</span>
 			<div
-				class="relative h-[40px] px-2 flex justify-center items-center gap-4 border rounded-xl border-black"
+				class="relative h-[72px] px-2 flex flex-col justify-center gap-1 border rounded-xl border-black"
 			>
-				<span class="flex"
-					><input
-						type="text"
-						class="w-3 flex justify-center border-b border-b-slate-700"
-						bind:value={headcount}
-					/>인 파티</span
-				>
-				<span class="w-[30px] flex justify-between"
+				<div class="flex items-center gap-2">
+					<select bind:value={headcount} required>
+						<option value="" disabled selected hidden>직업</option>
+						{#each [1, 2, 3, 4, 5, 6] as count}
+							<option value={count}>{count}인</option>
+						{/each}
+					</select>
+					파티
+				</div>
+				<span class="flex items-center gap-2"
 					><input type="checkbox" bind:checked={required} />
 					{#if required}
-						<i class="fa-solid fa-exclamation" />
+						필수 <i class="fa-solid fa-exclamation" />
 					{:else}
-						<i class="fa-solid fa-question" />
+						선택 <i class="fa-solid fa-question" />
 					{/if}</span
 				>
 			</div>

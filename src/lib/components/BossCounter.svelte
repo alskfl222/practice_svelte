@@ -62,7 +62,7 @@
 				class:opacity-50={item[4] - item[3].length >= maxBossCount}
 			>
 				<div
-					class="relative w-full h-[90px] flex border rounded-2xl"
+					class="relative w-full h-[90px] flex border border-2 rounded-2xl"
 					class:rounded-b-none={idx === $counterIndex}
 					class:border-red-400={hasRequired(item)}
 					data-index={idx}
@@ -89,7 +89,7 @@
 				{#if idx === $counterIndex}
 					<div
 						class="grow p-4 flex justify-between items-center
-									 border border-t-0 rounded-b-2xl"
+									 border-2 border-t-0 rounded-b-2xl"
 						class:border-red-400={hasRequired(item)}
 					>
 						<div class="flex gap-2">
