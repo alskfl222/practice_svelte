@@ -1,7 +1,7 @@
 <script lang="ts">
+	import '@fortawesome/fontawesome-free/js/all.min.js';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-
 	import '../app.css';
 	import Hbar from '$lib/components/common/Hbar.svelte';
 </script>
