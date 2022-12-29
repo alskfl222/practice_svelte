@@ -3,7 +3,8 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import '../app.css';
-	import Hbar from '$lib/components/common/Hbar.svelte';
+
+	export const ssr = false;
 </script>
 
 <div class='w-full min-h-[100vh] pb-32 flex justify-center bg-slate-200'>
