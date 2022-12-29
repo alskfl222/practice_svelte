@@ -41,6 +41,7 @@
 	function addBoss() {
 		const charBossIndex = searchBossIndex($store[$charIndex!].boss, bossName);
 		$store[$charIndex!].boss = newBossArr($store[$charIndex!].boss, charBossIndex);
+		localStorage.setItem('prev', JSON.stringify($store))
 		resetStatus();
 	}
 

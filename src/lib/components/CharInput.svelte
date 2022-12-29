@@ -1,20 +1,11 @@
 <script lang="ts">
 	import Title from './common/Title.svelte';
+	import Button from './common/Button.svelte';
 	import { store, classInfo } from '../../stores';
 	import type { CharBoss } from '../../types';
-	import Popup from './common/Popup.svelte';
-	import Button from './common/Button.svelte';
 
 	let charName: string = '';
 	let charClass: keyof typeof classInfo | '' = '';
-	let isPopupOpen: boolean = false;
-
-	function onMouseEnter() {
-		isPopupOpen = true;
-	}
-	function onMouseLeave() {
-		isPopupOpen = false;
-	}
 
 	function addChar() {
 		const newInfo: CharBoss = {
@@ -22,7 +13,11 @@
 			class: charClass as keyof typeof classInfo,
 			boss: []
 		};
-		store.update((data) => [...data, newInfo]);
+		store.update((data) => {
+			const newStore = [...data, newInfo];
+			localStorage.setItem('prev', JSON.stringify(newStore));
+			return newStore;
+		});
 		charName = '';
 		charClass = '';
 	}
@@ -34,9 +29,6 @@
 		const isCharClassValid = charClass !== '';
 		return isCharNameValid && isCharClassValid;
 	};
-	$: buttonStyle = isValid()
-		? 'w-[90px] p-2 border rounded-full bg-gradient-to-r from-sky-500 to-indigo-500	text-white'
-		: 'w-[90px] h-[42px] p-2 flex justify-center items-center border rounded-full bg-slate-500 text-white';
 </script>
 
 <div class="px-4 pb-8 flex flex-col justify-between">

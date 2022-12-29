@@ -15,6 +15,7 @@
 					...$store[$charIndex].boss.slice(idx + 1)
 				];
 			}
+			localStorage.setItem('prev', JSON.stringify($store));
 		}
 	}
 
@@ -70,7 +71,7 @@
 													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 										class:border-red-400={dc[2]}
 									>
-										<span class='font-bold'>{dc[0]}</span>
+										<span class="font-bold">{dc[0]}</span>
 										<div class="w-full flex justify-center gap-3">
 											<span>{dc[1]}인</span>
 										</div>
