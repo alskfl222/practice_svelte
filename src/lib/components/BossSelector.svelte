@@ -46,11 +46,7 @@
 
 	function newBossArr(arr: BossType[], index: number) {
 		let res = arr.slice();
-		const item: [keyof BossDC, Headcount, Required] = [
-			bossDC as keyof BossDC,
-			Math.trunc(headcount),
-			required
-		];
+		const item: [keyof BossDC, Headcount, Required] = [bossDC as keyof BossDC, headcount, required];
 		const imgHref = bossInfo[bossName].image;
 		if (index === -1) {
 			res.push({ name: bossName as keyof typeof bossInfo, image: imgHref, dc: [item] });
@@ -133,7 +129,7 @@
 		<div class="w-[160px]">
 			<span class="font-bold">옵션</span>
 			<div
-				class="relative h-[72px] px-2 flex flex-col justify-center gap-1 border rounded-xl border-black"
+				class="relative h-[72px] px-2 flex flex-col justify-center items-center gap-1 border rounded-xl border-black"
 			>
 				<div class="flex items-center gap-2">
 					<select bind:value={headcount} required>
@@ -155,8 +151,12 @@
 			</div>
 		</div>
 
-		<Button disabled={!addable} on:click={handleClick}
-			>{addable ? '추가' : '선택을 완료해주세요'}</Button
+		<Button disabled={!addable} on:click={handleClick} popup
+			><span slot="text">추가</span>
+			<div slot="popup">
+				<p class="whitespace-nowrap">보스와 난이도를</p>
+				<p class="whitespace-nowrap">모두 선택해 주세요</p>
+			</div></Button
 		>
 	</div>
 </div>
