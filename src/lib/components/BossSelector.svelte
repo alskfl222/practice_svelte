@@ -143,20 +143,24 @@
 				<span class="flex items-center gap-2"
 					><input type="checkbox" bind:checked={required} />
 					{#if required}
-						필수 <i class="fa-solid fa-exclamation" />
+						필수
 					{:else}
-						선택 <i class="fa-solid fa-question" />
+						선택
 					{/if}</span
 				>
 			</div>
 		</div>
 
-		<Button disabled={!addable} on:click={handleClick} popup
-			><span slot="text">추가</span>
-			<div slot="popup">
-				<p class="whitespace-nowrap">보스와 난이도를</p>
-				<p class="whitespace-nowrap">모두 선택해 주세요</p>
-			</div></Button
-		>
+		{#if addable}
+			<Button on:click={handleClick}><span slot="text">추가</span></Button>
+		{:else}
+			<Button disabled popup on:click={handleClick}
+				><span slot="text">추가</span>
+				<div slot="popup">
+					<p class="whitespace-nowrap">보스와 난이도를</p>
+					<p class="whitespace-nowrap">모두 선택해 주세요</p>
+				</div></Button
+			>
+		{/if}
 	</div>
 </div>
