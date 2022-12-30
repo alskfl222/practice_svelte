@@ -3,7 +3,9 @@ import { getBossReport, getTotalBossCount, getBossPrice } from '../utils';
 import type { BossDC, CharBoss } from '../types';
 
 export const maxBossCount = 3;
+export const minPCInnerWidth = 800;
 
+export const innerWidth = writable<number>(minPCInnerWidth);
 export const charIndex = writable<number | undefined>(undefined);
 export const counterIndex = writable<number | undefined>(undefined);
 export const store = writable<CharBoss[]>([]);

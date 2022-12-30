@@ -33,7 +33,7 @@
 
 <div class="px-4 pb-8 flex flex-col justify-between">
 	<Title type="s">캐릭터 추가</Title>
-	<div class="px-4 py-0 flex justify-between">
+	<div class="px-4 py-0 flex justify-between gap-8">
 		<div class="relative flex gap-16">
 			<input
 				bind:value={charName}

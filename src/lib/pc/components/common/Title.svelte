@@ -1,10 +1,9 @@
 <script lang="ts">
-	export let type: string = 'l';
-	let titleStyle: string = 'p-8 text-2xl font-bold text-slate-700';
-
-	$: {
-		if (type === 's') titleStyle = 'px-4 py-6 text-xl font-bold text-slate-700';
-	}
+	export let type: keyof typeof titleStyle = 'l';
+	const titleStyle = {
+		l: 'p-8 text-2xl font-bold text-slate-700 whitespace-nowrap',
+		s: 'px-4 py-6 text-xl font-bold text-slate-700 whitespace-nowrap'
+	};
 </script>
 
-<h1 class={titleStyle}><slot /></h1>
+<h1 class={titleStyle[type]}><slot /></h1>
