@@ -1,7 +1,7 @@
 <script lang="ts">
-	import CharBossViewer from '$lib/components/CharBossViewer.svelte';
-	import BossCounter from '$lib/components/BossCounter.svelte';
-	import Sidebar from '$lib/components/Sidebar.svelte';
+	import CharBossViewer from '$lib/pc/components/CharBossViewer.svelte';
+	import BossCounter from '$lib/pc/components/BossCounter.svelte';
+	import Sidebar from '$lib/pc/components/Sidebar.svelte';
 </script>
 
 <svelte:head>

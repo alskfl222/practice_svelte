@@ -1,6 +1,6 @@
 <script>
-	import Title from '$lib/components/common/Title.svelte';
-	import Hbar from '$lib/components/common/Hbar.svelte';
+	import Title from '$lib/pc/components/common/Title.svelte';
+	import Hbar from '$lib/pc/components/common/Hbar.svelte';
 </script>
 
 <svelte:head>

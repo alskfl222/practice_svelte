@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { store, Count, Price, maxBossCount } from '../../stores';
+	import { store, Count, Price, maxBossCount } from '$stores';
 	import Hbar from './common/Hbar.svelte';
 	import Title from './common/Title.svelte';
 	$: charCount = $store.length;

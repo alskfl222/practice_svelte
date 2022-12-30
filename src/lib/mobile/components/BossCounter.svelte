@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { store, Report, bossInfo, charIndex, counterIndex, maxBossCount } from '../../stores';
-	import type { CharName, SortReportItem } from '../../types';
-	import { reportSortByPrice } from '../../utils';
+	import { store, Report, bossInfo, charIndex, counterIndex, maxBossCount } from '$stores';
+	import type { CharName, SortReportItem } from '$types';
+	import { reportSortByPrice } from '$utils';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
 

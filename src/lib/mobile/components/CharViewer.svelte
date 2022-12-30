@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { store, charIndex } from '../../stores';
+	import { store, charIndex } from '$stores';
 
 	let charContainer: HTMLElement;
 	let charScroll: HTMLElement;

@@ -4,7 +4,7 @@
 	import BossViewer from './BossViewer.svelte';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
-	import { store, charIndex } from '../../stores';
+	import { store, charIndex } from '$stores';
 
 	function deselectChar() {
 		$charIndex = undefined;

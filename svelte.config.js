@@ -6,7 +6,12 @@ const config = {
 	preprocess: preprocess({ postcss: true }),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		alias: {
+			$stores: 'src/stores',
+			$types: 'src/types',
+			$utils: 'src/utils'
+		}
 	}
 };
 

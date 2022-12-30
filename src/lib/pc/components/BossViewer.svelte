@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { BossDC } from 'src/types';
-	import { store, charIndex } from '../../stores';
+	import type { BossDC } from '$types';
+	import { store, charIndex } from '$stores';
 
 	let count: number = 0;
 

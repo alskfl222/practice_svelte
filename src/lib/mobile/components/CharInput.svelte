@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Title from './common/Title.svelte';
 	import Button from './common/Button.svelte';
-	import { store, classInfo } from '../../stores';
-	import type { CharBoss } from '../../types';
+	import { store, classInfo } from '$stores';
+	import type { CharBoss } from '$types';
 
 	let charName: string = '';
 	let charClass: keyof typeof classInfo | '' = '';

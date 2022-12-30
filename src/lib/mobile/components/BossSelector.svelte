@@ -3,9 +3,9 @@
 	import Dropdown from './common/Dropdown.svelte';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
-	import { store, charIndex, counterIndex, bossInfo } from '../../stores';
-	import type { BossType, BossDC, Headcount, Required } from '../../types';
-	import { searchBossIndex, sortByBoss, sortByDC } from '../../utils';
+	import { store, charIndex, counterIndex, bossInfo } from '$stores';
+	import type { BossType, BossDC, Headcount, Required } from '$types';
+	import { searchBossIndex, sortByBoss, sortByDC } from '$utils';
 
 	let bossName: keyof typeof bossInfo | '' = '';
 	let bossDC: keyof BossDC | '' = '';
@@ -41,7 +41,7 @@
 	function addBoss() {
 		const charBossIndex = searchBossIndex($store[$charIndex!].boss, bossName);
 		$store[$charIndex!].boss = newBossArr($store[$charIndex!].boss, charBossIndex);
-		localStorage.setItem('prev', JSON.stringify($store))
+		localStorage.setItem('prev', JSON.stringify($store));
 		resetStatus();
 	}
 
