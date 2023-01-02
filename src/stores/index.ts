@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store';
 import { getBossReport, getTotalBossCount, getBossPrice } from '../utils';
-import type { BossDC, CharBoss } from '../types';
+import type { BossDCType, CharBossType } from '../types';
 
 export const maxBossCount = 3;
 export const minPCInnerWidth = 800;
@@ -8,7 +8,7 @@ export const minPCInnerWidth = 800;
 export const innerWidth = writable<number>(minPCInnerWidth);
 export const charIndex = writable<number | undefined>(undefined);
 export const counterIndex = writable<number | undefined>(undefined);
-export const store = writable<CharBoss[]>([]);
+export const store = writable<CharBossType[]>([]);
 export const Report = derived(store, getBossReport)
 export const Count = derived(Report, getTotalBossCount)
 export const Price = derived(Report, getBossPrice)
@@ -16,7 +16,7 @@ export const Price = derived(Report, getBossPrice)
 export const bossInfo: {
 	[key in string]: {
 		image: string;
-		dc: BossDC;
+		dc: BossDCType;
 	};
 } = {
 	a: {

@@ -2,13 +2,13 @@
 	import Title from './common/Title.svelte';
 	import Button from './common/Button.svelte';
 	import { store, classInfo } from '$stores';
-	import type { CharBoss } from '$types';
+	import type { CharBossType } from '$types';
 
 	let charName: string = '';
 	let charClass: keyof typeof classInfo | '' = '';
 
 	function addChar() {
-		const newInfo: CharBoss = {
+		const newInfo: CharBossType = {
 			name: charName,
 			class: charClass as keyof typeof classInfo,
 			boss: []

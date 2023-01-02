@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { BossDC } from '$types';
+	import type { BossDCType } from '$types';
 	import { store, charIndex } from '$stores';
 
 	let count: number = 0;
 
-	function deleteBoss(idx: number, dc: keyof BossDC) {
+	function deleteBoss(idx: number, dc: keyof BossDCType) {
 		if ($charIndex !== undefined) {
 			let charBossDC = $store[$charIndex].boss[idx].dc;
 			charBossDC = charBossDC.filter((x) => x[0] !== dc);

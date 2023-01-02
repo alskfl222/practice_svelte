@@ -4,11 +4,11 @@
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
 	import { store, charIndex, counterIndex, bossInfo } from '$stores';
-	import type { BossType, BossDC, Headcount, Required } from '$types';
+	import type { BossType, BossDCType, HeadcountType, RequiredType } from '$types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '$utils';
 
 	let bossName: keyof typeof bossInfo | '' = '';
-	let bossDC: keyof BossDC | '' = '';
+	let bossDC: keyof BossDCType | '' = '';
 	let headcount: number = 1;
 	let required: boolean = false;
 
@@ -47,14 +47,14 @@
 
 	function newBossArr(arr: BossType[], index: number) {
 		let res = arr.slice();
-		const item: [keyof BossDC, Headcount, Required] = [bossDC as keyof BossDC, headcount, required];
+		const item: [keyof BossDCType, HeadcountType, RequiredType] = [bossDC as keyof BossDCType, headcount, required];
 		const imgHref = bossInfo[bossName].image;
 		if (index === -1) {
 			res.push({ name: bossName as keyof typeof bossInfo, image: imgHref, dc: [item] });
 		} else {
 			const dcArr = res[index].dc.map((x) => x[0]);
-			if (dcArr.includes(bossDC as keyof BossDC)) {
-				res[index].dc = res[index].dc.filter((x) => x[0] !== (bossDC as keyof BossDC));
+			if (dcArr.includes(bossDC as keyof BossDCType)) {
+				res[index].dc = res[index].dc.filter((x) => x[0] !== (bossDC as keyof BossDCType));
 				if (res[index].dc.length === 0) {
 					res = [...res.slice(0, index), ...res.slice(index + 1)];
 				}

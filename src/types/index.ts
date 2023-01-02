@@ -1,53 +1,60 @@
 import type { bossInfo, classInfo } from '../stores';
 
-export type CharName = string;
-export type ClassName = keyof typeof classInfo;
-export type BossName = keyof typeof bossInfo;
-export type Price = number;
-export type Headcount = number;
-export type Required = boolean;
-export type BossCount = number;
+export type CharNameType = string;
+export type ClassNameType = keyof typeof classInfo;
+export type BossNameType = keyof typeof bossInfo;
+export type PriceType = number;
+export type HeadcountType = number;
+export type RequiredType = boolean;
+export type BossCountType = number;
 
-export type BossDC = {
-	EASY?: Price;
-	NORMAL?: Price;
-	HARD?: Price;
-	CHAOS?: Price;
-	EXTREME?: Price;
+export type BossDCType = {
+	EASY?: PriceType;
+	NORMAL?: PriceType;
+	HARD?: PriceType;
+	CHAOS?: PriceType;
+	EXTREME?: PriceType;
 };
+
+export type SelectBossType = {
+  bossName: keyof typeof bossInfo | '';
+  bossDC: keyof BossDCType | '';
+  headcount: number;
+  required: boolean;
+}
 
 export type BossType = {
-	name: BossName;
+	name: BossNameType;
 	image: string;
-	dc: [keyof BossDC, Price, Required][];
+	dc: [keyof BossDCType, PriceType, RequiredType][];
 };
 
-export type BossReportDC = [CharName, ClassName, Headcount, Required];
+export type BossReportDCType = [CharNameType, ClassNameType, HeadcountType, RequiredType];
 
-export type BossReport = {
-	[key in BossName]: {
+export type BossReportType = {
+	[key in BossNameType]: {
 		chars: CharType[];
-		dc: { [dc in keyof BossDC]: BossReportDC[] };
+		dc: { [dc in keyof BossDCType]: BossReportDCType[] };
 	};
 };
 
-export type SortReportItem = [BossName, keyof BossDC, Price, BossReportDC[], BossCount];
-export type SortReport = SortReportItem[];
+export type SortReportItemType = [BossNameType, keyof BossDCType, PriceType, BossReportDCType[], BossCountType];
+export type SortReportType = SortReportItemType[];
 
 export type ClassType = {
-	[key in ClassName]?: {
+	[key in ClassNameType]?: {
 		group: string;
 	};
 };
 
 export type CharType = {
-	name: CharName;
-	class: ClassName;
-	dc: [keyof BossDC, BossCount, Required][];
+	name: CharNameType;
+	class: ClassNameType;
+	dc: [keyof BossDCType, BossCountType, RequiredType][];
 };
 
-export interface CharBoss {
-	name: CharName;
-	class: ClassName;
+export interface CharBossType {
+	name: CharNameType;
+	class: ClassNameType;
 	boss: BossType[];
 }
