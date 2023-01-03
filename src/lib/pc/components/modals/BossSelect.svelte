@@ -76,7 +76,19 @@
 		<div class="w-[160px]">
 			<span class="font-bold">보스</span>
 			<Dropdown type="bossName" options={Object.keys(bossInfo)} on:bossName={handleSelect}
-				>{$selectBoss.bossName}</Dropdown
+				>{#if $selectBoss.bossName}
+					<img
+						class="w-[160px] h-[160px] rounded-xl object-cover"
+						src={`${bossInfo[$selectBoss.bossName].image}`}
+						alt="boss img"
+					/>
+				{:else}
+					<div
+						class="w-[160px] h-[160px] border rounded-xl border-black flex justify-center items-center"
+					>
+						<i class="fa-solid fa-question" />
+					</div>
+				{/if}</Dropdown
 			>
 		</div>
 		<div class="w-[160px]">
@@ -86,7 +98,17 @@
 				options={$selectBoss.bossName !== ''
 					? Object.keys(bossInfo[$selectBoss.bossName].dc)
 					: ['보스가 없습니다']}
-				on:bossDC={handleSelect}>{$selectBoss.bossDC}</Dropdown
+				on:bossDC={handleSelect}
+			>
+				{#if $selectBoss.bossDC}
+					{$selectBoss.bossDC}
+				{:else}
+					<div
+						class="w-[160px] h-[72px] border rounded-xl border-black flex justify-center items-center"
+					>
+						<i class="fa-solid fa-question" />
+					</div>
+				{/if}</Dropdown
 			>
 		</div>
 
@@ -116,7 +138,7 @@
 		</div>
 	</div>
 	<Hbar />
-	<div class='py-8 flex justify-center'>
+	<div class="py-8 flex justify-center">
 		{#if addable}
 			<Button on:click={handleClick}><span slot="text">추가</span></Button>
 		{:else}
