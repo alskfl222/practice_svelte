@@ -4,7 +4,9 @@
 	import { beforeUpdate } from 'svelte';
 	import Header from '$lib/pc/components/Header.svelte';
 	import Footer from '$lib/pc/components/Footer.svelte';
+	import Modal from '$lib/pc/components/modals/Modal.svelte';
 	import { minPCInnerWidth, innerWidth, store } from '$stores';
+	import { showModal } from '$stores/modal';
 	import '../app.css';
 
 	beforeUpdate(() => {
@@ -16,6 +18,9 @@
 
 </script>
 
+{#if $showModal}
+	<Modal on:click={() => $showModal = !$showModal}/>
+{/if}
 {#if $innerWidth >= minPCInnerWidth}
 	<div class="w-full min-h-[100vh] px-4 pb-32 flex justify-center bg-slate-200 xl:px-0">
 		<div class="w-full min-w-[768px] max-w-[1200px] flex flex-col">
