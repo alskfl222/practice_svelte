@@ -1,8 +1,14 @@
 <script lang="ts">
 	import type { BossDCType } from '$types';
 	import { store, charIndex } from '$stores';
+	import { showModal, modalType } from '$stores/modal';
 
 	let count: number = 0;
+
+	function openModal() {
+		$showModal = true;
+		$modalType = 'BossSelect'
+	}
 
 	function deleteBoss(idx: number, dc: keyof BossDCType) {
 		if ($charIndex !== undefined) {
@@ -43,6 +49,7 @@
 				총 {$store[$charIndex].boss.length}종 {count}개
 			{/if}
 		</div>
+		<button on:click={openModal}>보스 추가</button>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
 			<div class="max-h-[360px] p-4 flex flex-col gap-9 overflow-auto">
 				{#each $store[$charIndex].boss as boss, idx}

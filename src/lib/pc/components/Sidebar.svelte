@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import BossSelector from './BossSelector.svelte';
 	import Summary from './Summary.svelte';
-	import { charIndex } from '$stores';
 </script>
 
 <div
@@ -10,9 +8,5 @@
 				 xl:relative xl:w-[240px] xl:mx-0"
 	transition:fly
 >
-	{#if $charIndex !== undefined}
-		<BossSelector />
-	{:else}
-		<Summary />
-	{/if}
+	<Summary />
 </div>
