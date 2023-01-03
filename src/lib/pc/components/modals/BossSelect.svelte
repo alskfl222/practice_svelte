@@ -3,8 +3,8 @@
 	import Dropdown from '../common/Dropdown.svelte';
 	import Title from '../common/Title.svelte';
 	import Hbar from '../common/Hbar.svelte';
-	import { store, charIndex, counterIndex, bossInfo } from '$stores';
-	import { selectBoss, initSelectBoss } from '$stores/boss';
+	import { store, charIndex, bossInfo } from '$stores';
+	import { selectBoss } from '$stores/boss';
 	import type { BossType, BossDCType, HeadcountType, RequiredType } from '$types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '$utils';
 
@@ -26,16 +26,16 @@
 		if (event.type === 'click') addBoss();
 	}
 
-	function resetStatus() {
-		$selectBoss = initSelectBoss;
-		$counterIndex = undefined;
-	}
-
 	function addBoss() {
 		const charBossIndex = searchBossIndex($store[$charIndex!].boss, $selectBoss.bossName);
 		$store[$charIndex!].boss = newBossArr($store[$charIndex!].boss, charBossIndex);
 		localStorage.setItem('prev', JSON.stringify($store));
-		resetStatus();
+		$selectBoss = {
+			bossName: '',
+			bossDC: '',
+			headcount: 1,
+			required: false
+		};
 	}
 
 	function newBossArr(arr: BossType[], index: number) {
@@ -66,66 +66,28 @@
 		return res;
 	}
 	$: addable = $charIndex !== undefined && $selectBoss.bossName !== '' && $selectBoss.bossDC !== '';
+	$: console.log($selectBoss);
 </script>
 
-<div class="flex flex-col rounded-2xl bg-white">
+<div class="min-h-[40vh] p-8 flex flex-col rounded-2xl bg-white">
 	<Title>보스 추가</Title>
 	<Hbar />
-	<div class="pb-12 flex flex-col items-center gap-4">
-		<div class="flex flex-col gap-2">
-			{#if $selectBoss.bossName}
-				<img
-					class="w-[160px] h-[160px] rounded-xl object-cover"
-					src={`${bossInfo[$selectBoss.bossName].image}`}
-					alt="boss img"
-				/>
-				<div
-					class="w-[160px] h-[48px] border rounded-xl border-black flex justify-center items-center"
-				>
-					{$selectBoss.bossDC}
-				</div>
-				<div
-					class="w-[160px] h-[48px] border rounded-xl border-black flex justify-center items-center"
-				>
-					{$selectBoss.headcount}인 파티, {$selectBoss.required ? '필수!' : '선택?'}
-				</div>
-			{:else}
-				<div
-					class="w-[160px] h-[160px] border rounded-xl border-black flex justify-center items-center"
-				>
-					<i class="fa-solid fa-question" />
-				</div>
-				<div
-					class="w-[160px] h-[48px] border rounded-xl border-black flex justify-center items-center"
-				>
-					<i class="fa-solid fa-question" />
-				</div>
-				<div
-					class="w-[160px] h-[48px] border rounded-xl border-black flex justify-center items-center"
-				>
-					<i class="fa-solid fa-list" />
-				</div>
-			{/if}
-		</div>
+	<div class="flex py-8 items-center gap-4">
 		<div class="w-[160px]">
 			<span class="font-bold">보스</span>
-			<Dropdown
-				type="bossName"
-				value={$selectBoss.bossName}
-				options={Object.keys(bossInfo)}
-				on:bossName={handleSelect}
-			/>
+			<Dropdown type="bossName" options={Object.keys(bossInfo)} on:bossName={handleSelect}
+				>{$selectBoss.bossName}</Dropdown
+			>
 		</div>
 		<div class="w-[160px]">
 			<span class="font-bold">난이도</span>
 			<Dropdown
 				type="bossDC"
-				value={$selectBoss.bossDC}
 				options={$selectBoss.bossName !== ''
 					? Object.keys(bossInfo[$selectBoss.bossName].dc)
 					: ['보스가 없습니다']}
-				on:bossDC={handleSelect}
-			/>
+				on:bossDC={handleSelect}>{$selectBoss.bossDC}</Dropdown
+			>
 		</div>
 
 		<div class="w-[160px]">
@@ -152,7 +114,9 @@
 				>
 			</div>
 		</div>
-
+	</div>
+	<Hbar />
+	<div class='py-8 flex justify-center'>
 		{#if addable}
 			<Button on:click={handleClick}><span slot="text">추가</span></Button>
 		{:else}

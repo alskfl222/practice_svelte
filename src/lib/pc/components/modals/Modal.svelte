@@ -13,7 +13,7 @@
 </script>
 
 {#if $modalType}
-	<div on:click|self class="fixed z-50 w-screen h-screen flex justify-center bg-black/30">
+	<div on:click|self class="fixed z-50 w-screen h-screen pb-20 flex justify-center items-center bg-black/30">
 		<svelte:component this={component[$modalType]} on:click />
 	</div>
 {/if}

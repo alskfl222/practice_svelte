@@ -2,7 +2,6 @@
 	import { createEventDispatcher } from 'svelte';
 
 	export let type: string;
-	export let value: string;
 	export let options: string[];
 
 	const dispatch = createEventDispatcher();
@@ -31,7 +30,7 @@
 			: headerBaseStyle + ' rounded-xl'}
 		on:click={() => (show = !show)}
 	>
-		{value ? value : '선택해주세요'}
+		<slot />
 	</div>
 	{#if show}
 		<ul class="w-[100%] absolute border border-t-0 rounded-b-xl border-black bg-white z-10">

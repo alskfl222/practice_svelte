@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { store, Report, bossInfo, charIndex, counterIndex, maxBossCount } from '$stores';
-	import type { CharName, SortReportItem } from '$types';
+	import type { CharNameType, SortReportItemType } from '$types';
 	import { reportSortByPrice } from '$utils';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
@@ -30,13 +30,13 @@
 		return price;
 	}
 
-	function selectChar(name: CharName) {
+	function selectChar(name: CharNameType) {
 		const nameArr = $store.map((char) => char.name);
 		$charIndex = nameArr.indexOf(name);
 		window.scrollTo(0, 90);
 	}
 
-	function hasRequired(item: SortReportItem) {
+	function hasRequired(item: SortReportItemType) {
 		const dcArr = item[3];
 		for (let i = 0; i < dcArr.length; i++) {
 			if (dcArr[i][3]) return true;
@@ -62,7 +62,7 @@
 				class:opacity-50={item[4] - item[3].length >= maxBossCount}
 			>
 				<div
-					class="relative w-full h-[90px] flex border border-2 rounded-2xl"
+					class="relative w-full h-[90px] flex border-2 rounded-2xl"
 					class:rounded-b-none={idx === $counterIndex}
 					class:border-red-400={hasRequired(item)}
 					data-index={idx}
