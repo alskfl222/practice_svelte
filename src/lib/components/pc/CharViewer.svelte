@@ -24,6 +24,7 @@
 		let x = 0;
 		const minX = 0;
 
+
 		node.style.position = 'relative';
 		node.style.left = `${x}px`;
 		node.style.userSelect = 'none';
@@ -45,8 +46,10 @@
 			moving = false;
 		});
 	}
-
-	$: maxX = $store.length * (270 + 16) - (904 - 32 * 2);
+	$: maxX = 0;
+	$: if (charScroll) {
+		maxX = $store.length * (270 + 16) - charScroll.offsetWidth
+	}
 </script>
 
 <div
@@ -54,7 +57,7 @@
 	bind:this={charContainer}
 	on:click|stopPropagation={(e) => selectChar(e)}
 >
-	<div class="w-[830px] p-2 flex gap-4" bind:this={charScroll} use:dragEl>
+	<div class="w-full p-2 flex gap-4" bind:this={charScroll} use:dragEl>
 		{#each $store as char, idx}
 			<div
 				class={idx === $charIndex

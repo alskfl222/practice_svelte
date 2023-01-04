@@ -6,7 +6,7 @@
 	import CharBossViewerM from '$lib/components/mobile/CharBossViewer.svelte';
 	import BossCounterM from '$lib/components/mobile/BossCounter.svelte';
 	import StatusBar from '$lib/components/mobile/StatusBar.svelte';
-	import { minPCInnerWidth, platform } from '$stores';
+	import { platform } from '$stores';
 </script>
 
 <svelte:head>

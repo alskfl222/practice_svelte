@@ -35,6 +35,7 @@
 			if (!moving) return;
 			e.preventDefault();
 			x += e.movementX;
+			console.log(x)
 			if (minX < maxX) {
 				if (x > minX) x = 0;
 				if (x < -maxX) x = -maxX;
@@ -46,7 +47,12 @@
 		});
 	}
 
-	$: maxX = $store.length * (270 + 16) - (904 - 32 * 2);
+	$: if (charScroll) {
+		maxX = $store.length * (160 + 16) - charScroll.offsetWidth;
+		console.log(charScroll.offsetWidth);
+		console.log(maxX);
+	}
+	$: maxX = 100;
 </script>
 
 <div
@@ -54,18 +60,18 @@
 	bind:this={charContainer}
 	on:click|stopPropagation={(e) => selectChar(e)}
 >
-	<div class="w-[830px] p-2 flex gap-4" bind:this={charScroll} use:dragEl>
+	<div class="w-full p-2 flex gap-4" bind:this={charScroll} use:dragEl>
 		{#each $store as char, idx}
 			<div
 				class={idx === $charIndex
-					? 'w-[270px] flex-none border rounded-lg border-white bg-gradient-to-r from-cyan-500 to-blue-500 '
-					: 'w-[270px] flex-none border rounded-lg border-cyan-500'}
+					? 'w-[20%] min-w-[160px] flex-none border rounded-lg border-white bg-gradient-to-r from-cyan-500 to-blue-500 '
+					: 'w-[20%] min-w-[160px] flex-none border rounded-lg border-cyan-500'}
 			>
-				<div class="p-4 flex justify-between" data-index={idx}>
+				<div class="px-4 py-3 flex justify-between" data-index={idx}>
 					<div
 						class={idx === $charIndex
-							? 'flex gap-2 text-lg font-bold text-slate-100'
-							: 'flex gap-2 text-lg font-bold text-slate-700'}
+							? 'flex gap-2 font-bold text-slate-100'
+							: 'flex gap-2 font-bold text-slate-700'}
 						data-index={idx}
 					>
 						<span data-index={idx}>{char.name}</span>
