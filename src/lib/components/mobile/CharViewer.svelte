@@ -23,36 +23,35 @@
 		let moving = false;
 		let x = 0;
 		const minX = 0;
+		let startX = 0;
 
 		node.style.position = 'relative';
 		node.style.left = `${x}px`;
 		node.style.userSelect = 'none';
 
-		node.addEventListener('mousedown', () => {
+		node.addEventListener('touchstart', (e) => {
 			moving = true;
+			startX = e.touches[0].clientX;
 		});
-		window.addEventListener('mousemove', (e) => {
+		window.addEventListener('touchmove', (e) => {
 			if (!moving) return;
-			e.preventDefault();
-			x += e.movementX;
-			console.log(x)
+			let moveX = e.touches[0].clientX - startX;
+			x += moveX;
 			if (minX < maxX) {
 				if (x > minX) x = 0;
 				if (x < -maxX) x = -maxX;
 				node.style.left = `${x}px`;
 			}
 		});
-		window.addEventListener('mouseup', () => {
+		window.addEventListener('touchend', () => {
 			moving = false;
 		});
 	}
 
+	$: maxX = 0;
 	$: if (charScroll) {
 		maxX = $store.length * (160 + 16) - charScroll.offsetWidth;
-		console.log(charScroll.offsetWidth);
-		console.log(maxX);
 	}
-	$: maxX = 100;
 </script>
 
 <div
