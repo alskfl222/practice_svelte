@@ -23,12 +23,30 @@
 		let moving = false;
 		let x = 0;
 		const minX = 0;
-
+		let startX = 0;
 
 		node.style.position = 'relative';
 		node.style.left = `${x}px`;
 		node.style.userSelect = 'none';
 
+		node.addEventListener('touchstart', (e) => {
+			moving = true;
+			startX = e.touches[0].clientX;
+		});
+		window.addEventListener('touchmove', (e) => {
+			if (!moving) return;
+			let moveX = e.touches[0].clientX - startX;
+			x += moveX;
+			if (minX < maxX) {
+				if (x > minX) x = 0;
+				if (x < -maxX) x = -maxX;
+				node.style.left = `${x}px`;
+			}
+		});
+		window.addEventListener('touchend', () => {
+			moving = false;
+		});
+		
 		node.addEventListener('mousedown', () => {
 			moving = true;
 		});

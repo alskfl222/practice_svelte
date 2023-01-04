@@ -46,6 +46,23 @@
 		window.addEventListener('touchend', () => {
 			moving = false;
 		});
+		
+		node.addEventListener('mousedown', () => {
+			moving = true;
+		});
+		window.addEventListener('mousemove', (e) => {
+			if (!moving) return;
+			e.preventDefault();
+			x += e.movementX;
+			if (minX < maxX) {
+				if (x > minX) x = 0;
+				if (x < -maxX) x = -maxX;
+				node.style.left = `${x}px`;
+			}
+		});
+		window.addEventListener('mouseup', () => {
+			moving = false;
+		});
 	}
 
 	$: maxX = 0;
