@@ -1,28 +1,18 @@
 <script lang="ts">
 	import { store, Count, Price, maxBossCount } from '$stores';
-	import Hbar from './common/Hbar.svelte';
-	import Title from './common/Title.svelte';
 	$: charCount = $store.length;
 	$: countStatus =
-		$Count < maxBossCount ? '더 가능!' : $Count === maxBossCount ? '꽉 채움!' : '줄이람!';
+		$Count <= maxBossCount ? 'text-blue-700' : 'text-red-700';
 </script>
 
-<div class="px-4 pb-8 flex rounded-2xl bg-white items-center whitespace-nowrap xl:flex-col">
-	<div class="w-full flex justity-end">
-		<Title>보스 요약</Title>
-	</div>
-	<Hbar />
-	<div class="w-full px-4 flex justify-end text-xl text-slate-700 xl:pt-8 xl:pb-4">
+<div class="py-4 flex rounded-t-2xl bg-white items-center font-bold whitespace-nowrap">
+	<div class="w-full px-4 flex justify-center text-slate-700">
 		{charCount} 캐릭터
 	</div>
-	<div class="w-full px-4 flex justify-end text-xl text-slate-700 xl:pb-8">
+	<div class={`w-full px-4 flex justify-center ${countStatus}`}>
 		{$Count} 보스
 	</div>
-	<Hbar />
-	<div class="w-full px-4 flex justify-end text-xl text-slate-700 xl:pt-8 xl:pb-4">
+	<div class={`w-full px-4 flex justify-center ${countStatus}`}>
 		{$Price} 원
-	</div>
-	<div class="w-full px-4 flex justify-end text-xl text-slate-700 font-bold xl:pb-8">
-		{countStatus}
 	</div>
 </div>

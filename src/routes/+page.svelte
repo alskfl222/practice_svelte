@@ -5,8 +5,8 @@
 	import Sidebar from '$lib/components/pc/Sidebar.svelte';
 	import CharBossViewerM from '$lib/components/mobile/CharBossViewer.svelte';
 	import BossCounterM from '$lib/components/mobile/BossCounter.svelte';
-	import SidebarM from '$lib/components/mobile/Sidebar.svelte';
-	import { minPCInnerWidth, innerWidth } from '$stores';
+	import StatusBar from '$lib/components/mobile/StatusBar.svelte';
+	import { minPCInnerWidth, platform } from '$stores';
 </script>
 
 <svelte:head>
@@ -14,7 +14,7 @@
 	<meta name="description" content="Practice Sveltekit" />
 </svelte:head>
 
-{#if $innerWidth >= minPCInnerWidth}
+{#if $platform === 'pc'}
 	<div class="w-full flex gap-8" in:fly>
 		<div class="w-full flex flex-col gap-8">
 			<CharBossViewer />
@@ -28,6 +28,6 @@
 			<CharBossViewerM />
 			<BossCounterM />
 		</div>
-		<SidebarM />
+		<StatusBar />
 	</div>
 {/if}

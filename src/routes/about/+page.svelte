@@ -1,7 +1,7 @@
 <script>
 	import { fly } from 'svelte/transition';
-	import Title from '$lib/components/pc/components/common/Title.svelte';
-	import Hbar from '$lib/components/pc/components/common/Hbar.svelte';
+	import Title from '$lib/components/pc/common/Title.svelte';
+	import Hbar from '$lib/components/pc/common/Hbar.svelte';
 </script>
 
 <svelte:head>

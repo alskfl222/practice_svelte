@@ -1,26 +1,33 @@
 <script lang="ts">
 	import '@fortawesome/fontawesome-free/js/all.min.js';
 	import { browser } from '$app/env';
-	import { beforeUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import Header from '$lib/components/pc/Header.svelte';
 	import Footer from '$lib/components/pc/Footer.svelte';
 	import Modal from '$lib/components/pc/modals/Modal.svelte';
 	import HeaderM from '$lib/components/mobile/Header.svelte';
 	import FooterM from '$lib/components/mobile/Footer.svelte';
 	import ModalM from '$lib/components/mobile/modals/Modal.svelte';
-	import { minPCInnerWidth, innerWidth, store } from '$stores';
+	import { minPCInnerWidth, platform, store } from '$stores';
 	import { showModal } from '$stores/modal';
 	import '../app.css';
 
-	beforeUpdate(() => {
+	let isLoading: boolean = true;
+
+	onMount(() => {
 		if (localStorage.getItem('prev')) {
 			$store = JSON.parse(localStorage.getItem('prev')!);
 		}
-		$innerWidth = browser ? window.innerWidth : 800;
+		if (browser) {
+			$platform = window.innerWidth >= minPCInnerWidth ? 'pc' : 'mobile';
+		}
+		isLoading = false;
 	});
 </script>
 
-{#if $innerWidth >= minPCInnerWidth}
+{#if isLoading}
+	<div>로딩중</div>
+{:else if $platform === 'pc'}
 	{#if $showModal}
 		<Modal on:click={() => ($showModal = !$showModal)} />
 	{/if}
@@ -35,7 +42,7 @@
 	<Footer />
 {:else}
 	{#if $showModal}
-	<ModalM on:click={() => ($showModal = !$showModal)} />
+		<ModalM on:click={() => ($showModal = !$showModal)} />
 	{/if}
 	<div class="w-full min-h-[100vh] pb-32 flex flex-col justify-center bg-slate-200">
 		<HeaderM />
