@@ -62,7 +62,7 @@
 				class:opacity-50={item[4] - item[3].length >= maxBossCount}
 			>
 				<div
-					class="relative w-full h-[90px] flex border border-2 rounded-2xl"
+					class="relative w-full h-[90px] rounded-2xl "
 					class:rounded-b-none={idx === $counterIndex}
 					class:border-red-400={hasRequired(item)}
 					data-index={idx}
@@ -70,12 +70,13 @@
 					<img
 						src={`${bossInfo[item[0]].image}`}
 						alt="boss img"
-						class={`absolute w-[480px] h-full ${
-							idx === $counterIndex ? 'rounded-tl-2xl' : 'rounded-l-2xl'
+						class={`absolute w-full h-full ${
+							idx === $counterIndex ? 'rounded-t-2xl' : 'rounded-2xl'
 						} object-cover`}
+
 					/>
 					<div
-						class="absolute w-[480px] h-full px-12 flex items-center gap-6
+						class="absolute w-full h-full px-12 flex items-center gap-6
 								 bg-gradient-to-l from-white via-transparent to-transparent
 								 text-white font-bold"
 						data-index={idx}
@@ -89,7 +90,7 @@
 				{#if idx === $counterIndex}
 					<div
 						class="grow p-4 flex justify-between items-center
-									 border-2 border-t-0 rounded-b-2xl"
+									 rounded-b-2xl shadow"
 						class:border-red-400={hasRequired(item)}
 					>
 						<div class="flex gap-2">

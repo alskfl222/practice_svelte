@@ -1,4 +1,4 @@
-<footer class="w-full h-[80px] flex justify-center gap-16 items-center text-xl">
+<footer class="w-full h-[210px] pt-8 flex justify-center gap-16 text-xl">
 	<span>by <strong>alskfl222</strong></span>
 	<div class='flex gap-8'>
 		<span class="text-3xl"

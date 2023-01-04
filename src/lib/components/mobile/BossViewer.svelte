@@ -55,30 +55,30 @@
 			on:click={openModal}>보스 추가</button
 		>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
-			<div class="max-h-[360px] p-4 flex flex-col gap-9 overflow-auto">
+			<div class="max-h-[360px] p-4 flex flex-col gap-9 overflow-x-hidden overflow-y-auto">
 				{#each $store[$charIndex].boss as boss, idx}
-					<div class="flex-none w-full h-[120px]">
+					<div class="relative flex-none w-full h-[120px]">
 						<div class="w-full h-full flex justify-between items-center">
 							<div class="relative w-full h-full">
 								<img
 									src={`${boss.image}`}
 									alt="boss img"
-									class="absolute w-[480px] h-full rounded-l-2xl object-cover"
+									class="absolute w-[100%] h-full rounded-l-2xl object-cover"
 								/>
 								<div
-									class="absolute w-[480px] h-full px-12 flex items-center
+									class="absolute w-[100%] h-full px-12 flex items-center
 												 bg-gradient-to-l from-white via-transparent to-transparent
 												 text-4xl text-white font-bold"
 								>
 									{boss.name}
 								</div>
 							</div>
-							<div class="h-[100%] flex gap-4">
+							<div class="absolute right-0 h-[100%] flex items-center gap-4">
 								{#each boss.dc as dc}
 									<div
 										on:click={() => deleteBoss(idx, dc[0])}
-										class="h-[100%] px-4 flex flex-col justify-center gap-2
-													 border-2 rounded-2xl drop-shadow-lg cursor-pointer
+										class="h-[80%] px-4 flex flex-col justify-center gap-2
+													 border-2 rounded-2xl bg-white drop-shadow-lg cursor-pointer
 													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 										class:border-red-400={dc[2]}
 									>
