@@ -2,9 +2,12 @@
 	import '@fortawesome/fontawesome-free/js/all.min.js';
 	import { browser } from '$app/env';
 	import { beforeUpdate } from 'svelte';
-	import Header from '$lib/pc/components/Header.svelte';
-	import Footer from '$lib/pc/components/Footer.svelte';
-	import Modal from '$lib/pc/components/modals/Modal.svelte';
+	import Header from '$lib/components/pc/Header.svelte';
+	import Footer from '$lib/components/pc/Footer.svelte';
+	import Modal from '$lib/components/pc/modals/Modal.svelte';
+	import HeaderM from '$lib/components/mobile/Header.svelte';
+	import FooterM from '$lib/components/mobile/Footer.svelte';
+	import ModalM from '$lib/components/mobile/modals/Modal.svelte';
 	import { minPCInnerWidth, innerWidth, store } from '$stores';
 	import { showModal } from '$stores/modal';
 	import '../app.css';
@@ -31,13 +34,14 @@
 	</div>
 	<Footer />
 {:else}
-	<div class="w-full min-h-[100vh] pb-32 flex justify-center bg-slate-200">
-		<div class="w-full max-w-[1200px] flex flex-col">
-			<Header />
-			<main class="min-h-[70vh] flex justify-center gap-8">
-				<slot />
-			</main>
-		</div>
+	{#if $showModal}
+	<ModalM on:click={() => ($showModal = !$showModal)} />
+	{/if}
+	<div class="w-full min-h-[100vh] pb-32 flex flex-col justify-center bg-slate-200">
+		<HeaderM />
+		<main>
+			<slot />
+		</main>
 	</div>
-	<Footer />
+	<FooterM />
 {/if}

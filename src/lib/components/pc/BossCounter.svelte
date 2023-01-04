@@ -54,7 +54,7 @@
 >
 	<Title>보스별 정리</Title>
 	<Hbar />
-	<div class="px-4 py-8 flex flex-col gap-9 overflow-y-auto">
+	<div class="px-4 py-8 flex flex-col gap-9 overflow-x-hidden overflow-y-auto">
 		{#each data as item, idx}
 			<div
 				class="flex-none w-full px-4 flex flex-col transition"
@@ -62,7 +62,7 @@
 				class:opacity-50={item[4] - item[3].length >= maxBossCount}
 			>
 				<div
-					class="relative w-full h-[90px] flex border-2 rounded-2xl"
+					class="relative w-full h-[90px] flex border border-2 rounded-2xl"
 					class:rounded-b-none={idx === $counterIndex}
 					class:border-red-400={hasRequired(item)}
 					data-index={idx}
@@ -105,7 +105,7 @@
 										<span>{char[0]}</span>
 										<span>{char[2]} 인</span>
 									</div>
-									<div class={`border-b border-slate-400`} />
+									<div class="border-b border-slate-400" />
 									<span class="self-center">
 										{Math.floor(item[2] / char[2])} 원
 									</span>

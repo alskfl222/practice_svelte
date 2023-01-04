@@ -2,15 +2,12 @@
 	import { createEventDispatcher } from 'svelte';
 
 	export let type: string;
-	export let value: string;
 	export let options: string[];
 
 	const dispatch = createEventDispatcher();
 
 	let show = false;
 	let container: HTMLDivElement;
-	const headerBaseStyle =
-		'relative h-[40px] px-4 flex items-center border border-black bg-white z-1';
 
 	function selectOption(opt: string) {
 		dispatch(type, opt);
@@ -25,19 +22,14 @@
 <svelte:window on:click={onDropdownClick} />
 
 <div class="relative" bind:this={container}>
-	<div
-		class={show
-			? headerBaseStyle + ' rounded-t-xl border-b-slate-300'
-			: headerBaseStyle + ' rounded-xl'}
-		on:click={() => (show = !show)}
-	>
-		{value ? value : '선택해주세요'}
+	<div on:click={() => (show = !show)}>
+		<slot />
 	</div>
 	{#if show}
-		<ul class="w-[100%] absolute border border-t-0 rounded-b-xl border-black bg-white z-10">
+		<ul class="z-10 w-[100%] max-h-[150px] absolute mt-2 py-2 border rounded-xl border-black bg-white overflow-y-auto">
 			{#each options as opt}
 				<li
-					class="relative h-[36px] px-4 flex items-center hover:bg-slate-500 hover:text-white"
+					class="relative h-[40px] px-4 flex items-center hover:bg-slate-500 hover:text-white"
 					on:click={() => selectOption(opt)}
 				>
 					{opt}

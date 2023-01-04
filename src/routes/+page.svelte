@@ -1,7 +1,12 @@
 <script lang="ts">
-	import CharBossViewer from '$lib/pc/components/CharBossViewer.svelte';
-	import BossCounter from '$lib/pc/components/BossCounter.svelte';
-	import Sidebar from '$lib/pc/components/Sidebar.svelte';
+	import { fly } from 'svelte/transition';
+	import CharBossViewer from '$lib/components/pc/CharBossViewer.svelte';
+	import BossCounter from '$lib/components/pc/BossCounter.svelte';
+	import Sidebar from '$lib/components/pc/Sidebar.svelte';
+	import CharBossViewerM from '$lib/components/mobile/CharBossViewer.svelte';
+	import BossCounterM from '$lib/components/mobile/BossCounter.svelte';
+	import SidebarM from '$lib/components/mobile/Sidebar.svelte';
+	import { minPCInnerWidth, innerWidth } from '$stores';
 </script>
 
 <svelte:head>
@@ -9,10 +14,20 @@
 	<meta name="description" content="Practice Sveltekit" />
 </svelte:head>
 
-<div class='w-full flex gap-8'>
-	<div class='w-full flex flex-col gap-8'>
-		<CharBossViewer />
-		<BossCounter />
+{#if $innerWidth >= minPCInnerWidth}
+	<div class="w-full flex gap-8" in:fly>
+		<div class="w-full flex flex-col gap-8">
+			<CharBossViewer />
+			<BossCounter />
+		</div>
+		<Sidebar />
 	</div>
-	<Sidebar />
-</div>
+{:else}
+	<div class="w-full flex gap-8" in:fly>
+		<div class="w-full flex flex-col gap-8">
+			<CharBossViewerM />
+			<BossCounterM />
+		</div>
+		<SidebarM />
+	</div>
+{/if}

@@ -7,7 +7,7 @@
 
 	function openModal() {
 		$showModal = true;
-		$modalType = 'BossSelect'
+		$modalType = 'BossSelect';
 	}
 
 	function deleteBoss(idx: number, dc: keyof BossDCType) {
@@ -49,7 +49,11 @@
 				총 {$store[$charIndex].boss.length}종 {count}개
 			{/if}
 		</div>
-		<button on:click={openModal}>보스 추가</button>
+		<button
+			class="mx-4 mb-2 px-4 py-6 border rounded-2xl cursor-pointer text-2xl font-bold
+					 hover:bg-gray-500/30 transition duration-100 ease-in-out"
+			on:click={openModal}>보스 추가</button
+		>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
 			<div class="max-h-[360px] p-4 flex flex-col gap-9 overflow-auto">
 				{#each $store[$charIndex].boss as boss, idx}
@@ -74,7 +78,7 @@
 									<div
 										on:click={() => deleteBoss(idx, dc[0])}
 										class="h-[100%] px-4 flex flex-col justify-center gap-2
-													 border border-2 rounded-2xl drop-shadow-lg cursor-pointer
+													 border-2 rounded-2xl drop-shadow-lg cursor-pointer
 													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 										class:border-red-400={dc[2]}
 									>

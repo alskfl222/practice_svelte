@@ -1,6 +1,7 @@
 <script>
-	import Title from '$lib/pc/components/common/Title.svelte';
-	import Hbar from '$lib/pc/components/common/Hbar.svelte';
+	import { fly } from 'svelte/transition';
+	import Title from '$lib/components/pc/components/common/Title.svelte';
+	import Hbar from '$lib/components/pc/components/common/Hbar.svelte';
 </script>
 
 <svelte:head>
@@ -8,7 +9,7 @@
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="w-full max-w-[1200px] min-h-[70vh] flex flex-col bg-white rounded-3xl">
+<div class="w-full max-w-[1200px] min-h-[70vh] flex flex-col bg-white rounded-3xl" in:fly>
 	<Title>보스 관리 <i class="fa-solid fa-circle-question" /></Title>
 	<Hbar />
 	<div class="grow px-12 py-8 flex flex-col justify-between">
@@ -19,7 +20,7 @@
 		</div>
 		<div class="w-full h-[80px] flex justify-end gap-12 items-center text-xl">
 			<span>by <strong>alskfl222</strong></span>
-			<div class='flex gap-6'>
+			<div class="flex gap-6">
 				<span class="text-3xl"
 					><a href="https://github.com/alskfl222/practice_svelte/"
 						><i class="fa-brands fa-github" /></a

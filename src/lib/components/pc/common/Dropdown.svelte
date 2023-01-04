@@ -8,8 +8,6 @@
 
 	let show = false;
 	let container: HTMLDivElement;
-	const headerBaseStyle =
-		'relative h-[40px] px-4 flex items-center border border-black bg-white z-1';
 
 	function selectOption(opt: string) {
 		dispatch(type, opt);
@@ -28,7 +26,7 @@
 		<slot />
 	</div>
 	{#if show}
-		<ul class="w-[100%] absolute mt-2 py-2 border rounded-xl border-black bg-white z-10">
+		<ul class="z-10 w-[100%] max-h-[150px] absolute mt-2 py-2 border rounded-xl border-black bg-white overflow-y-auto">
 			{#each options as opt}
 				<li
 					class="relative h-[40px] px-4 flex items-center hover:bg-slate-500 hover:text-white"
