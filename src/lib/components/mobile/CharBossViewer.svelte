@@ -11,20 +11,22 @@
 	}
 </script>
 
-<section class="px-8 pb-16 rounded-3xl bg-white">
+<section class="px-4 pb-8 rounded-3xl bg-white">
 	<Title>캐릭터 관리</Title>
 	<Hbar />
 	<CharInput />
 	<Hbar />
 	{#if $store.length > 0}
-		<div class="px-4" on:click={deselectChar}>
-			<Title type="s">캐릭터 상세</Title>
+		<div on:click={deselectChar}>
+			<Title type="s"
+				>{$charIndex === undefined ? '캐릭터를 선택해주세요' : $store[$charIndex].name}</Title
+			>
 			<CharViewer />
 		</div>
 		<Hbar />
 		<BossViewer />
 	{:else}
-		<div class="px-4">
+		<div>
 			<Title type="s">캐릭터 상세</Title>
 		</div>
 		<Hbar />

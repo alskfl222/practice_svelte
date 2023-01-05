@@ -54,7 +54,7 @@
 >
 	<Title>보스별 정리</Title>
 	<Hbar />
-	<div class="px-4 py-8 flex flex-col gap-9 overflow-x-hidden overflow-y-auto">
+	<div class="py-8 flex flex-col gap-9 overflow-x-hidden overflow-y-auto">
 		{#each data as item, idx}
 			<div
 				class="flex-none w-full px-4 flex flex-col transition"

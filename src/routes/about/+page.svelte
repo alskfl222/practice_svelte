@@ -13,8 +13,12 @@
 	<Title>보스 관리 <i class="fa-solid fa-circle-question" /></Title>
 	<Hbar />
 	<div class="grow px-12 py-8 flex flex-col justify-between">
-		<div class="flex flex-col gap-9">
-			<p class="text-lg">무슨 보스를 어떻게 돌아야 할지 도와주는 앱입니다</p>
+		<div class="flex flex-col gap-9 text-lg">
+			<div>
+				<p>무슨 보스를</p>
+				<p>어떻게 돌아야 할지</p>
+				<p>도와주는 앱입니다</p>
+			</div>
 			<Hbar />
 			<p class="text-sky-900">SvelteKit, tailwindcss</p>
 		</div>

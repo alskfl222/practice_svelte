@@ -31,7 +31,7 @@
 	};
 </script>
 
-<div class="px-4 pb-8 flex flex-col justify-between">
+<div class="pb-8 flex flex-col justify-between">
 	<Title type="s">캐릭터 추가</Title>
 	<div class="px-4 py-0 flex flex-col justify-between items-center gap-8">
 		<div class="relative w-full flex flex-col items-center gap-6">

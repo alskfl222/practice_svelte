@@ -41,7 +41,7 @@
 </script>
 
 {#if $charIndex !== undefined}
-	<div class="px-4 mt-4 flex flex-col">
+	<div class="mt-4 flex flex-col">
 		<div class="p-4 text-xl font-bold text-slate-700">
 			{#if count === 0}
 				보스를 추가해주세요
@@ -63,27 +63,27 @@
 								<img
 									src={`${boss.image}`}
 									alt="boss img"
-									class="absolute w-[100%] h-full rounded-l-2xl object-cover"
+									class="absolute w-[100%] h-full rounded-l-3xl object-cover"
 								/>
 								<div
-									class="absolute w-[100%] h-full px-12 flex items-center
+									class="absolute w-[100%] h-full px-6 flex items-center
 												 bg-gradient-to-l from-white via-transparent to-transparent
 												 text-4xl text-white font-bold"
 								>
 									{boss.name}
 								</div>
 							</div>
-							<div class="absolute right-0 h-[100%] flex items-center gap-4">
+							<div class="absolute right-0 h-[80%] flex items-center gap-2">
 								{#each boss.dc as dc}
 									<div
 										on:click={() => deleteBoss(idx, dc[0])}
-										class="h-[80%] px-4 flex flex-col justify-center gap-2
+										class="h-[80%] px-2 flex flex-col justify-center gap-1
 													 border-2 rounded-2xl bg-white drop-shadow-lg cursor-pointer
 													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 										class:border-red-400={dc[2]}
 									>
 										<span class="font-bold">{dc[0]}</span>
-										<div class="w-full flex justify-center gap-3">
+										<div class="w-full flex justify-center">
 											<span>{dc[1]}인</span>
 										</div>
 									</div>
@@ -96,5 +96,8 @@
 		{/if}
 	</div>
 {:else}
-	<div class="mt-4 px-8 py-4 text-xl font-bold text-slate-700">선택된 캐릭터가 없습니다</div>
+	<div class="mt-4 px-8 py-4 text-xl font-bold text-slate-700">
+		<p>선택된 캐릭터가</p>
+		<p>없습니다</p>
+	</div>
 {/if}
