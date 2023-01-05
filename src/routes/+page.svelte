@@ -16,7 +16,7 @@
 
 {#if $platform === 'pc'}
 	<div class="w-full flex gap-8" in:fly>
-		<div class="w-full flex flex-col gap-8">
+		<div class="w-full flex flex-col gap-8 xl:w-[calc(100%-272px)]">
 			<CharBossViewer />
 			<BossCounter />
 		</div>

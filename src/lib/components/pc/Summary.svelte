@@ -7,7 +7,10 @@
 		$Count < maxBossCount ? '더 가능!' : $Count === maxBossCount ? '꽉 채움!' : '줄이람!';
 </script>
 
-<div class="px-4 flex rounded-2xl bg-white items-center whitespace-nowrap xl:flex-col">
+<div
+	class="px-4 flex items-center rounded-t-2xl bg-white
+						whitespace-nowrap xl:flex-col xl:rounded-2xl"
+>
 	<div class="w-full flex justity-end">
 		<Title>보스 요약</Title>
 	</div>
