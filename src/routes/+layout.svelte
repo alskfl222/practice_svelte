@@ -3,10 +3,9 @@
 	import { browser } from '$app/env';
 	import { onMount } from 'svelte';
 	import Header from '$lib/components/pc/Header.svelte';
-	import Footer from '$lib/components/pc/Footer.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import Modal from '$lib/components/pc/modals/Modal.svelte';
 	import HeaderM from '$lib/components/mobile/Header.svelte';
-	import FooterM from '$lib/components/mobile/Footer.svelte';
 	import ModalM from '$lib/components/mobile/modals/Modal.svelte';
 	import { minPCInnerWidth, platform, store } from '$stores';
 	import { showModal } from '$stores/modal';
@@ -44,11 +43,11 @@
 	{#if $showModal}
 		<ModalM on:click={() => ($showModal = !$showModal)} />
 	{/if}
-	<div class="w-full min-h-[100vh] pb-32 flex flex-col justify-center bg-slate-200">
+	<div class="w-full flex flex-col justify-center bg-slate-200">
 		<HeaderM />
-		<main>
+		<main class="min-h-[80vh] pb-8">
 			<slot />
 		</main>
 	</div>
-	<FooterM />
+	<Footer />
 {/if}
