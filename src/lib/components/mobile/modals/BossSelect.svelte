@@ -69,9 +69,9 @@
 </script>
 
 <div class="min-h-[40vh] px-8 flex flex-col rounded-2xl bg-white">
-	<Title>보스 추가</Title>
+	<Title type='s'>보스 추가</Title>
 	<Hbar />
-	<div class="flex flex-col justify-between py-4 gap-4">
+	<div class="flex flex-col justify-between py-3 gap-4">
 		<div class="w-[150px]">
 			<span class="font-bold">보스</span>
 			<Dropdown type="bossName" options={Object.keys(bossInfo)} on:bossName={handleSelect}
@@ -141,7 +141,7 @@
 		</div>
 	</div>
 	<Hbar />
-	<div class="py-8 flex justify-center">
+	<div class="pt-4 pb-6 flex justify-center">
 		{#if addable}
 			<Button on:click={handleClick}><span slot="text">추가</span></Button>
 		{:else}

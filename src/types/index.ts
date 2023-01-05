@@ -4,7 +4,7 @@ export type CharNameType = string;
 export type ClassNameType = keyof typeof classInfo;
 export type BossNameType = keyof typeof bossInfo;
 export type PriceType = number;
-export type HeadcountType = number;
+export type HeadcountType = 1 | 2 | 3 | 4 | 5 | 6;
 export type RequiredType = boolean;
 export type BossCountType = number;
 
@@ -19,7 +19,7 @@ export type BossDCType = {
 export type SelectBossType = {
   bossName: keyof typeof bossInfo | '';
   bossDC: keyof BossDCType | '';
-  headcount: number;
+  headcount: HeadcountType;
   required: boolean;
 }
 
