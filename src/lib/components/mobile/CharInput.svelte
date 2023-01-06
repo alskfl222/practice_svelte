@@ -38,7 +38,7 @@
 			<input
 				bind:value={charName}
 				class="w-[70%] px-4 py-1 border-b border-slate-700"
-				placeholder="이름을 입력해주세요"
+				placeholder="이름"
 			/>
 			<select
 				bind:value={charClass}

@@ -16,35 +16,16 @@ export type BossDCType = {
 	EXTREME?: PriceType;
 };
 
-export type SelectBossType = {
-  bossName: keyof typeof bossInfo | '';
-  bossDC: keyof BossDCType | '';
-  headcount: HeadcountType;
-  required: boolean;
-}
+export type ClassType = {
+	[key in ClassNameType]?: {
+		group: string;
+	};
+};
 
 export type BossType = {
 	name: BossNameType;
 	image: string;
 	dc: [keyof BossDCType, PriceType, RequiredType][];
-};
-
-export type BossReportDCType = [CharNameType, ClassNameType, HeadcountType, RequiredType];
-
-export type BossReportType = {
-	[key in BossNameType]: {
-		chars: CharType[];
-		dc: { [dc in keyof BossDCType]: BossReportDCType[] };
-	};
-};
-
-export type SortReportItemType = [BossNameType, keyof BossDCType, PriceType, BossReportDCType[], BossCountType];
-export type SortReportType = SortReportItemType[];
-
-export type ClassType = {
-	[key in ClassNameType]?: {
-		group: string;
-	};
 };
 
 export type CharType = {
@@ -58,3 +39,22 @@ export interface CharBossType {
 	class: ClassNameType;
 	boss: BossType[];
 }
+
+export type SelectBossType = {
+  bossName: keyof typeof bossInfo | '';
+  bossDC: keyof BossDCType | '';
+  headcount: HeadcountType;
+  required: boolean;
+}
+
+export type BossReportDCType = [CharNameType, ClassNameType, HeadcountType, RequiredType];
+
+export type BossReportType = {
+	[key in BossNameType]: {
+		chars: CharType[];
+		dc: { [dc in keyof BossDCType]: BossReportDCType[] };
+	};
+};
+
+export type SortReportItemType = [BossNameType, keyof BossDCType, PriceType, BossReportDCType[], BossCountType];
+export type SortReportType = SortReportItemType[];

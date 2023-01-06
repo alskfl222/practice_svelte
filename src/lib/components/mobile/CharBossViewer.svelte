@@ -27,9 +27,7 @@
 		<BossViewer />
 	{:else}
 		<div>
-			<Title type="s">캐릭터 상세</Title>
+			<Title type="s">캐릭터를 추가해주세요</Title>
 		</div>
-		<Hbar />
-		<div class="px-8 pt-4 text-lg font-bold text-slate-700">캐릭터를 추가해주세요</div>
 	{/if}
 </section>

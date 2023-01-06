@@ -18,16 +18,16 @@
 	<Hbar />
 	{#if $store.length > 0}
 		<div class="px-4" on:click={deselectChar}>
-			<Title type="s">캐릭터 상세</Title>
+			<Title type="s"
+				>{$charIndex === undefined ? '캐릭터를 선택해주세요' : $store[$charIndex].name}</Title
+			>
 			<CharViewer />
 		</div>
 		<Hbar />
 		<BossViewer />
 	{:else}
 		<div class="px-4">
-			<Title type="s">캐릭터 상세</Title>
+			<Title type="s">캐릭터를 추가해주세요</Title>
 		</div>
-		<Hbar />
-		<div class="px-8 pt-4 text-lg font-bold text-slate-700">캐릭터를 추가해주세요</div>
 	{/if}
 </section>
