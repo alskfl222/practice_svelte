@@ -96,7 +96,7 @@
 		{/if}
 	</div>
 {:else}
-	<div class="mt-4 px-8 py-4 text-xl font-bold text-slate-700">
+	<div class="mt-4 px-8 py-4 flex flex-col items-center text-xl font-bold text-slate-700">
 		<p>선택된 캐릭터가</p>
 		<p>없습니다</p>
 	</div>

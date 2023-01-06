@@ -62,7 +62,7 @@
 				class:opacity-50={item[4] - item[3].length >= maxBossCount}
 			>
 				<div
-					class="relative w-full h-[90px] rounded-2xl "
+					class="relative w-full h-[120px] rounded-2xl sm:h-[90px]"
 					class:rounded-b-none={idx === $counterIndex}
 					class:border-red-400={hasRequired(item)}
 					data-index={idx}
@@ -75,13 +75,13 @@
 						} object-cover`}
 					/>
 					<div
-						class="absolute w-full h-full px-12 flex items-center gap-6
-								 bg-gradient-to-l from-white via-transparent to-transparent
-								 text-white font-bold"
+						class="absolute left-0 w-full h-full px-6 flex flex-col justify-center gap-2
+								   bg-gradient-to-l from-white via-transparent to-transparent text-white font-bold
+								   sm:px-12 sm:flex-row sm:justify-start sm:items-center sm:gap-6"
 						data-index={idx}
 					>
-						<span class="text-3xl" data-index={idx}>{item[0]}</span>
-						<span class="text-2xl" data-index={idx}>{item[1]}</span>
+						<span class="text-2xl drop-shadow sm:text-3xl" data-index={idx}>{item[0]}</span>
+						<span class="text-xl drop-shadow sm:text-2xl" data-index={idx}>{item[1]}</span>
 					</div>
 					<div class="absolute right-0 h-full flex items-center">
 						<span class="px-4" data-index={idx}>{`X ${item[3].length}`}</span>
