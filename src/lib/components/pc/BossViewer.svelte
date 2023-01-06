@@ -61,8 +61,8 @@
 						<div class="w-full h-full flex justify-between items-center">
 							<div class="relative w-full h-full">
 								<img
-									src={`${boss.image}`}
-									alt="boss img"
+									src={boss.image}
+									alt={boss.name}
 									class="absolute w-[480px] h-full rounded-l-2xl object-cover"
 								/>
 								<div

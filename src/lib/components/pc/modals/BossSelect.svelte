@@ -66,7 +66,6 @@
 		return res;
 	}
 	$: addable = $charIndex !== undefined && $selectBoss.bossName !== '' && $selectBoss.bossDC !== '';
-	$: console.log($selectBoss);
 </script>
 
 <div class="min-h-[40vh] p-8 flex flex-col rounded-2xl bg-white">
@@ -80,7 +79,7 @@
 					<img
 						class="w-[180px] h-[180px] rounded-xl object-cover"
 						src={`${bossInfo[$selectBoss.bossName].image}`}
-						alt="boss img"
+						alt={$selectBoss.bossName}
 					/>
 				{:else}
 					<div

@@ -5,14 +5,23 @@
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
 	import { store, charIndex } from '$stores';
+	import { showModal, modalType } from '$stores/modal';
 
 	function deselectChar() {
 		$charIndex = undefined;
 	}
+	function openExportModal() {
+		$modalType = 'ExportImage';
+		$showModal = true;
+	}
 </script>
 
 <section class="px-8 pb-16 rounded-3xl bg-white">
-	<Title>캐릭터 관리</Title>
+	<Title
+		><span>캐릭터 관리</span><button on:click={openExportModal}
+			><i class="fa-solid fa-cloud-arrow-down" /></button
+		></Title
+	>
 	<Hbar />
 	<CharInput />
 	<Hbar />

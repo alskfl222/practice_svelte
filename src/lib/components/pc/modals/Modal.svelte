@@ -5,15 +5,17 @@
 	// type C = $$Generic<typeof SvelteComponentTyped<any, any, any>>;
 	// export let component: C;
 	import BossSelect from './BossSelect.svelte';
+	import ExportImage from './ExportImage.svelte';
 	import { modalType } from '$stores/modal';
 
 	const component: any = {
-		BossSelect
+		BossSelect,
+		ExportImage
 	};
 </script>
 
 {#if $modalType}
-	<div on:click|self class="fixed z-50 w-screen h-screen pb-20 flex justify-center items-center bg-black/30">
+	<div on:click|self class="fixed z-50 w-screen h-screen pt-10 flex justify-center items-start bg-black/30">
 		<svelte:component this={component[$modalType]} on:click />
 	</div>
 {/if}
