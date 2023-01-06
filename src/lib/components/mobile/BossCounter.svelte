@@ -73,7 +73,6 @@
 						class={`absolute w-full h-full ${
 							idx === $counterIndex ? 'rounded-t-2xl' : 'rounded-2xl'
 						} object-cover`}
-
 					/>
 					<div
 						class="absolute w-full h-full px-12 flex items-center gap-6
@@ -81,7 +80,8 @@
 								 text-white font-bold"
 						data-index={idx}
 					>
-						<span class="text-3xl">{item[0]}</span><span class="text-2xl">{item[1]}</span>
+						<span class="text-3xl" data-index={idx}>{item[0]}</span>
+						<span class="text-2xl" data-index={idx}>{item[1]}</span>
 					</div>
 					<div class="absolute right-0 h-full flex items-center">
 						<span class="px-4" data-index={idx}>{`X ${item[3].length}`}</span>
