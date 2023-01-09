@@ -62,7 +62,7 @@
 				class:opacity-50={item[4] - item[3].length >= maxBossCount}
 			>
 				<div
-					class="relative w-full h-[120px] flex border-2 rounded-2xl"
+					class="relative w-full h-[90px] flex rounded-2xl shadow md:h-[120px]"
 					class:rounded-b-none={idx === $counterIndex}
 					class:border-red-400={hasRequired(item)}
 					data-index={idx}
@@ -70,12 +70,12 @@
 					<img
 						src={`${bossInfo[item[0]].image}`}
 						alt="boss img"
-						class={`absolute w-[480px] h-full ${
+						class={`absolute w-[70%] h-full ${
 							idx === $counterIndex ? 'rounded-tl-2xl' : 'rounded-l-2xl'
 						} object-cover`}
 					/>
 					<div
-						class="absolute w-[480px] h-full px-12 flex items-center gap-6
+						class="absolute w-[70%] h-full px-12 flex items-center gap-6
 								 bg-gradient-to-l from-white via-transparent to-transparent
 								 text-white font-bold"
 						data-index={idx}
@@ -89,33 +89,33 @@
 				</div>
 				{#if idx === $counterIndex}
 					<div
-						class="grow p-4 flex justify-between items-center
-									 border-2 border-t-0 rounded-b-2xl"
+						class="grow p-4 flex flex-col justify-between items-center gap-2 rounded-b-2xl shadow"
 						class:border-red-400={hasRequired(item)}
 					>
-						<div class="flex gap-2">
+						<p>
+							총 {getABossPrice(idx)} 원
+						</p>
+						<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-2">
 							{#each item[3] as char}
 								<div
-									class="w-full px-4 py-2 flex flex-col gap-2 border rounded-xl
-												 drop-shadow-lg cursor-pointer hover:bg-gray-500/30
+									class="w-full px-4 py-2 flex sm:flex-col justify-between sm:items-center gap-2 
+												 border rounded-xl shadow cursor-pointer hover:bg-gray-500/30
 												 transition duration-100 ease-in-out"
 									class:border-red-400={char[3]}
 									on:click|stopPropagation={() => selectChar(char[0])}
 								>
-									<div class="flex flex-col items-center">
-										<span>{char[0]}</span>
-										<span>{char[2]} 인</span>
+									<span class="max-w-[40%] overflow-hidden whitespace-nowrap text-ellipsis"
+										>{char[0]}</span
+									>
+									<div class="flex items-center gap-2">
+										<span class="hidden xs:inline whitespace-nowrap">{char[2]}인</span>
+										<span class="whitespace-nowrap">
+											{Math.floor(item[2] / char[2])}원
+										</span>
 									</div>
-									<div class="border-b border-slate-400" />
-									<span class="self-center">
-										{Math.floor(item[2] / char[2])} 원
-									</span>
 								</div>
 							{/each}
 						</div>
-						<span>
-							총 {getABossPrice(idx)} 원
-						</span>
 					</div>
 				{/if}
 			</div>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-	import { store, charIndex, platform } from '$stores';
+	import { store, charIndex } from '$stores';
 
 	let charContainer: HTMLElement;
 	let charScroll: HTMLElement;
