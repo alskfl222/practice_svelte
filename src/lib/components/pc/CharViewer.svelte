@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { store, charIndex } from '$stores';
+	import { browser } from '$app/env';
+	import { store, charIndex, platform } from '$stores';
 
 	let charContainer: HTMLElement;
 	let charScroll: HTMLElement;
@@ -12,11 +13,6 @@
 			return;
 		}
 		$charIndex = undefined;
-	}
-	function deleteChar(idx: number) {
-		$store = [...$store.slice(0, idx), ...$store.slice(idx + 1)];
-		$charIndex = undefined;
-		charScroll.style.left = '0px';
 	}
 
 	function dragEl(node: HTMLElement) {
@@ -46,7 +42,7 @@
 		window.addEventListener('touchend', () => {
 			moving = false;
 		});
-		
+
 		node.addEventListener('mousedown', () => {
 			moving = true;
 		});
@@ -64,10 +60,9 @@
 			moving = false;
 		});
 	}
-	$: maxX = 0;
-	$: if (charScroll) {
-		maxX = $store.length * (270 + 16) - charScroll.offsetWidth
-	}
+	$: innerWidth = browser ? window.innerWidth : 280;
+	$: charWidth = innerWidth >= 768 ? 270 : 200;
+	$: maxX = charScroll ? $store.length * (charWidth + 16) - charScroll.offsetWidth : 0;
 </script>
 
 <div
@@ -78,24 +73,18 @@
 	<div class="w-full p-2 flex gap-4" bind:this={charScroll} use:dragEl>
 		{#each $store as char, idx}
 			<div
-				class={idx === $charIndex
-					? 'w-[270px] flex-none border rounded-lg border-white bg-gradient-to-r from-cyan-500 to-blue-500 '
-					: 'w-[270px] flex-none border rounded-lg border-cyan-500'}
+				class={`w-[200px] md:w-[270px] p-4 flex-none
+					border rounded-lg text-lg font-bold ' + ${
+						idx === $charIndex
+							? 'border-white bg-gradient-to-r from-cyan-500 to-blue-500 text-slate-100'
+							: 'border-cyan-500 text-slate-700'
+					}`}
 			>
-				<div class="p-4 flex justify-between" data-index={idx}>
-					<div
-						class={idx === $charIndex
-							? 'flex gap-2 text-lg font-bold text-slate-100'
-							: 'flex gap-2 text-lg font-bold text-slate-700'}
-						data-index={idx}
+				<div class="w-full flex justify-between" data-index={idx}>
+					<span class="w-[50%] overflow-hidden whitespace-nowrap text-ellipsis" data-index={idx}
+						>{char.name}</span
 					>
-						<span data-index={idx}>{char.name}</span>
-						<span data-index={idx}>{char.class}</span>
-					</div>
-					<button
-						class={idx === $charIndex ? 'text-slate-100' : 'text-slate-700'}
-						on:click|stopPropagation={() => deleteChar(idx)}>삭제</button
-					>
+					<span data-index={idx}>{char.class}</span>
 				</div>
 			</div>
 		{/each}

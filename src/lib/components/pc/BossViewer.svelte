@@ -3,8 +3,6 @@
 	import { store, charIndex } from '$stores';
 	import { showModal, modalType } from '$stores/modal';
 
-	let count: number = 0;
-
 	function openModal() {
 		$showModal = true;
 		$modalType = 'BossSelect';
@@ -35,13 +33,11 @@
 		return count;
 	}
 
-	$: if ($charIndex !== undefined) {
-		count = getCharBossCount($store[$charIndex].boss);
-	}
+	$: count = $charIndex !== undefined ? getCharBossCount($store[$charIndex].boss) : 0;
 </script>
 
 {#if $charIndex !== undefined}
-	<div class="px-4 mt-4 flex flex-col">
+	<div class="md:px-4 my-4 flex flex-col">
 		<div class="p-4 text-xl font-bold text-slate-700">
 			{#if count === 0}
 				보스를 추가해주세요
@@ -50,42 +46,42 @@
 			{/if}
 		</div>
 		<button
-			class="mx-4 mb-2 px-4 py-6 border rounded-2xl cursor-pointer text-2xl font-bold
+			class="m-4 mb-6 px-4 py-6 border rounded-2xl cursor-pointer text-2xl font-bold
 					 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 			on:click={openModal}>보스 추가</button
 		>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
-			<div class="max-h-[360px] p-4 flex flex-col gap-9 overflow-auto">
+			<div class="max-h-[400px] p-4 flex flex-col gap-12 overflow-x-hidden overflow-y-auto">
 				{#each $store[$charIndex].boss as boss, idx}
-					<div class="flex-none w-full h-[120px]">
+					<div class="relative flex-none w-full h-[120px]">
 						<div class="w-full h-full flex justify-between items-center">
 							<div class="relative w-full h-full">
 								<img
 									src={boss.image}
 									alt={boss.name}
-									class="absolute w-[480px] h-full rounded-l-2xl object-cover"
+									class="absolute w-[100%] h-full rounded-l-3xl object-cover"
 								/>
 								<div
-									class="absolute w-[480px] h-full px-12 flex items-center
+									class="absolute w-[100%] h-full px-12 flex items-center
 												 bg-gradient-to-l from-white via-transparent to-transparent
 												 text-4xl text-white font-bold"
 								>
 									{boss.name}
 								</div>
 							</div>
-							<div class="h-[100%] flex gap-4">
+							<div
+								class="absolute right-0 flex flex-col md:flex-row items-center gap-2 md:gap-4"
+							>
 								{#each boss.dc as dc}
 									<div
 										on:click={() => deleteBoss(idx, dc[0])}
-										class="h-[100%] px-4 flex flex-col justify-center gap-2
-													 border-2 rounded-2xl drop-shadow-lg cursor-pointer
-													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
+										class="h-full p-2 md:p-4 flex md:flex-col justify-center items-center gap-1
+										border-2 rounded-2xl bg-white cursor-pointer
+										hover:bg-gray-500/30 transition duration-100 ease-in-out"
 										class:border-red-400={dc[2]}
 									>
 										<span class="font-bold">{dc[0]}</span>
-										<div class="w-full flex justify-center gap-3">
-											<span>{dc[1]}인</span>
-										</div>
+										<span class='whitespace-nowrap'>{dc[1]}인</span>
 									</div>
 								{/each}
 							</div>

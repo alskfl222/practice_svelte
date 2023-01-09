@@ -10,6 +10,14 @@
 	function deselectChar() {
 		$charIndex = undefined;
 	}
+
+	function deleteChar() {
+		if ($charIndex !== undefined) {
+			$store = [...$store.slice(0, $charIndex), ...$store.slice($charIndex + 1)];
+			$charIndex = undefined;
+		}
+	}
+
 	function openExportModal() {
 		$modalType = 'ExportImage';
 		$showModal = true;
@@ -30,9 +38,17 @@
 	<Hbar />
 	{#if $store.length > 0}
 		<div class="px-4" on:click={deselectChar}>
-			<Title type="s"
-				>{$charIndex === undefined ? '캐릭터를 선택해주세요' : $store[$charIndex].name}</Title
-			>
+			<Title type="s">
+				{#if $charIndex === undefined}
+					캐릭터를 선택해주세요
+				{:else}
+					<div class="flex gap-2">
+						<span>{$store[$charIndex].name}</span>
+						<span>{$store[$charIndex].class}</span>
+					</div>
+					<button on:click={deleteChar}><i class="fa-solid fa-trash" /></button>
+				{/if}
+			</Title>
 			<CharViewer />
 		</div>
 		<Hbar />
