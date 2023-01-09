@@ -30,8 +30,8 @@
 	{#if $showModal}
 		<Modal on:click={() => ($showModal = !$showModal)} />
 	{/if}
-	<div class="w-full min-h-[100vh] px-4 pb-32 flex justify-center bg-slate-200 xl:px-0">
-		<div class="w-full min-w-[768px] max-w-[1200px] flex flex-col">
+	<div class="w-full min-h-[100vh] flex justify-center bg-slate-200 md:px-4 md:pb-32 xl:px-0">
+		<div class="w-full flex flex-col">
 			<Header />
 			<main class="w-full min-h-[70vh] justify-center gap-8">
 				<slot />

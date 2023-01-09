@@ -16,7 +16,10 @@
 	}
 </script>
 
-<section class="px-8 pb-16 rounded-3xl bg-white">
+<section
+	class="px-4 pb-8 rounded-3xl bg-white
+				 md:px-8 md:pb-16"
+>
 	<Title
 		><span>캐릭터 관리</span><button on:click={openExportModal}
 			><i class="fa-solid fa-cloud-arrow-down" /></button
@@ -35,7 +38,7 @@
 		<Hbar />
 		<BossViewer />
 	{:else}
-		<div class="px-4">
+		<div class="md:px-4">
 			<Title type="s">캐릭터를 추가해주세요</Title>
 		</div>
 	{/if}

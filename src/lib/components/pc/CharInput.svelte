@@ -33,16 +33,16 @@
 
 <div class="px-4 pb-8 flex flex-col justify-between">
 	<Title type="s">캐릭터 추가</Title>
-	<div class="px-4 py-0 flex justify-between gap-8">
-		<div class="relative flex gap-16">
+	<div class="px-4 py-0 flex flex-col justify-between gap-8 md:flex-row md:items-center">
+		<div class="relative w-full flex gap-16">
 			<input
 				bind:value={charName}
-				class="w-[320px] px-4 py-1 border-b border-slate-700"
-				placeholder="캐릭터 이름을 입력해주세요"
+				class="w-[100%] px-4 py-1 border-b border-slate-700"
+				placeholder="캐릭터 이름"
 			/>
 			<select
 				bind:value={charClass}
-				class="w-[160px] p-1 border rounded-lg border-slate-700"
+				class="w-[100%] p-1 border rounded-lg border-slate-700"
 				required
 			>
 				<option value="" disabled selected hidden>직업</option>
