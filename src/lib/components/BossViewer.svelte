@@ -54,36 +54,32 @@
 			<div class="max-h-[400px] p-4 flex flex-col gap-12 overflow-x-hidden overflow-y-auto">
 				{#each $store[$charIndex].boss as boss, idx}
 					<div class="relative flex-none w-full h-[120px]">
-						<div class="w-full h-full flex justify-between items-center">
-							<div class="relative w-full h-full rounded-3xl overflow-hidden">
-								<img
-									src={boss.image}
-									alt={boss.name}
-									class="absolute w-[100%] h-full object-cover"
+						<div class="w-full h-full flex flex-col sm:flex-row justify-between items-center">
+							<div class="relative w-full h-full flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-2 rounded-3xl">
+								<img src={boss.image} alt={boss.name} class="absolute w-full h-full rounded-3xl object-cover" />
+								<div
+									class="absolute w-full h-full bg-gradient-to-l from-white via-transparent to-transparent"
 								/>
 								<div
-									class="absolute w-[100%] h-full px-12 flex items-center
-												 bg-gradient-to-l from-white via-transparent to-transparent
-												 text-4xl text-white font-bold drop-shadow-xs"
+									class="sm:px-12 flex justify-center sm:justify-start sm:items-center
+												 text-2xl sm:text-4xl text-white font-bold whitespace-pre break-word drop-shadow-xs"
 								>
 									{boss.name}
 								</div>
-							</div>
-							<div
-								class="absolute right-2 flex flex-col md:flex-row items-center gap-2 md:gap-4"
-							>
-								{#each boss.dc as dc}
-									<div
-										on:click={() => deleteBoss(idx, dc[0])}
-										class="h-full p-2 md:p-4 flex md:flex-col justify-center items-center gap-1
-										border-2 rounded-2xl bg-white cursor-pointer
-										hover:bg-gray-500/30 transition duration-100 ease-in-out"
-										class:border-red-400={dc[2]}
-									>
-										<span class="font-bold">{dc[0]}</span>
-										<span class='whitespace-nowrap'>{dc[1]}인</span>
-									</div>
-								{/each}
+								<div class="flex flex-row sm:flex-col items-center gap-2 md:gap-4">
+									{#each boss.dc as dc}
+										<div
+											on:click={() => deleteBoss(idx, dc[0])}
+											class="z-10 px-2 py-2 xs:px-4 flex justify-center items-center gap-1
+														 border-2 rounded-2xl bg-white cursor-pointer
+											hover:bg-gray-500/30 transition duration-100 ease-in-out"
+											class:border-red-400={dc[2]}
+										>
+											<span class="text-xs xs:text-base font-bold">{dc[0]}</span>
+											<span class="text-xs xs:text-base whitespace-nowrap">{dc[1]}인</span>
+										</div>
+									{/each}
+								</div>
 							</div>
 						</div>
 					</div>
@@ -92,5 +88,7 @@
 		{/if}
 	</div>
 {:else}
-	<div class="mt-4 px-8 py-4 text-xl font-bold text-slate-700 overflow-hidden whitespace-nowrap">선택된 캐릭터가 없습니다</div>
+	<div class="mt-4 px-8 py-4 text-xl font-bold text-slate-700 overflow-hidden whitespace-nowrap">
+		선택된 캐릭터가 없습니다
+	</div>
 {/if}

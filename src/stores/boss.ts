@@ -46,14 +46,14 @@ export const bossInfo: {
 			HARD: 330
 		}
 	},
-	e: {
+	'검은 마법사': {
 		image: '/images/boss/b.jpeg',
 		dc: {
-			NORMAL: 270,
-			CHAOS: 440
+			HARD: 270,
+			EXTREME: 440
 		}
 	},
-	f: {
+	'선택받은 세렌': {
 		image: '/images/boss/c.jpeg',
 		dc: {
 			NORMAL: 360,

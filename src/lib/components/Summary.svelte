@@ -9,18 +9,18 @@
 
 <div
 	class="min-h-[90px] px-4 flex flex-col xs:flex-row justify-center items-center rounded-t-2xl bg-white
-						whitespace-nowrap xl:flex-col xl:rounded-2xl"
+						whitespace-nowrap xl:px-6 xl:flex-col xl:rounded-2xl"
 >
 	<div class="hidden w-full md:flex justity-end xl:border-b">
 		<Title>보스 요약</Title>
 	</div>
-	<div class="w-full px-2 flex xl:px-0 xl:flex-col">
+	<div class="self-center w-full flex xl:px-0 xl:flex-col">
 		<div
-			class="w-full px-2 flex justify-center text-xl text-slate-700 xl:justify-end xl:pt-8 xl:pb-2"
+			class="w-full px-0 flex justify-center text-xl text-slate-700 xs:px-2 xl:justify-end xl:pt-8 xl:pb-2"
 		>
 			{charCount} 캐릭터
 		</div>
-		<div class="w-full px-2 flex justify-center text-xl text-slate-700 xl:py-2 xl:justify-end">
+		<div class="w-full px-0 flex justify-center text-xl text-slate-700 xs:px-2 xl:py-2 xl:justify-end">
 			{$Count} 보스
 		</div>
 	</div>
