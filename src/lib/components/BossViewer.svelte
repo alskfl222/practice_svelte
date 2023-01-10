@@ -55,22 +55,22 @@
 				{#each $store[$charIndex].boss as boss, idx}
 					<div class="relative flex-none w-full h-[120px]">
 						<div class="w-full h-full flex justify-between items-center">
-							<div class="relative w-full h-full">
+							<div class="relative w-full h-full rounded-3xl overflow-hidden">
 								<img
 									src={boss.image}
 									alt={boss.name}
-									class="absolute w-[100%] h-full rounded-l-3xl object-cover"
+									class="absolute w-[100%] h-full object-cover"
 								/>
 								<div
 									class="absolute w-[100%] h-full px-12 flex items-center
 												 bg-gradient-to-l from-white via-transparent to-transparent
-												 text-4xl text-white font-bold"
+												 text-4xl text-white font-bold drop-shadow-xs"
 								>
 									{boss.name}
 								</div>
 							</div>
 							<div
-								class="absolute right-0 flex flex-col md:flex-row items-center gap-2 md:gap-4"
+								class="absolute right-2 flex flex-col md:flex-row items-center gap-2 md:gap-4"
 							>
 								{#each boss.dc as dc}
 									<div

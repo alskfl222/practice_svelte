@@ -65,32 +65,37 @@
 				<div
 					class="relative w-full h-[90px] flex flex-col justify-center gap-2 rounded-2xl shadow overflow-hidden md:h-[120px]"
 					class:rounded-b-none={idx === $counterIndex}
-					class:border-red-400={hasRequired(item)}
+					class:shadow-red-400={hasRequired(item)}
 					data-index={idx}
 				>
 					<img
 						src={`${bossInfo[item[0]].image}`}
 						alt="boss img"
-						class="absolute w-full xs:w-[70%] h-full object-cover"
+						class="absolute w-full h-full object-cover"
 					/>
 					<div
-						class="relative w-full xs:h-full xs:absolute xs:w-[70%] px-12 flex justify-center items-center gap-2
+						class="relative w-full xs:h-full xs:absolute px-12 flex justify-center items-center gap-2
 								 xs:bg-gradient-to-l xs:from-white xs:via-transparent xs:to-transparent
 								 text-white font-bold xs:flex-col xs:items-start sm:flex-row sm:justify-start sm:items-center sm:gap-6"
 						data-index={idx}
 					>
-						<span class="drop-shadow sm:text-2xl xl:text-3xl" data-index={idx}>{item[0]}</span>
-						<span class="text-sm drop-shadow sm:text-xl xl:text-2xl" data-index={idx}
-							>{item[1]}</span
+						<span
+							class="text-lg drop-shadow-xs sm:text-3xl"
+							data-index={idx}>{item[0]}</span
+						>
+						<span
+							class="drop-shadow-xs sm:text-2xl"
+							data-index={idx}>{item[1]}</span
 						>
 					</div>
 					<div
-						class="relative right-0 flex xs:flex-col justify-center items-center xs:absolute xs:right-1 sm:right-2"
+						class="relative right-0 mx-2 py-1 flex justify-center items-center border-2 rounded-2xl bg-white  text-indigo-500
+									 xs:px-2 xs:flex-col xs:absolute xs:right-2 sm:right-2"
 					>
-						<span class="px-2 text-sm xs:px-4 xs:text-base" data-index={idx}
+						<span class="text-sm font-bold drop-shadow-[0_0_10px_rgba(255,255,255,1)] xs:px-2 xs:text-base" data-index={idx}
 							>{`X ${item[3].length}`}</span
 						>
-						<span class="px-2 text-sm xs:px-4 xs:text-base" data-index={idx}
+						<span class="text-sm xs:px-2 xs:text-base" data-index={idx}
 							>{getABossPrice(idx)} 원</span
 						>
 					</div>
@@ -98,7 +103,7 @@
 				{#if idx === $counterIndex}
 					<div
 						class="grow p-4 flex flex-col justify-between items-center gap-2 rounded-b-2xl shadow"
-						class:border-red-400={hasRequired(item)}
+						class:shadow-red-400={hasRequired(item)}
 					>
 						<div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
 							{#each item[3] as char}
