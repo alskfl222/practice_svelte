@@ -54,7 +54,7 @@
 >
 	<Title>보스별 정리</Title>
 	<Hbar />
-	<div class="py-8 flex flex-col gap-9 overflow-x-hidden overflow-y-auto">
+	<div class="px-4 py-8 flex flex-col gap-9 overflow-x-hidden overflow-y-auto">
 		{#each data as item, idx}
 			<div
 				class="flex-none w-full px-4 flex flex-col transition"
@@ -62,7 +62,7 @@
 				class:opacity-50={item[4] - item[3].length >= maxBossCount}
 			>
 				<div
-					class="relative w-full h-[120px] rounded-2xl sm:h-[90px]"
+					class="relative w-full h-[90px] flex flex-col justify-center gap-2 rounded-2xl shadow overflow-hidden md:h-[120px]"
 					class:rounded-b-none={idx === $counterIndex}
 					class:border-red-400={hasRequired(item)}
 					data-index={idx}
@@ -70,52 +70,52 @@
 					<img
 						src={`${bossInfo[item[0]].image}`}
 						alt="boss img"
-						class={`absolute w-full h-full ${
-							idx === $counterIndex ? 'rounded-t-2xl' : 'rounded-2xl'
-						} object-cover`}
+						class="absolute w-full xs:w-[70%] h-full object-cover"
 					/>
 					<div
-						class="absolute left-0 w-full h-full px-6 flex flex-col justify-center gap-2
-								   bg-gradient-to-l from-white via-transparent to-transparent text-white font-bold
-								   sm:px-12 sm:flex-row sm:justify-start sm:items-center sm:gap-6"
+						class="relative w-full xs:h-full xs:absolute xs:w-[70%] px-12 flex justify-center items-center gap-2
+								 xs:bg-gradient-to-l xs:from-white xs:via-transparent xs:to-transparent
+								 text-white font-bold xs:flex-col xs:items-start sm:flex-row sm:justify-start sm:items-center sm:gap-6"
 						data-index={idx}
 					>
-						<span class="text-2xl drop-shadow sm:text-3xl" data-index={idx}>{item[0]}</span>
-						<span class="text-xl drop-shadow sm:text-2xl" data-index={idx}>{item[1]}</span>
+						<span class="drop-shadow sm:text-2xl xl:text-3xl" data-index={idx}>{item[0]}</span>
+						<span class="text-sm drop-shadow sm:text-xl xl:text-2xl" data-index={idx}
+							>{item[1]}</span
+						>
 					</div>
-					<div class="absolute right-0 h-full flex items-center">
-						<span class="px-4" data-index={idx}>{`X ${item[3].length}`}</span>
+					<div
+						class="relative right-0 flex xs:flex-col justify-center items-center xs:absolute xs:right-1 sm:right-2"
+					>
+						<span class="px-2 text-sm xs:px-4 xs:text-base" data-index={idx}>{`X ${item[3].length}`}</span>
+						<span class="px-2 text-sm xs:px-4 xs:text-base" data-index={idx}>{getABossPrice(idx)} 원</span>
 					</div>
 				</div>
 				{#if idx === $counterIndex}
 					<div
-						class="grow p-4 flex justify-between items-center
-									 rounded-b-2xl shadow"
+						class="grow p-4 flex flex-col justify-between items-center gap-2 rounded-b-2xl shadow"
 						class:border-red-400={hasRequired(item)}
 					>
-						<div class="flex gap-2">
+						<div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
 							{#each item[3] as char}
 								<div
-									class="w-full px-4 py-2 flex flex-col gap-2 border rounded-xl
-												 drop-shadow-lg cursor-pointer hover:bg-gray-500/30
+									class="w-full px-4 py-2 flex sm:flex-col justify-between sm:items-center gap-2 
+												 border rounded-xl shadow cursor-pointer hover:bg-gray-500/30
 												 transition duration-100 ease-in-out"
 									class:border-red-400={char[3]}
 									on:click|stopPropagation={() => selectChar(char[0])}
 								>
-									<div class="flex flex-col items-center">
-										<span>{char[0]}</span>
-										<span>{char[2]} 인</span>
+									<span class="max-w-[40%] overflow-hidden whitespace-nowrap text-ellipsis"
+										>{char[0]}</span
+									>
+									<div class="flex items-center gap-2">
+										<span class="hidden xs:inline whitespace-nowrap">{char[2]}인</span>
+										<span class="whitespace-nowrap">
+											{Math.floor(item[2] / char[2])}원
+										</span>
 									</div>
-									<div class="border-b border-slate-400" />
-									<span class="self-center">
-										{Math.floor(item[2] / char[2])} 원
-									</span>
 								</div>
 							{/each}
 						</div>
-						<span>
-							총 {getABossPrice(idx)} 원
-						</span>
 					</div>
 				{/if}
 			</div>

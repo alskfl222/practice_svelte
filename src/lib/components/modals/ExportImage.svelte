@@ -3,7 +3,7 @@
 	import Button from '../common/Button.svelte';
 	import { store, Report } from '$stores';
 	import { getCharBossCount, getTotalBossCount } from '$utils';
-	import Hbar from '$lib/components/pc/common/Hbar.svelte';
+	import Hbar from '$lib/components/common/Hbar.svelte';
 
 	let container: HTMLElement;
 	let target: HTMLAnchorElement;

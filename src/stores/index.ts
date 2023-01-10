@@ -2,9 +2,7 @@ import { writable, derived } from 'svelte/store';
 import { getBossReport, getTotalBossCount, getBossPrice } from '../utils';
 import type { BossDCType, CharBossType } from '../types';
 
-export const maxBossCount = 3;
-export const minPCInnerWidth = 800;
-export const platform = writable<'pc' | 'mobile'>('pc')
+export const maxBossCount = 180;
 
 export const charIndex = writable<number | undefined>(undefined);
 export const counterIndex = writable<number | undefined>(undefined);
