@@ -11,6 +11,9 @@
 	function getImgX(idx: number) {
 		return -45 * idx;
 	}
+	function getOpacity(idx: number) {
+		return `opacity-${100 - 10 * idx}`
+	}
 
 	async function exportImg() {
 		if (container && target) {
@@ -26,7 +29,7 @@
 
 <div class="max-h-[80vh] p-12 flex flex-col gap-8 rounded-2xl bg-white overflow-scroll">
 	{#if activeChars.length > 0}
-		<div class="max-w-[640px] p-8 flex flex-col gap-9" bind:this={container}>
+		<div class="w-[640px] p-8 pb-16 flex flex-col gap-9" bind:this={container}>
 			<div class="flex gap-6 text-2xl font-bold">
 				<span>{activeChars.length} 캐릭터</span><span>{getTotalBossCount($Report)} 보스</span>
 			</div>
@@ -41,17 +44,20 @@
 							</div>
 							<span>X {getCharBossCount(char.boss)}</span>
 						</div>
-						<div class="relative flex bg-gradient-to-r from-transparent to-white">
+						<div class="relative w-full flex overflow-hidden">
+							<!-- <div
+								class="absolute z-50 w-full h-full bg-gradient-to-r from-transparent via-transparent to-white"
+							/> -->
 							{#each char.boss as boss, idx}
 								<div
-									class="relative w-[150px] h-[150px] py-4 flex flex-col justify-end items-center
-											 border-2 border-white rounded-full object-cover"
+									class={`relative flex-none w-[150px] h-[150px] py-4 flex flex-col justify-end items-center
+											 border-2 border-white rounded-full ${getOpacity(idx)}`}
 									style={`left: ${getImgX(idx)}px; background-image: url("${
 										boss.image
 									}"); background-position: center; background-size: cover;`}
 								>
 									{#each boss.dc as dc}
-										<span class="font-bold text-slate-100 drop-shadow">{dc[0]}</span>
+										<span class="font-bold text-slate-100 drop-shadow-lg">{dc[0]}</span>
 									{/each}
 								</div>
 							{/each}
@@ -59,6 +65,7 @@
 					</div>
 				{/if}
 			{/each}
+			<span class="self-center mt-4 text-xl">by <strong>alskfl222</strong></span>
 		</div>
 		<Hbar />
 		<Button on:click={exportImg}><i slot="text" class="fa-solid fa-cloud-arrow-down" /></Button>
