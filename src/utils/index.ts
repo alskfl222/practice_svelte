@@ -1,4 +1,4 @@
-import { maxBossCount, bossInfo } from '../stores';
+import { maxBossCount, bossInfo } from '$stores/boss';
 import type {
 	CharBossType,
 	BossType,
@@ -7,7 +7,8 @@ import type {
 	CharType,
 	BossDCType,
 	BossReportDCType,
-	SortReportType
+	SortReportType,
+	HeadcountType
 } from '../types';
 
 export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) => {
@@ -23,7 +24,12 @@ export const getBossReport = (data: CharBossType[]) => {
 			const row: CharType = { name: char.name, class: char.class, dc: boss.dc };
 			boss.dc.forEach((item) => {
 				const [dc, headcount, required] = item;
-				const charDC: BossReportDCType = [char.name, char.class, headcount, required];
+				const charDC: BossReportDCType = [
+					char.name,
+					char.class,
+					headcount as HeadcountType,
+					required
+				];
 				if (!obj[boss.name]) {
 					obj[boss.name] = { chars: [row], dc: { [dc]: [charDC] } };
 				} else {

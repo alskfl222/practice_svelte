@@ -3,8 +3,8 @@
 	import Dropdown from '../common/Dropdown.svelte';
 	import Title from '../common/Title.svelte';
 	import Hbar from '../common/Hbar.svelte';
-	import { store, charIndex, bossInfo } from '$stores';
-	import { selectBoss } from '$stores/boss';
+	import { store, charIndex } from '$stores';
+	import { bossInfo, selectBoss } from '$stores/boss';
 	import type { BossType, BossDCType, HeadcountType, RequiredType } from '$types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '$utils';
 

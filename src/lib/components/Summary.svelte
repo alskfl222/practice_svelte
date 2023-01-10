@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { store, Count, Price, maxBossCount } from '$stores';
+	import { store, Count, Price } from '$stores';
+	import { maxBossCount } from '$stores/boss';
 	import Title from './common/Title.svelte';
 	$: charCount = $store.length;
 	$: countStatus =

@@ -1,4 +1,5 @@
-import type { bossInfo, classInfo } from '../stores';
+import type { classInfo } from '$stores';
+import type { bossInfo } from '$stores/boss';
 
 export type CharNameType = string;
 export type ClassNameType = keyof typeof classInfo;

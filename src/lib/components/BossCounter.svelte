@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { store, Report, bossInfo, charIndex, counterIndex, maxBossCount } from '$stores';
+	import { store, Report, charIndex, counterIndex } from '$stores';
+	import { bossInfo, maxBossCount } from '$stores/boss';
 	import type { CharNameType, SortReportItemType } from '$types';
 	import { reportSortByPrice } from '$utils';
 	import Title from './common/Title.svelte';
@@ -86,8 +87,12 @@
 					<div
 						class="relative right-0 flex xs:flex-col justify-center items-center xs:absolute xs:right-1 sm:right-2"
 					>
-						<span class="px-2 text-sm xs:px-4 xs:text-base" data-index={idx}>{`X ${item[3].length}`}</span>
-						<span class="px-2 text-sm xs:px-4 xs:text-base" data-index={idx}>{getABossPrice(idx)} 원</span>
+						<span class="px-2 text-sm xs:px-4 xs:text-base" data-index={idx}
+							>{`X ${item[3].length}`}</span
+						>
+						<span class="px-2 text-sm xs:px-4 xs:text-base" data-index={idx}
+							>{getABossPrice(idx)} 원</span
+						>
 					</div>
 				</div>
 				{#if idx === $counterIndex}

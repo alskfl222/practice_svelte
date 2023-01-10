@@ -22,7 +22,7 @@
 		: 'w-full p-2 border border-slate-700 rounded-xl bg-white hover:bg-slate-300';
 </script>
 
-<div class="relative grow-[1]" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+<div class="relative grow-[1] max-w-[200px]" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
 	<button class={buttonStyle} {disabled} on:click={onClick}>
 		<slot name="text" />
 	</button>
