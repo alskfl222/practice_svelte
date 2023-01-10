@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { store, Count, Price, maxBossCount } from '$stores';
-	import Hbar from './common/Hbar.svelte';
 	import Title from './common/Title.svelte';
 	$: charCount = $store.length;
 	$: countStatus =
@@ -8,24 +7,22 @@
 </script>
 
 <div
-	class="px-4 flex items-center rounded-t-2xl bg-white
+	class="min-h-[90px] px-4 flex items-center rounded-t-2xl bg-white
 						whitespace-nowrap xl:flex-col xl:rounded-2xl"
 >
-	<div class="w-full flex justity-end">
+	<div class="hidden w-full md:flex justity-end xl:border-b">
 		<Title>보스 요약</Title>
 	</div>
-	<Hbar />
-	<div class="w-full px-4 flex justify-end text-xl text-slate-700 xl:pt-8 xl:pb-4">
+	<div class="w-full px-2 flex justify-center text-xl text-slate-700 xl:justify-end xl:pt-8 xl:pb-2">
 		{charCount} 캐릭터
 	</div>
-	<div class="w-full px-4 flex justify-end text-xl text-slate-700 xl:pb-8">
+	<div class="w-full px-2 flex justify-center text-xl text-slate-700 xl:py-2 xl:justify-end">
 		{$Count} 보스
 	</div>
-	<Hbar />
-	<div class="w-full px-4 flex justify-end text-xl text-slate-700 xl:pt-8 xl:pb-4">
+	<div class="w-full px-2 flex justify-center text-xl text-slate-700 xl:py-10 xl:justify-end xl:border-b">
 		{$Price} 원
 	</div>
-	<div class="w-full px-4 flex justify-end text-xl text-slate-700 font-bold xl:pb-8">
+	<div class="hidden w-full px-2 sm:flex justify-center text-xl text-slate-700 font-bold xl:py-8 xl:justify-end">
 		{countStatus}
 	</div>
 </div>

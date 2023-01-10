@@ -92,5 +92,5 @@
 		{/if}
 	</div>
 {:else}
-	<div class="mt-4 px-8 py-4 text-xl font-bold text-slate-700">선택된 캐릭터가 없습니다</div>
+	<div class="mt-4 px-8 py-4 text-xl font-bold text-slate-700 overflow-hidden whitespace-nowrap">선택된 캐릭터가 없습니다</div>
 {/if}
