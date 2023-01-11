@@ -77,7 +77,7 @@ export const sortByDC = (arr: BossType['dc']) => {
 };
 
 export const sortByPrice = (data: typeof bossInfo) => {
-	const arr: [string, keyof BossDCType, PriceType][] = [];
+	const arr: [keyof typeof bossInfo, keyof BossDCType, PriceType][] = [];
 	Object.entries(data).forEach((boss) => {
 		Object.entries(boss[1].dc).forEach((entry) => {
 			arr.push([boss[0], entry[0] as keyof BossDCType, entry[1]]);

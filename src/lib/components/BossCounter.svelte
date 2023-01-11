@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { store, Report, charIndex, counterIndex } from '$stores';
 	import { bossInfo, maxBossCount } from '$stores/boss';
-	import type { CharNameType, SortReportItemType } from '$types';
+	import type { BossReportType, CharNameType, SortReportItemType } from '$types';
 	import { reportSortByPrice } from '$utils';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
@@ -20,8 +20,8 @@
 		$counterIndex = undefined;
 	}
 
-	function getABossPrice(idx: number) {
-		const aBossReport = data[idx];
+	function getABossPrice(report: BossReportType, idx: number) {
+		const aBossReport = reportSortByPrice(report)[idx];
 		const [crystalPrice, charArr] = [aBossReport[2], aBossReport[3]];
 		let price = 0;
 		charArr.forEach((char) => {
@@ -94,7 +94,7 @@
 							data-index={idx}>{`X ${item[3].length}`}</span
 						>
 						<span class="text-sm xs:px-2 xs:text-base" data-index={idx}
-							>{getABossPrice(idx)} 원</span
+							>{getABossPrice($Report, idx)} 원</span
 						>
 					</div>
 				</div>
