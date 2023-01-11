@@ -35,6 +35,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>일정 관리</title>
+	<meta name="description" content="일정 관리" />
+</svelte:head>
+
 <div
 	class="h-full px-2 pt-4 pb-[120px] rounded-2xl bg-white"
 	on:click={() => (isCharListOpen = false)}
@@ -61,7 +66,7 @@
 	</div>
 	{#if isCharListOpen}
 		<div
-			class="fixed bottom-0 inset-x-0 z-30 h-[35%] mx-4 px-12 pt-4 pb-16 rounded-t-2xl bg-white shadow-[0_1px_3px_-1px_rgba(0,0,0,1)] lg:mx-0"
+			class="fixed bottom-0 inset-x-0 z-30 h-[35%] mx-4 px-12 pt-4 pb-16 rounded-t-2xl bg-white shadow-[0_1px_3px_-1px_rgba(0,0,0,1)]"
 			on:click|stopPropagation={() => (isCharListOpen = true)}
 			in:fly
 		>

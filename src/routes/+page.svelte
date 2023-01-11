@@ -6,8 +6,8 @@
 </script>
 
 <svelte:head>
-	<title>START</title>
-	<meta name="description" content="Practice Sveltekit" />
+	<title>보스 관리</title>
+	<meta name="description" content="보스 관리" />
 </svelte:head>
 
 

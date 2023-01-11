@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>About</title>
+	<title>이 페이지는?</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
 
