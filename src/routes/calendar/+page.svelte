@@ -33,6 +33,10 @@
 			$mapleDayObj = $mapleDayObj;
 		}
 	}
+
+	function getCharBossArr(char: string) {
+		return $store.filter((x) => x.name === char)[0].boss;
+	}
 </script>
 
 <svelte:head>
@@ -49,16 +53,30 @@
 	<div class="px-4 grid gap-4 lg:grid-cols-7">
 		{#each Object.entries($mapleDayObj) as entry, idx}
 			<div
-				class="w-full h-[160px] p-4 flex flex-col justify-between gap-2 border-2 rounded-2xl bg-white shadow lg:h-[270px]"
+				class="w-full h-[200px] p-4 flex flex-col justify-between gap-4 border-2 rounded-2xl bg-white shadow lg:h-[270px]"
 				class:border-slate-500={entry[0] === selectedDay}
 				on:click|stopPropagation={() => onClickDay(idx)}
 			>
 				<div class="flex justify-between items-center lg:flex-col lg:items-start">
-					<span class='text-2xl'>{entry[0]}</span><span>{entry[1].length} 캐릭터</span>
+					<span class="text-2xl">{entry[0]}</span><span>{entry[1].length} 캐릭터</span>
 				</div>
-				<div class="w-full h-[80%] overflow-y-auto">
+				<div class="relative w-full h-[80%] flex flex-col gap-2 overflow-y-auto">
 					{#each entry[1] as char}
-						<div class="whitespace-nowrap text-ellipsis overflow-x-hidden">{char}</div>
+						{#if getCharBossArr(char).length > 0}
+							<div>
+								<div
+									id="char"
+									class="flex-none relative text-lg whitespace-nowrap text-ellipsis overflow-x-hidden"
+								>
+									{char}
+								</div>
+								<div class="absolute z-10 left-0 right-0 m-2 p-4 border rounded bg-white">
+									{#each getCharBossArr(char) as boss}
+										<p>{boss.name}</p>
+									{/each}
+								</div>
+							</div>
+						{/if}
 					{/each}
 				</div>
 			</div>
@@ -79,11 +97,24 @@
 			<Hbar />
 			<div class="h-full mt-4 flex flex-col gap-2 overflow-x-hidden overflow-y-scroll">
 				{#each $store as char}
-					<div class="text-2xl hover:bg-slate-300/30" on:click={() => addCharToDay(char.name)}>
-						{char.name}
-					</div>
+					{#if char.boss.length > 0}
+						<div class="text-2xl hover:bg-slate-300/30" on:click={() => addCharToDay(char.name)}>
+							{char.name}
+						</div>
+					{/if}
 				{/each}
 			</div>
 		</div>
 	{/if}
 </div>
+
+<style lang="scss">
+	div#char {
+		& + div {
+			visibility: hidden;
+		}
+		&:hover + div {
+			visibility: visible;
+		}
+	}
+</style>

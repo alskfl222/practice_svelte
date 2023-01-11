@@ -46,12 +46,12 @@
 			{/if}
 		</div>
 		<button
-			class="m-4 mb-6 px-4 py-6 border rounded-2xl cursor-pointer text-2xl font-bold
+			class="m-4 sm:mb-8 px-4 py-6 border rounded-2xl cursor-pointer text-2xl font-bold
 					 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 			on:click={openModal}>보스 추가</button
 		>
 		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
-			<div class="max-h-[400px] p-4 flex flex-col gap-12 overflow-x-hidden overflow-y-auto">
+			<div class="max-h-[400px] p-4 flex flex-col gap-2 sm:gap-6 overflow-x-hidden overflow-y-auto">
 				{#each $store[$charIndex].boss as boss, idx}
 					<div class="relative flex-none w-full h-[120px]">
 						<div class="w-full h-full flex flex-col sm:flex-row justify-between items-center">
