@@ -59,3 +59,5 @@ export type BossReportType = {
 
 export type SortReportItemType = [BossNameType, keyof BossDCType, PriceType, BossReportDCType[], BossCountType];
 export type SortReportType = SortReportItemType[];
+
+export type MapleDayType = '목' | '금' | '토' | '일' | '월' | '화' | '수';
