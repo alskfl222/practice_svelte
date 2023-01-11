@@ -3,7 +3,7 @@
 
 	import Title from '$lib/components/common/Title.svelte';
 	import Hbar from '$lib/components/common/Hbar.svelte';
-  
+
 	import { store } from '$stores';
 	import { mapleDayObj } from '$stores/calendar';
 	import type { MapleDayType } from '$types';
@@ -51,7 +51,7 @@
 				<div class="flex justify-between items-center lg:flex-col lg:items-start">
 					<span class='text-2xl'>{entry[0]}</span><span>{entry[1].length} 캐릭터</span>
 				</div>
-				<div class="w-full h-[80%] overflow-y-scroll">
+				<div class="w-full h-[80%] overflow-y-auto">
 					{#each entry[1] as char}
 						<div class="whitespace-nowrap text-ellipsis overflow-x-hidden">{char}</div>
 					{/each}
