@@ -63,7 +63,7 @@
 				class:opacity-50={item[4] - item[3].length >= maxBossCount}
 			>
 				<div
-					class="relative w-full h-[90px] flex flex-col justify-center gap-2 rounded-2xl shadow overflow-hidden md:h-[120px]"
+					class="relative w-full h-[120px] flex flex-col justify-center gap-2 rounded-2xl shadow overflow-hidden"
 					class:rounded-b-none={idx === $counterIndex}
 					class:shadow-red-400={hasRequired(item)}
 					data-index={idx}
@@ -74,26 +74,24 @@
 						class="absolute w-full h-full object-cover"
 					/>
 					<div
-						class="relative w-full xs:h-full xs:absolute px-12 flex justify-center items-center gap-2
-								 xs:bg-gradient-to-l xs:from-white xs:via-transparent xs:to-transparent
-								 text-white font-bold xs:flex-col xs:items-start sm:flex-row sm:justify-start sm:items-center sm:gap-6"
+						class="absolute w-full h-full px-4 flex flex-col pt-4
+								 sm:bg-gradient-to-l sm:from-white sm:via-transparent sm:to-transparent
+								 text-white font-bold xs:px-8 sm:px-12 sm:pt-0 sm:flex-row sm:justify-start sm:items-center sm:gap-6"
 						data-index={idx}
 					>
 						<span
-							class="text-lg drop-shadow-xs sm:text-3xl"
+							class="text-lg drop-shadow-xs whitespace-nowrap xs:text-2xl sm:text-3xl"
 							data-index={idx}>{item[0]}</span
 						>
-						<span
-							class="drop-shadow-xs sm:text-2xl"
-							data-index={idx}>{item[1]}</span
-						>
+						<span class="drop-shadow-xs xs:text-xl sm:text-2xl" data-index={idx}>{item[1]}</span>
 					</div>
 					<div
-						class="relative right-0 mx-2 py-1 flex justify-center items-center border-2 rounded-2xl bg-white  text-indigo-500
-									 xs:px-2 xs:flex-col xs:absolute xs:right-2 sm:right-2"
+						class="absolute bottom-2 right-0 mx-2 px-2 py-1 flex justify-center items-center gap-2 border-2 rounded-2xl bg-white text-indigo-500
+									 xs:gap-0 sm:flex-col sm:top-0 sm:bottom-0 sm:right-2 sm:my-4"
 					>
-						<span class="text-sm font-bold drop-shadow-[0_0_10px_rgba(255,255,255,1)] xs:px-2 xs:text-base" data-index={idx}
-							>{`X ${item[3].length}`}</span
+						<span
+							class="text-sm font-bold drop-shadow-[0_0_10px_rgba(255,255,255,1)] xs:px-2 xs:text-base"
+							data-index={idx}>{`X ${item[3].length}`}</span
 						>
 						<span class="text-sm xs:px-2 xs:text-base" data-index={idx}
 							>{getABossPrice(idx)} 원</span

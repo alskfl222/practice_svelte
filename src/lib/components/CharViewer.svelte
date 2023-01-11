@@ -61,7 +61,7 @@
 		});
 	}
 	$: innerWidth = browser ? window.innerWidth : 280;
-	$: charWidth = innerWidth >= 768 ? 270 : 200;
+	$: charWidth = innerWidth >= 768 ? 240 : 160;
 	$: maxX = charScroll ? $store.length * (charWidth + 16) - charScroll.offsetWidth : 0;
 </script>
 
@@ -73,7 +73,7 @@
 	<div class="w-full p-2 flex gap-4" bind:this={charScroll} use:dragEl>
 		{#each $store as char, idx}
 			<div
-				class={`w-[200px] md:w-[270px] p-4 flex-none
+				class={`w-[160px] md:w-[240px] p-4 flex-none
 					border rounded-lg text-lg font-bold ' + ${
 						idx === $charIndex
 							? 'border-white bg-gradient-to-r from-cyan-500 to-blue-500 text-slate-100'

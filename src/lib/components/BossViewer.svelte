@@ -72,7 +72,7 @@
 											on:click={() => deleteBoss(idx, dc[0])}
 											class="z-10 px-2 py-2 xs:px-4 flex justify-center items-center gap-1
 														 border-2 rounded-2xl bg-white cursor-pointer
-											hover:bg-gray-500/30 transition duration-100 ease-in-out"
+													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 											class:border-red-400={dc[2]}
 										>
 											<span class="text-xs xs:text-base font-bold">{dc[0]}</span>

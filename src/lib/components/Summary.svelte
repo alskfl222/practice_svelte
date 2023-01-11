@@ -9,7 +9,7 @@
 
 <div
 	class="min-h-[90px] px-4 flex flex-col xs:flex-row justify-center items-center rounded-t-2xl bg-white
-						whitespace-nowrap xl:px-6 xl:flex-col xl:rounded-2xl"
+				 whitespace-nowrap xl:px-6 xl:flex-col xl:rounded-2xl"
 >
 	<div class="hidden w-full md:flex justity-end xl:border-b">
 		<Title>보스 요약</Title>
