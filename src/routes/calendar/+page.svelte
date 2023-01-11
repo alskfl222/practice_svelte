@@ -53,7 +53,8 @@
 	<div class="px-4 grid gap-4 lg:grid-cols-7">
 		{#each Object.entries($mapleDayObj) as entry, idx}
 			<div
-				class="w-full h-[200px] p-4 flex flex-col justify-between gap-4 border-2 rounded-2xl bg-white shadow lg:h-[270px]"
+				class="w-full h-[200px] p-4 flex flex-col justify-between gap-4
+							 border-2 rounded-2xl bg-white shadow lg:h-[270px]"
 				class:border-slate-500={entry[0] === selectedDay}
 				on:click|stopPropagation={() => onClickDay(idx)}
 			>
@@ -70,7 +71,8 @@
 								>
 									{char}
 								</div>
-								<div class="absolute z-10 left-0 right-0 m-2 p-4 border rounded bg-white">
+								<div class="absolute z-10 left-0 right-0 m-2 p-4 flex flex-col border rounded-xl bg-white
+														lg:fixed lg:inset-x-[25%] lg:px-8 lg:grid lg:grid-cols-4">
 									{#each getCharBossArr(char) as boss}
 										<p>{boss.name}</p>
 									{/each}
@@ -84,7 +86,8 @@
 	</div>
 	{#if isCharListOpen}
 		<div
-			class="fixed bottom-0 inset-x-0 z-30 h-[35%] mx-4 px-12 pt-4 pb-16 rounded-t-2xl bg-white shadow-[0_1px_3px_-1px_rgba(0,0,0,1)]"
+			class="fixed bottom-0 inset-x-0 z-30 h-[35%] mx-4 px-12 pt-4 pb-16
+						 rounded-t-2xl bg-white shadow-[0_1px_3px_-1px_rgba(0,0,0,1)]"
 			on:click|stopPropagation={() => (isCharListOpen = true)}
 			in:fly
 		>

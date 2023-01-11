@@ -55,8 +55,15 @@
 				{#each $store[$charIndex].boss as boss, idx}
 					<div class="relative flex-none w-full h-[120px]">
 						<div class="w-full h-full flex flex-col sm:flex-row justify-between items-center">
-							<div class="relative w-full h-full flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-2 rounded-3xl">
-								<img src={boss.image} alt={boss.name} class="absolute w-full h-full rounded-3xl object-cover" />
+							<div
+								class="relative w-full h-full flex flex-col sm:flex-row
+											 justify-center sm:justify-between items-center gap-2 rounded-3xl"
+							>
+								<img
+									src={boss.image}
+									alt={boss.name}
+									class="absolute w-full h-full rounded-3xl object-cover"
+								/>
 								<div
 									class="absolute w-full h-full bg-gradient-to-l from-white via-transparent to-transparent"
 								/>
