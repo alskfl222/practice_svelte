@@ -11,6 +11,9 @@
 			<li class={$page.url.pathname === '/' ? selectedStyle : normalStyle}>
 				<a href="/"><i class="fa-solid fa-house" /></a>
 			</li>
+			<li class={$page.url.pathname === '/calendar' ? selectedStyle : normalStyle}>
+				<a href="/calendar"><i class="fa-solid fa-calendar"></i></a>
+			</li>
 			<li class={$page.url.pathname === '/about' ? selectedStyle : normalStyle}>
 				<a href="/about"><i class="fa-solid fa-circle-question" /></a>
 			</li>

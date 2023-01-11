@@ -5,7 +5,9 @@
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
 	import { store, charIndex } from '$stores';
+	import { mapleDayObj } from '$stores/calendar';
 	import { showModal, modalType } from '$stores/modal';
+	import type { MapleDayType } from '$types';
 
 	function deselectChar() {
 		$charIndex = undefined;
@@ -13,6 +15,10 @@
 
 	function deleteChar() {
 		if ($charIndex !== undefined) {
+			const charName = $store[$charIndex].name;
+			Object.keys($mapleDayObj).forEach(day => {
+				$mapleDayObj[day as MapleDayType] = $mapleDayObj[day as MapleDayType].filter(char => char !== charName)
+			})
 			$store = [...$store.slice(0, $charIndex), ...$store.slice($charIndex + 1)];
 			$charIndex = undefined;
 		}
@@ -43,7 +49,7 @@
 					캐릭터를 선택해주세요
 				{:else}
 					<div class="flex gap-2">
-						<span>{$store[$charIndex].name}</span>
+						<span class='w-[100px] whitespace-nowrap text-ellipsis overflow-hidden xs:w-[200px]'>{$store[$charIndex].name}</span>
 						<span>{$store[$charIndex].class}</span>
 					</div>
 					<button on:click={deleteChar}><i class="fa-solid fa-trash" /></button>

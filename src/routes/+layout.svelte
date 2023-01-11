@@ -5,15 +5,15 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Modal from '$lib/components/modals/Modal.svelte';
 	import { store } from '$stores';
+	import { mapleDayObj } from '$stores/calendar';
 	import { showModal } from '$stores/modal';
 	import '../app.css';
 
 	let isLoading: boolean = true;
 
 	onMount(() => {
-		if (localStorage.getItem('prev')) {
-			$store = JSON.parse(localStorage.getItem('prev')!);
-		}
+		if (localStorage.getItem('prev')) $store = JSON.parse(localStorage.getItem('prev')!);
+		if (localStorage.getItem('dayObj')) $mapleDayObj = JSON.parse(localStorage.getItem('dayObj')!);
 		isLoading = false;
 	});
 </script>
