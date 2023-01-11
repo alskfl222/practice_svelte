@@ -5,7 +5,7 @@
 		"dev": "vite dev --host",
 		"build": "vite build",
 		"start": "yarn build && node ./build/index.js",
-		"update": "git pull && yarn start",
+		"update": "git pull origin main && yarn start",
 		"package": "svelte-kit package",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
