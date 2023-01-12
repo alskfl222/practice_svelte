@@ -77,6 +77,17 @@ export const sortByDC = (arr: BossType['dc']) => {
 	return arr.slice().sort((a, b) => difficulties.indexOf(b[0]) - difficulties.indexOf(a[0]));
 };
 
+export const sortItemsByBoss = (bossArr: ItemType[][]) => {
+	const bossNames = Object.keys(bossInfo);
+	return bossArr.slice().sort((a, b) => bossNames.indexOf(b[0].boss!.name) - bossNames.indexOf(a[0].boss!.name));
+};
+
+export const sortItemsByDC = (arr: ItemType[]) => {
+	const difficulties = ['EASY', 'NORMAL', 'HARD', 'CHAOS', 'EXTREME'];
+	return arr.slice().sort((a, b) => difficulties.indexOf(b.boss!.dc) - difficulties.indexOf(a.boss!.dc));
+};
+
+
 export const sortByPrice = (data: typeof bossInfo) => {
 	const arr: [keyof typeof bossInfo, keyof BossDCType, PriceType][] = [];
 	Object.entries(data).forEach((boss) => {

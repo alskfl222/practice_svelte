@@ -25,7 +25,7 @@
 		<Modal on:click={() => ($showModal = !$showModal)} />
 	{/if}
 	<div class="w-full min-h-[100vh] flex justify-center bg-slate-200 md:px-4 md:pb-32 xl:px-0">
-		<div class="w-full max-w-[1200px] md:px-4 flex flex-col">
+		<div class="w-full max-w-[1200px] px-4 md:px-8 flex flex-col">
 			<Header />
 			<main class="w-full min-h-[70vh] pb-8 justify-center gap-8">
 				<slot />
