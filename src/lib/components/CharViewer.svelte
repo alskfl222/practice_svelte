@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-	import { store, charIndex } from '$stores';
+	import { store, charIdx } from '$stores';
+	import { data } from '$stores/item';
+	import { getCharArr } from '$utils';
 
 	let charContainer: HTMLElement;
 	let charScroll: HTMLElement;
@@ -9,10 +11,10 @@
 		const el = e.target as HTMLElement;
 		if (el.getAttribute('data-index')) {
 			const idx = parseInt(el.getAttribute('data-index')!);
-			$charIndex = idx;
+			$charIdx = idx;
 			return;
 		}
-		$charIndex = undefined;
+		$charIdx = undefined;
 	}
 
 	function dragEl(node: HTMLElement) {
@@ -63,6 +65,9 @@
 	$: innerWidth = browser ? window.innerWidth : 280;
 	$: charWidth = innerWidth >= 768 ? 240 : 160;
 	$: maxX = charScroll ? $store.length * (charWidth + 16) - charScroll.offsetWidth : 0;
+
+	$: charArr = getCharArr($data);
+	$: console.log(charArr);
 </script>
 
 <div
@@ -75,7 +80,7 @@
 			<div
 				class={`w-[160px] md:w-[240px] p-4 flex-none
 					border rounded-lg text-lg font-bold ' + ${
-						idx === $charIndex
+						idx === $charIdx
 							? 'border-white bg-gradient-to-r from-cyan-500 to-blue-500 text-slate-100'
 							: 'border-cyan-500 text-slate-700'
 					}`}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { BossDCType } from '$types';
-	import { store, charIndex } from '$stores';
+	import { store, charIdx } from '$stores';
 	import { showModal, modalType } from '$stores/modal';
 
 	function openModal() {
@@ -9,14 +9,14 @@
 	}
 
 	function deleteBoss(idx: number, dc: keyof BossDCType) {
-		if ($charIndex !== undefined) {
-			let charBossDC = $store[$charIndex].boss[idx].dc;
+		if ($charIdx !== undefined) {
+			let charBossDC = $store[$charIdx].boss[idx].dc;
 			charBossDC = charBossDC.filter((x) => x[0] !== dc);
-			$store[$charIndex].boss[idx].dc = charBossDC;
+			$store[$charIdx].boss[idx].dc = charBossDC;
 			if (charBossDC.length === 0) {
-				$store[$charIndex].boss = [
-					...$store[$charIndex].boss.slice(0, idx),
-					...$store[$charIndex].boss.slice(idx + 1)
+				$store[$charIdx].boss = [
+					...$store[$charIdx].boss.slice(0, idx),
+					...$store[$charIdx].boss.slice(idx + 1)
 				];
 			}
 			localStorage.setItem('prev', JSON.stringify($store));
@@ -25,7 +25,7 @@
 
 	function getCharBossCount(bossArr: any[]) {
 		let count = 0;
-		if ($charIndex !== undefined) {
+		if ($charIdx !== undefined) {
 			bossArr.forEach((boss) => {
 				count += boss.dc.length;
 			});
@@ -33,16 +33,16 @@
 		return count;
 	}
 
-	$: count = $charIndex !== undefined ? getCharBossCount($store[$charIndex].boss) : 0;
+	$: count = $charIdx !== undefined ? getCharBossCount($store[$charIdx].boss) : 0;
 </script>
 
-{#if $charIndex !== undefined}
+{#if $charIdx !== undefined}
 	<div class="md:px-4 my-4 flex flex-col">
 		<div class="p-4 text-xl font-bold text-slate-700">
 			{#if count === 0}
 				보스를 추가해주세요
 			{:else}
-				총 {$store[$charIndex].boss.length}종 {count}개
+				총 {$store[$charIdx].boss.length}종 {count}개
 			{/if}
 		</div>
 		<button
@@ -50,9 +50,9 @@
 					 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 			on:click={openModal}>보스 추가</button
 		>
-		{#if $store[$charIndex] && $store[$charIndex].boss.length > 0}
+		{#if $store[$charIdx] && $store[$charIdx].boss.length > 0}
 			<div class="max-h-[400px] p-4 flex flex-col gap-2 sm:gap-6 overflow-x-hidden overflow-y-auto">
-				{#each $store[$charIndex].boss as boss, idx}
+				{#each $store[$charIdx].boss as boss, idx}
 					<div class="relative flex-none w-full h-[120px]">
 						<div class="w-full h-full flex flex-col sm:flex-row justify-between items-center">
 							<div

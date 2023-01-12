@@ -4,24 +4,35 @@
 	import BossViewer from './BossViewer.svelte';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
-	import { store, charIndex } from '$stores';
+	import { store, charIdx, classInfo } from '$stores';
+	import { char, charArr } from '$stores/item';
 	import { mapleDayObj } from '$stores/calendar';
 	import { showModal, modalType } from '$stores/modal';
 	import type { MapleDayType } from '$types';
 
 	function deselectChar() {
-		$charIndex = undefined;
+		$charIdx = undefined;
 	}
 
 	function deleteChar() {
-		if ($charIndex !== undefined) {
-			const charName = $store[$charIndex].name;
-			Object.keys($mapleDayObj).forEach(day => {
-				$mapleDayObj[day as MapleDayType] = $mapleDayObj[day as MapleDayType].filter(char => char !== charName)
-			})
-			$store = [...$store.slice(0, $charIndex), ...$store.slice($charIndex + 1)];
-			$charIndex = undefined;
+		if ($charIdx !== undefined) {
+			const charName = $store[$charIdx].name;
+			Object.keys($mapleDayObj).forEach((day) => {
+				$mapleDayObj[day as MapleDayType] = $mapleDayObj[day as MapleDayType].filter(
+					(char) => char !== charName
+				);
+			});
+			$store = [...$store.slice(0, $charIdx), ...$store.slice($charIdx + 1)];
+			$charIdx = undefined;
 		}
+	}
+
+	function onSelect(e: Event) {
+		const target = e.target as HTMLSelectElement;
+		const value = target.value.split('-')
+		$char.name = value[0]
+		$char.class = value[1]
+		$char.group = classInfo[$char.class].group
 	}
 
 	function openExportModal() {
@@ -42,19 +53,32 @@
 	<Hbar />
 	<CharInput />
 	<Hbar />
-	{#if $store.length > 0}
+	{#if $charArr.length > 0}
 		<div class="px-4" on:click={deselectChar}>
-			<Title type="s">
-				{#if $charIndex === undefined}
+			<!-- <Title type="s">
+				{#if $charIdx === undefined}
 					캐릭터를 선택해주세요
 				{:else}
 					<div class="flex gap-2">
-						<span class='w-[100px] whitespace-nowrap text-ellipsis overflow-hidden xs:w-[200px]'>{$store[$charIndex].name}</span>
-						<span>{$store[$charIndex].class}</span>
+						<span class='w-[100px] whitespace-nowrap text-ellipsis overflow-hidden xs:w-[200px]'>{$store[$charIdx].name}</span>
+						<span>{$store[$charIdx].class}</span>
 					</div>
 					<button on:click={deleteChar}><i class="fa-solid fa-trash" /></button>
 				{/if}
-			</Title>
+			</Title> -->
+			{#if !$char.name}
+				캐릭터를 선택해주세요
+			{/if}
+			<select
+				on:change={onSelect}
+				class="w-[100%] max-w-[240px] px-4 py-2 border rounded-lg border-slate-700"
+				required
+			>
+				<option value="" disabled selected hidden>캐릭터 - 직업</option>
+				{#each $charArr as char}
+					<option value={`${char.name}-${char.class}`}>{char.name} - {char.class}</option>
+				{/each}
+			</select>
 			<CharViewer />
 		</div>
 		<Hbar />

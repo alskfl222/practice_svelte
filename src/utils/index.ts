@@ -8,7 +8,8 @@ import type {
 	BossDCType,
 	BossReportDCType,
 	SortReportType,
-	HeadcountType
+	HeadcountType,
+	ItemType
 } from '../types';
 
 export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) => {
@@ -188,4 +189,10 @@ export const getBossPrice = (report: BossReportType) => {
 	const sortArr = reportSortByPrice(report);
 	const bossPrice = getTotalBossPrice(sortArr);
 	return bossPrice;
+};
+
+export const getCharArr = (data: ItemType[]) => {
+	const charArr = data.map((item) => item.char);
+	const nameArr = charArr.map((char) => char.name);
+	return charArr.filter((char, idx) => nameArr.indexOf(char.name) === idx);
 };

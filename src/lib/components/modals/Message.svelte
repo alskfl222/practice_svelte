@@ -1,0 +1,1 @@
+<div class="min-h-[40vh] p-8 flex flex-col rounded-2xl bg-white"></div>

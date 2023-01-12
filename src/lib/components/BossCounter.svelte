@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { store, Report, charIndex, counterIndex } from '$stores';
+	import { store, Report, charIdx, counterIndex } from '$stores';
 	import { bossInfo, maxBossCount } from '$stores/boss';
 	import type { BossReportType, CharNameType, SortReportItemType } from '$types';
 	import { reportSortByPrice } from '$utils';
@@ -33,7 +33,7 @@
 
 	function selectChar(name: CharNameType) {
 		const nameArr = $store.map((char) => char.name);
-		$charIndex = nameArr.indexOf(name);
+		$charIdx = nameArr.indexOf(name);
 		window.scrollTo(0, 90);
 	}
 

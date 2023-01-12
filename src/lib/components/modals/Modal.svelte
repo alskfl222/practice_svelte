@@ -6,11 +6,13 @@
 	// export let component: C;
 	import BossSelect from './BossSelect.svelte';
 	import ExportImage from './ExportImage.svelte';
+	import Message from './Message.svelte';
 	import { modalType } from '$stores/modal';
 
 	const component: any = {
 		BossSelect,
-		ExportImage
+		ExportImage,
+		Message
 	};
 </script>
 

@@ -1,10 +1,9 @@
 <script lang="ts">
 	import Button from '../common/Button.svelte';
 	import Dropdown from '../common/Dropdown.svelte';
-	import Title from '../common/Title.svelte';
 	import Hbar from '../common/Hbar.svelte';
-	import { store, charIndex } from '$stores';
-	import { bossInfo, selectBoss } from '$stores/boss';
+	import { store, charIdx } from '$stores';
+	import { bossInfo, selectBoss, boss } from '$stores/boss';
 	import type { BossType, BossDCType, HeadcountType, RequiredType } from '$types';
 	import { searchBossIndex, sortByBoss, sortByDC } from '$utils';
 
@@ -12,10 +11,13 @@
 		switch (event.type) {
 			case 'bossName':
 				$selectBoss.bossName = event.detail;
+				$boss.name = event.detail;
 				$selectBoss.bossDC = '';
+				$boss.dc = '';
 				break;
 			case 'bossDC':
 				$selectBoss.bossDC = event.detail;
+				$boss.dc = event.detail;
 				break;
 			default:
 				return;
@@ -27,8 +29,8 @@
 	}
 
 	function addBoss() {
-		const charBossIndex = searchBossIndex($store[$charIndex!].boss, $selectBoss.bossName);
-		$store[$charIndex!].boss = newBossArr($store[$charIndex!].boss, charBossIndex);
+		const charBossIndex = searchBossIndex($store[$charIdx!].boss, $selectBoss.bossName);
+		$store[$charIdx!].boss = newBossArr($store[$charIdx!].boss, charBossIndex);
 		localStorage.setItem('prev', JSON.stringify($store));
 		$selectBoss = {
 			bossName: '',
@@ -37,6 +39,8 @@
 			required: false
 		};
 	}
+
+	function registItem() {}
 
 	function newBossArr(arr: BossType[], index: number) {
 		let res = arr.slice();
@@ -65,7 +69,7 @@
 		res = sortByBoss(res);
 		return res;
 	}
-	$: addable = $charIndex !== undefined && $selectBoss.bossName !== '' && $selectBoss.bossDC !== '';
+	$: addable = $charIdx !== undefined && $selectBoss.bossName !== '' && $selectBoss.bossDC !== '';
 </script>
 
 <div class="min-h-[40vh] p-8 flex flex-col rounded-2xl bg-white">
@@ -131,6 +135,31 @@
 					<span class="flex items-center gap-2"
 						><input type="checkbox" bind:checked={$selectBoss.required} />
 						{#if $selectBoss.required}
+							필수
+						{:else}
+							선택
+						{/if}</span
+					>
+				</div>
+			</div>
+
+			<div class="w-[180px]">
+				<span class="font-bold">옵션</span>
+				<div
+					class="relative h-[72px] px-2 flex flex-col justify-center items-center gap-1 border rounded-xl border-black"
+				>
+					<div class="flex items-center gap-2">
+						<select bind:value={$boss.headcount} required>
+							<option value="" disabled selected hidden>직업</option>
+							{#each [1, 2, 3, 4, 5, 6] as count}
+								<option value={count}>{count}인</option>
+							{/each}
+						</select>
+						파티
+					</div>
+					<span class="flex items-center gap-2"
+						><input type="checkbox" bind:checked={$boss.required} />
+						{#if $boss.required}
 							필수
 						{:else}
 							선택
