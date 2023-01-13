@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { BossDC, BossNameType, CharNameType, ItemType } from '$types';
+	import type { BossDC, BossNameType } from '$types';
 	import { data, char } from '$stores/item';
 	import { bossInfo } from '$stores/boss';
 	import { showModal, modalType } from '$stores/modal';
-	import { sortItemsByDC } from '$utils';
+	import { getBossArr } from '$utils';
 
 	function openModal() {
 		$showModal = true;
@@ -15,16 +15,6 @@
 			(item) =>
 				!(item.char.name === $char.name && item.boss?.name === bossName && item.boss.dc === dc)
 		);
-	}
-
-	function getBossArr(data: ItemType[], name: CharNameType) {
-		const bossArr: ItemType[][] = [];
-		Object.keys(bossInfo).forEach((boss) => {
-			let items = data.filter((item) => item.char.name === name && item.boss?.name === boss);
-			items = sortItemsByDC(items);
-			if (items.length > 0) bossArr.push(items);
-		});
-		return bossArr;
 	}
 
 	$: bossArr = getBossArr($data, $char.name);

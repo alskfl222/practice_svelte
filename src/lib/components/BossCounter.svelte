@@ -3,15 +3,8 @@
 	import Hbar from './common/Hbar.svelte';
 	import { data, char, charArr } from '$stores/item';
 	import { bossInfo, maxBossCount } from '$stores/boss';
-	import type {
-		BossDC,
-		BossItemType,
-		BossNameType,
-		CharNameType,
-		HeadcountType,
-		ItemType
-	} from '$types';
-	import { dataSortByPrice } from '$utils';
+	import type { CharNameType, ItemType } from '$types';
+	import { sortDataByPrice, getBossPrice, getCharBossPrice } from '$utils';
 
 	let container: HTMLElement;
 	let counterIdx: number | undefined = undefined;
@@ -26,22 +19,6 @@
 			}
 		}
 		counterIdx = undefined;
-	}
-
-	function getCharBossPrice(name: BossNameType, dc: BossDC, headcount: HeadcountType) {
-		if (bossInfo[name] && bossInfo[name].dc[dc]) {
-			return Math.floor(bossInfo[name].dc[dc]! / headcount);
-		}
-		return 0;
-	}
-
-	function getBossPrice(items: ItemType[]) {
-		let price = 0;
-		items.forEach((item) => {
-			const boss = item.boss as BossItemType;
-			price += getCharBossPrice(boss.name, boss.dc, boss.headcount);
-		});
-		return price;
 	}
 
 	function selectChar(name: CharNameType) {
@@ -71,10 +48,10 @@
 	}
 
 	function isBossExceed(items: ItemType[]) {
-		return items.every(isExceed)
+		return items.every(isExceed);
 	}
 
-	$: sortedData = dataSortByPrice($data);
+	$: sortedData = sortDataByPrice($data);
 </script>
 
 <section

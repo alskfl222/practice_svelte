@@ -2,4 +2,4 @@
 	export let color: string = 'slate-500';
 </script>
 
-<div class={`border-b border-${color}`} />
+<div class={`mx-2 border-b border-${color}`} />

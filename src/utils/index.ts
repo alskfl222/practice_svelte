@@ -1,5 +1,6 @@
 import { maxBossCount, bossInfo } from '$stores/boss';
 import type {
+	CharNameType,
 	CharBossType,
 	BossType,
 	BossReportType,
@@ -9,7 +10,10 @@ import type {
 	BossReportDCType,
 	SortReportType,
 	HeadcountType,
-	ItemType
+	ItemType,
+	BossNameType,
+	BossItemType,
+	BossDC
 } from '../types';
 
 export const searchBossIndex = (arr: BossType[], name: keyof typeof bossInfo) => {
@@ -178,7 +182,7 @@ export const reportSortByPrice = (report: BossReportType) => {
 	return arr;
 };
 
-export const dataSortByPrice = (data: ItemType[]) => {
+export const sortDataByPrice = (data: ItemType[]) => {
 	if (data.length === 0) return [];
 	const arr: ItemType[][] = [];
 	const bossSortByPrice = sortByPrice(bossInfo);
@@ -194,35 +198,78 @@ export const dataSortByPrice = (data: ItemType[]) => {
 	return arr;
 };
 
-export const getTotalBossPrice = (sortArr: SortReportType) => {
-	let price = 0;
+// export const getTotalBossPrice = (sortArr: SortReportType) => {
+// 	let price = 0;
 
-	sortArr.forEach((item) => {
-		if (item[4] <= maxBossCount) {
-			item[3].forEach((char) => {
-				price += Math.floor(item[2] / char[2]);
-			});
-		} else {
-			const rest = maxBossCount + item[3].length - item[4];
-			if (rest <= 0) return;
-			const restArr = item[3].slice(rest);
-			restArr.forEach((char) => {
-				price += Math.floor(item[2] / char[2]);
-			});
-		}
-	});
+// 	sortArr.forEach((item) => {
+// 		if (item[4] <= maxBossCount) {
+// 			item[3].forEach((char) => {
+// 				price += Math.floor(item[2] / char[2]);
+// 			});
+// 		} else {
+// 			const rest = maxBossCount + item[3].length - item[4];
+// 			if (rest <= 0) return;
+// 			const restArr = item[3].slice(rest);
+// 			restArr.forEach((char) => {
+// 				price += Math.floor(item[2] / char[2]);
+// 			});
+// 		}
+// 	});
 
-	return price;
-};
+// 	return price;
+// };
 
-export const getBossPrice = (report: BossReportType) => {
-	const sortArr = reportSortByPrice(report);
-	const bossPrice = getTotalBossPrice(sortArr);
-	return bossPrice;
-};
+// export const getBossPrice = (report: BossReportType) => {
+// 	const sortArr = reportSortByPrice(report);
+// 	const bossPrice = getTotalBossPrice(sortArr);
+// 	return bossPrice;
+// };
 
 export const getCharArr = (data: ItemType[]) => {
 	const charArr = data.map((item) => item.char);
 	const nameArr = charArr.map((char) => char.name);
 	return charArr.filter((char, idx) => nameArr.indexOf(char.name) === idx);
 };
+
+export const getFulfilledData = (data: ItemType[]) => {
+	return data.filter((item) => item.boss);
+};
+
+export function getBossArr(data: ItemType[], name: CharNameType) {
+	const bossArr: ItemType[][] = [];
+	Object.keys(bossInfo).forEach((boss) => {
+		let items = data.filter((item) => item.char.name === name && item.boss?.name === boss);
+		items = sortItemsByDC(items);
+		if (items.length > 0) bossArr.push(items);
+	});
+	return bossArr;
+}
+
+export function getCharBossPrice(name: BossNameType, dc: BossDC, headcount: HeadcountType) {
+	if (bossInfo[name] && bossInfo[name].dc[dc]) {
+		return Math.floor(bossInfo[name].dc[dc]! / headcount);
+	}
+	return 0;
+}
+
+export function getBossPrice(items: ItemType[]) {
+	let price = 0;
+	items.forEach((item) => {
+		const boss = item.boss as BossItemType;
+		price += getCharBossPrice(boss.name, boss.dc, boss.headcount);
+	});
+	return price;
+}
+
+export function getTotalBossPrice(items: ItemType[]) {
+	let price = 0;
+	const sorted = sortDataByPrice(items).flat();
+	for (let i = 0; i < maxBossCount; i++) {
+		if (sorted[i] && sorted[i].boss) {
+			const name = sorted[i].boss!.name as keyof typeof bossInfo
+			const dc = sorted[i].boss!.dc as BossDC
+			price += bossInfo[name].dc[dc]!
+		}
+	}
+	return price
+}
