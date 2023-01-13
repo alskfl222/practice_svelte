@@ -1,8 +1,14 @@
 <script lang="ts">
+	import type { ComponentType } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import CharBossViewer from '$lib/components/CharBossViewer.svelte';
-	import BossCounter from '$lib/components/BossCounter.svelte';
-	import Sidebar from '$lib/components/common/Sidebar.svelte';
+
+	let CharBossViewer: ComponentType;
+	let BossCounter: ComponentType;
+	let Sidebar: ComponentType;
+
+	import('$lib/components/CharBossViewer.svelte').then((res) => (CharBossViewer = res.default));
+	import('$lib/components/BossCounter.svelte').then((res) => (BossCounter = res.default));
+	import('$lib/components/common/Sidebar.svelte').then((res) => (Sidebar = res.default));
 </script>
 
 <svelte:head>
@@ -11,9 +17,11 @@
 </svelte:head>
 
 <div class="w-full flex gap-8" in:fly>
-	<div class="w-full flex flex-col gap-8 xl:w-[calc(100%-272px)]">
-		<CharBossViewer />
-		<BossCounter />
-	</div>
-	<Sidebar />
+	{#if CharBossViewer && BossCounter && Sidebar}
+		<div class="w-full flex flex-col gap-8 xl:w-[calc(100%-272px)]">
+			<svelte:component this={CharBossViewer}/>
+			<svelte:component this={BossCounter}/>
+		</div>
+		<svelte:component this={Sidebar}/>
+	{/if}
 </div>
