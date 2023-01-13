@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Title from './common/Title.svelte';
+	import Hbar from './common/Hbar.svelte';
 	import { data, char, charArr } from '$stores/item';
 	import { bossInfo, maxBossCount } from '$stores/boss';
 	import type {
@@ -10,8 +12,6 @@
 		ItemType
 	} from '$types';
 	import { dataSortByPrice } from '$utils';
-	import Title from './common/Title.svelte';
-	import Hbar from './common/Hbar.svelte';
 
 	let container: HTMLElement;
 	let counterIdx: number | undefined = undefined;
@@ -47,7 +47,7 @@
 	function selectChar(name: CharNameType) {
 		const selected = $charArr.filter((char) => char.name === name)[0];
 		$char = { ...selected };
-		window.scrollTo(0, 90);
+		window.scrollTo(0, 240);
 	}
 
 	function hasRequired(items: ItemType[]) {
@@ -55,6 +55,23 @@
 			if (items[i].boss?.required) return true;
 		}
 		return false;
+	}
+
+	function isExceed(item: ItemType) {
+		const arr = sortedData.flat();
+		const idx = arr.findIndex(
+			(el) =>
+				el.char.name === item.char.name &&
+				el.boss &&
+				item.boss &&
+				el.boss.name === item.boss.name &&
+				el.boss.dc == item.boss.dc
+		);
+		return idx + 1 > maxBossCount ? true : false;
+	}
+
+	function isBossExceed(items: ItemType[]) {
+		return items.every(isExceed)
 	}
 
 	$: sortedData = dataSortByPrice($data);
@@ -74,6 +91,7 @@
 					<div
 						class="relative w-full h-[120px] flex flex-col justify-center gap-2 rounded-2xl shadow overflow-hidden"
 						class:rounded-b-none={idx === counterIdx}
+						class:opacity-70={isBossExceed(boss)}
 						data-index={idx}
 					>
 						<img
@@ -105,7 +123,7 @@
 								data-index={idx}>{`X ${boss.length}`}</span
 							>
 							<span class="text-sm xs:px-2 xs:text-base" data-index={idx}
-								>{getBossPrice(boss)} 원</span
+								>{getBossPrice(boss).toLocaleString()} 원</span
 							>
 						</div>
 					</div>
@@ -118,15 +136,21 @@
 							>
 								{#each boss as item}
 									<div
-										class="w-full px-4 py-2 flex sm:flex-col justify-between sm:items-center gap-2 
+										class="w-full px-4 py-2 flex flex-col justify-between items-center gap-2 
 												 border rounded-xl shadow cursor-pointer hover:bg-gray-500/30
 												 transition duration-100 ease-in-out"
 										class:border-red-400={item.boss?.required}
+										class:opacity-70={isExceed(item)}
 										on:click={() => selectChar(item.char.name)}
 									>
-										<span class="max-w-[40%] overflow-hidden whitespace-nowrap text-ellipsis"
-											>{item.char.name}</span
-										>
+										<div class="w-full flex justify-center items-center gap-2">
+											<span class="max-w-[40%] overflow-hidden whitespace-nowrap text-ellipsis"
+												>{item.char.name}</span
+											>
+											<span class="inline xs:hidden whitespace-nowrap"
+												>{item.boss?.headcount}인</span
+											>
+										</div>
 
 										<div class="flex items-center gap-2">
 											<span class="hidden xs:inline whitespace-nowrap"
@@ -134,8 +158,12 @@
 											>
 											<span class="whitespace-nowrap">
 												{item.boss
-													? getCharBossPrice(item.boss.name, item.boss.dc, item.boss.headcount)
-													: '??'}원
+													? getCharBossPrice(
+															item.boss.name,
+															item.boss.dc,
+															item.boss.headcount
+													  ).toLocaleString()
+													: '-'}원
 											</span>
 										</div>
 									</div>

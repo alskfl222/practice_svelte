@@ -16,7 +16,7 @@
 	}
 </script>
 
-<section class="p-8 pt-4 rounded-3xl bg-white md:pb-16">
+<section class="p-8 pt-4 flex flex-col gap-4 rounded-3xl bg-white md:pb-16">
 	<Title
 		><span>캐릭터 관리</span><button on:click={openExportModal}
 			><i class="fa-solid fa-cloud-arrow-down" /></button

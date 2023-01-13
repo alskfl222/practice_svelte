@@ -28,8 +28,7 @@
 	};
 </script>
 
-<div class="pb-8 flex flex-col justify-between">
-	<Title type="s">캐릭터 추가</Title>
+<div class="py-8 flex flex-col justify-between">
 	<div class="flex flex-col justify-between gap-8 md:flex-row md:items-center">
 		<div class="relative grow-[3] flex justify-center gap-4 md:justify-start md:gap-8">
 			<input
