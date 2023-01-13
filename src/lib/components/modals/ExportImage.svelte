@@ -1,9 +1,8 @@
 <script lang="ts">
 	import html2canvas from 'html2canvas';
-	import Button from '../common/Button.svelte';
-	// import { store, Report } from '$stores';
-	// import { getCharBossCount, getTotalBossCount } from '$utils';
+	import Button from '$lib/components/common/Button.svelte';
 	import Hbar from '$lib/components/common/Hbar.svelte';
+	import { order, fulfilled } from '$stores';
 
 	let container: HTMLElement;
 	let target: HTMLAnchorElement;
@@ -12,7 +11,7 @@
 		return -45 * idx;
 	}
 	function getOpacity(idx: number) {
-		return `opacity-${100 - 10 * idx}`
+		return `opacity-${100 - 10 * idx}`;
 	}
 
 	async function exportImg() {
@@ -24,7 +23,7 @@
 		}
 	}
 
-	// $: activeChars = $store.filter((char) => char.boss.length > 0);
+	$: console.log($order)
 </script>
 
 <div class="h-[80vh] p-12 flex flex-col gap-8 rounded-2xl bg-white overflow-scroll">

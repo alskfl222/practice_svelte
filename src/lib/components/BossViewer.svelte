@@ -15,6 +15,7 @@
 			(item) =>
 				!(item.char.name === $char.name && item.boss?.name === bossName && item.boss.dc === dc)
 		);
+		localStorage.setItem('prev', JSON.stringify($data));
 	}
 
 	$: bossArr = getBossArr($data, $char.name);

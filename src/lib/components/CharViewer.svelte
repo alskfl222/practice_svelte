@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { classInfo } from '$stores';
-	import { data, char, charArr } from '$stores';
+	import { data, order, char, charArr } from '$stores';
 
 	let value: string = '';
 
@@ -9,6 +9,8 @@
 	}
 	function deleteChar() {
 		$data = $data.filter((item) => item.char.name !== $char.name);
+		$order = $order.filter(name => name !== $char.name);
+		localStorage.setItem('prev', JSON.stringify($data));
 		deselectChar();
 	}
 

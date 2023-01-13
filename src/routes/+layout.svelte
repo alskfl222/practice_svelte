@@ -4,13 +4,15 @@
 	import Header from '$lib/components/common/Header.svelte';
 	import Footer from '$lib/components/common/Footer.svelte';
 	import Modal from '$lib/components/modals/Modal.svelte';
+	import { data, order, charArr } from '$stores';
 	import { showModal } from '$stores/modal';
 	import '../app.css';
 
 	let isLoading: boolean = true;
 
 	onMount(() => {
-		// if (localStorage.getItem('prev')) $store = JSON.parse(localStorage.getItem('prev')!);
+		if (localStorage.getItem('prev')) $data = JSON.parse(localStorage.getItem('prev')!);
+		$order = $charArr.map(char => char.name)
 		// if (localStorage.getItem('dayObj')) $mapleDayObj = JSON.parse(localStorage.getItem('dayObj')!);
 		isLoading = false;
 	});

@@ -3,6 +3,7 @@ import { getCharArr, getFulfilledData } from '$utils';
 import { derived, writable } from 'svelte/store';
 
 export const data = writable<ItemType[]>([]);
+export const order = writable<string[]>([]);
 
 export const initChar: CharItemType = {
 	name: '',

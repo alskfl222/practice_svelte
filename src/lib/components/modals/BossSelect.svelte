@@ -36,6 +36,7 @@
 			};
 
 			$data = [...rest, ...charItemArr, item];
+			localStorage.setItem('prev', JSON.stringify($data));
 			clearBoss();
 		}
 	}
@@ -46,7 +47,7 @@
 			dc: '',
 			headcount: 1,
 			required: false,
-			day: undefined
+			day: 'x'
 		};
 	}
 
