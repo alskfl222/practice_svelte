@@ -9,7 +9,7 @@
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="w-full max-w-[1200px] min-h-[70vh] flex flex-col bg-white rounded-3xl" in:fly>
+<div class="w-full min-h-[70vh] flex flex-col bg-white rounded-3xl" in:fly>
 	<Title><span class='px-4'>이 페이지는?</span></Title>
 	<Hbar />
 	<div class="grow px-12 py-8 flex flex-col justify-between">

@@ -1,23 +1,18 @@
 <script lang="ts">
-	import Title from './common/Title.svelte';
 	import Button from './common/Button.svelte';
-	import { store, classInfo } from '$stores';
-	import type { CharBossType } from '$types';
+	import { classInfo } from '$stores';
+	import { data, charArr } from '$stores';
 
 	let charName: string = '';
 	let charClass: keyof typeof classInfo | '' = '';
 
-	function addChar() {
-		const newInfo: CharBossType = {
+	function registCharItem() {
+		const char = {
 			name: charName,
-			class: charClass as keyof typeof classInfo,
-			boss: []
+			class: charClass,
+			group: classInfo[charClass].group
 		};
-		store.update((data) => {
-			const newStore = [...data, newInfo];
-			localStorage.setItem('prev', JSON.stringify(newStore));
-			return newStore;
-		});
+		$data = [...$data, { char }];
 		charName = '';
 		charClass = '';
 	}
@@ -27,13 +22,13 @@
 		const isCharNameValid =
 			charName.length >= 2 && byteLength >= 4 && charName.length <= 12 && byteLength <= 18;
 		const isCharClassValid = charClass !== '';
-		return isCharNameValid && isCharClassValid;
+		const isDuplicatedChar = $charArr.map((char) => char.name).includes(charName);
+		return isCharNameValid && isCharClassValid && !isDuplicatedChar;
 	};
 </script>
 
-<div class="px-4 pb-8 flex flex-col justify-between">
-	<Title type="s">캐릭터 추가</Title>
-	<div class="px-4 py-0 flex flex-col justify-between gap-8 md:flex-row md:items-center">
+<div class="py-8 flex flex-col justify-between">
+	<div class="flex flex-col justify-between gap-8 md:flex-row md:items-center">
 		<div class="relative grow-[3] flex justify-center gap-4 md:justify-start md:gap-8">
 			<input
 				bind:value={charName}
@@ -51,9 +46,9 @@
 				{/each}
 			</select>
 		</div>
-		<div class='min-w-[160px] flex justify-center'>
+		<div class="min-w-[160px] flex justify-center">
 			{#if isValid()}
-				<Button on:click={addChar}>
+				<Button on:click={registCharItem}>
 					<span slot="text"><i class="fa-solid fa-user-plus fa-xl" /></span>
 				</Button>
 			{:else}

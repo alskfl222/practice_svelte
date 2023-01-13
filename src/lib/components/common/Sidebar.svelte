@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import Summary from './Summary.svelte';
+	import Summary from '../Summary.svelte';
 
 	let scrollY: number = 0;
 	let innerWidth: number = 0;
