@@ -30,14 +30,20 @@
 					item.boss.dc === $boss.dc
 			).length > 0;
 
+		const { name, group } = $char;
+		const charClass = $char.class;
 		const item = {
-			char: $char,
+			char: {
+				name,
+				class: charClass,
+				group
+			},
 			boss: $boss
 		};
 
 		if (!isExist) $data = [...rest, ...charItemArr, item];
 		$data = $data;
-		clearBoss()
+		clearBoss();
 	}
 
 	function clearBoss() {

@@ -13,8 +13,7 @@
 			class: charClass,
 			group: classInfo[charClass].group
 		};
-		$data.push({ char });
-		$data = $data;
+		$data = [...$data, { char }];
 		charName = '';
 		charClass = '';
 	}

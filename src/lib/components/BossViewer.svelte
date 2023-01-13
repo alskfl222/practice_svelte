@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { BossDC, BossDCType, BossNameType, ItemType } from '$types';
+	import type { BossDC, BossDCType, BossNameType, CharNameType, ItemType } from '$types';
 	import { store, charIdx } from '$stores';
 	import { data, char } from '$stores/item';
 	import { bossInfo } from '$stores/boss';
@@ -11,21 +11,6 @@
 		$modalType = 'BossSelect';
 	}
 
-	function deleteBoss(idx: number, dc: keyof BossDCType) {
-		if ($charIdx !== undefined) {
-			let charBossDC = $store[$charIdx].boss[idx].dc;
-			charBossDC = charBossDC.filter((x) => x[0] !== dc);
-			$store[$charIdx].boss[idx].dc = charBossDC;
-			if (charBossDC.length === 0) {
-				$store[$charIdx].boss = [
-					...$store[$charIdx].boss.slice(0, idx),
-					...$store[$charIdx].boss.slice(idx + 1)
-				];
-			}
-			localStorage.setItem('prev', JSON.stringify($store));
-		}
-	}
-
 	function deleteItem(bossName: BossNameType, dc: BossDC) {
 		$data = $data.filter(
 			(item) =>
@@ -33,42 +18,31 @@
 		);
 	}
 
-	function getCharBossCount(bossArr: any[]) {
-		let count = 0;
-		if ($charIdx !== undefined) {
-			bossArr.forEach((boss) => {
-				count += boss.dc.length;
-			});
-		}
-		return count;
-	}
-
-	function getBossArr(data: ItemType[]) {
-		const arr = data.filter((item) => item.char.name === $char.name);
+	function getBossArr(data: ItemType[], name: CharNameType) {
+		console.log(data)
 		const bossArr: ItemType[][] = [];
 		Object.keys(bossInfo).forEach((boss) => {
-			let items = arr.filter((item) => item.boss?.name === boss);
+			let items = data.filter((item) => item.char.name === name && item.boss?.name === boss);
 			items = sortItemsByDC(items);
 			if (items.length > 0) bossArr.push(items);
 		});
 		return bossArr;
 	}
-
-	$: bossArr = getBossArr($data);
+	// $: console.log($data);
+	// $: console.log($char.name);
+	$: bossArr = getBossArr($data, $char.name);
 	$: console.log(bossArr);
 </script>
 
 {#if $char.name}
 	<div class="my-4 flex flex-col">
-		<div class="p-4 text-xl font-bold text-slate-700">
-			{#if bossArr.length === 0}
-				보스를 추가해주세요
-			{:else}
+		{#if bossArr.length !== 0}
+			<div class="p-4 text-xl font-bold text-slate-700">
 				총 {bossArr.length}종 {bossArr.flat().length}개
-			{/if}
-		</div>
+			</div>
+		{/if}
 		<button
-			class="m-4 sm:mb-8 px-4 py-6 border rounded-2xl cursor-pointer text-2xl font-bold
+			class="sm:mb-8 px-2 py-4 border rounded-2xl cursor-pointer text-2xl font-bold
 					 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 			on:click={openModal}>보스 추가</button
 		>

@@ -20,6 +20,8 @@
 	} else {
 		($char.name = ''), ($char.class = ''), ($char.group = '');
 	}
+	// $: console.log($char.name);
+	// $: console.log($data);
 </script>
 
 <div class="py-4 flex flex-col gap-4">

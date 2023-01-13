@@ -79,14 +79,17 @@ export const sortByDC = (arr: BossType['dc']) => {
 
 export const sortItemsByBoss = (bossArr: ItemType[][]) => {
 	const bossNames = Object.keys(bossInfo);
-	return bossArr.slice().sort((a, b) => bossNames.indexOf(b[0].boss!.name) - bossNames.indexOf(a[0].boss!.name));
+	return bossArr
+		.slice()
+		.sort((a, b) => bossNames.indexOf(b[0].boss!.name) - bossNames.indexOf(a[0].boss!.name));
 };
 
 export const sortItemsByDC = (arr: ItemType[]) => {
 	const difficulties = ['EASY', 'NORMAL', 'HARD', 'CHAOS', 'EXTREME'];
-	return arr.slice().sort((a, b) => difficulties.indexOf(b.boss!.dc) - difficulties.indexOf(a.boss!.dc));
+	return arr
+		.slice()
+		.sort((a, b) => difficulties.indexOf(b.boss!.dc) - difficulties.indexOf(a.boss!.dc));
 };
-
 
 export const sortByPrice = (data: typeof bossInfo) => {
 	const arr: [keyof typeof bossInfo, keyof BossDCType, PriceType][] = [];
@@ -169,6 +172,22 @@ export const reportSortByPrice = (report: BossReportType) => {
 				count += aBoss.dc[dc as keyof BossDCType]!.length;
 				arr.push([...item, aBoss.dc[dc as keyof BossDCType]!, count]);
 			}
+		}
+	});
+
+	return arr;
+};
+
+export const dataSortByPrice = (data: ItemType[]) => {
+	if (data.length === 0) return [];
+	const arr: ItemType[][] = [];
+	const bossSortByPrice = sortByPrice(bossInfo);
+
+	bossSortByPrice.forEach((item) => {
+		const [boss, dc] = item;
+		const bossItems = data.filter((item) => item.boss?.name === boss && item.boss?.dc === dc);
+		if (bossItems.length > 0) {
+			arr.push(bossItems);
 		}
 	});
 
