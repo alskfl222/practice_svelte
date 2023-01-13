@@ -10,8 +10,7 @@
 </svelte:head>
 
 <div class="w-full min-h-[70vh] flex flex-col bg-white rounded-3xl" in:fly>
-	<Title><span class='px-4'>이 페이지는?</span></Title>
-	<Hbar />
+	<Title><span class='px-12'>이 페이지는?</span></Title>
 	<div class="grow px-12 py-8 flex flex-col justify-between">
 		<div class="flex flex-col gap-9 text-lg">
 			<div class="flex flex-col sm:flex-row sm:gap-2">
@@ -20,7 +19,7 @@
 				<p>도와주는 앱입니다</p>
 			</div>
 			<Hbar />
-			<p class="text-sky-900">SvelteKit, tailwindcss</p>
+			<p class="text-sky-900">SvelteKit, tailwindcss, dayjs, html2canvas</p>
 		</div>
 		<div class="w-full h-[80px] flex justify-end gap-12 items-center text-xl">
 			<span>by <strong>alskfl222</strong></span>
