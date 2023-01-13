@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { BossDC, BossDCType, BossNameType, CharNameType, ItemType } from '$types';
-	import { store, charIdx } from '$stores';
+	import type { BossDC, BossNameType, CharNameType, ItemType } from '$types';
 	import { data, char } from '$stores/item';
 	import { bossInfo } from '$stores/boss';
 	import { showModal, modalType } from '$stores/modal';
@@ -19,7 +18,6 @@
 	}
 
 	function getBossArr(data: ItemType[], name: CharNameType) {
-		console.log(data)
 		const bossArr: ItemType[][] = [];
 		Object.keys(bossInfo).forEach((boss) => {
 			let items = data.filter((item) => item.char.name === name && item.boss?.name === boss);
@@ -28,10 +26,8 @@
 		});
 		return bossArr;
 	}
-	// $: console.log($data);
-	// $: console.log($char.name);
+
 	$: bossArr = getBossArr($data, $char.name);
-	$: console.log(bossArr);
 </script>
 
 {#if $char.name}
@@ -47,7 +43,7 @@
 			on:click={openModal}>보스 추가</button
 		>
 		{#if bossArr.length > 0}
-			<div class="max-h-[400px] p-4 flex flex-col gap-2 sm:gap-6 overflow-x-hidden overflow-y-auto">
+			<div class="max-h-[400px] py-4 flex flex-col gap-2 sm:gap-6 overflow-x-hidden overflow-y-auto">
 				{#each bossArr as items}
 					<div class="relative flex-none w-full h-[120px]">
 						<div class="w-full h-full flex flex-col sm:flex-row justify-between items-center">

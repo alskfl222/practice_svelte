@@ -29,21 +29,15 @@
 					item.boss.name === $boss.name &&
 					item.boss.dc === $boss.dc
 			).length > 0;
+		if (!isExist) {
+			const item = {
+				char: { ...$char },
+				boss: { ...$boss }
+			};
 
-		const { name, group } = $char;
-		const charClass = $char.class;
-		const item = {
-			char: {
-				name,
-				class: charClass,
-				group
-			},
-			boss: $boss
-		};
-
-		if (!isExist) $data = [...rest, ...charItemArr, item];
-		$data = $data;
-		clearBoss();
+			$data = [...rest, ...charItemArr, item];
+			clearBoss();
+		}
 	}
 
 	function clearBoss() {

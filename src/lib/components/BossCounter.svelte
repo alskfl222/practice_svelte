@@ -1,33 +1,31 @@
 <script lang="ts">
-	import { store, Report, charIdx, counterIndex } from '$stores';
-	import { data } from '$stores/item';
+	import { data, char, charArr } from '$stores/item';
 	import { bossInfo, maxBossCount } from '$stores/boss';
 	import type {
 		BossDC,
 		BossItemType,
 		BossNameType,
-		BossReportType,
 		CharNameType,
 		HeadcountType,
-		ItemType,
-		SortReportItemType
+		ItemType
 	} from '$types';
-	import { dataSortByPrice, reportSortByPrice } from '$utils';
+	import { dataSortByPrice } from '$utils';
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
 
 	let container: HTMLElement;
+	let counterIdx: number | undefined = undefined;
 
 	function selectBoss(e: MouseEvent) {
 		const el = e.target as HTMLElement;
 		if (el.getAttribute('data-index')) {
 			const idx = parseInt(el.getAttribute('data-index')!);
-			if ($counterIndex === undefined || $counterIndex !== idx) {
-				$counterIndex = idx;
+			if (counterIdx === undefined || counterIdx !== idx) {
+				counterIdx = idx;
 				return;
 			}
 		}
-		$counterIndex = undefined;
+		counterIdx = undefined;
 	}
 
 	function getCharBossPrice(name: BossNameType, dc: BossDC, headcount: HeadcountType) {
@@ -36,17 +34,6 @@
 		}
 		return 0;
 	}
-
-	// function getABossPrice(report: BossReportType, idx: number) {
-	// 	const aBossReport = reportSortByPrice(report)[idx];
-	// 	const [crystalPrice, charArr] = [aBossReport[2], aBossReport[3]];
-	// 	let price = 0;
-	// 	charArr.forEach((char) => {
-	// 		const headcount = char[2];
-	// 		price += Math.floor(crystalPrice / headcount);
-	// 	});
-	// 	return price;
-	// }
 
 	function getBossPrice(items: ItemType[]) {
 		let price = 0;
@@ -58,15 +45,14 @@
 	}
 
 	function selectChar(name: CharNameType) {
-		const nameArr = $store.map((char) => char.name);
-		$charIdx = nameArr.indexOf(name);
+		const selected = $charArr.filter((char) => char.name === name)[0];
+		$char = { ...selected };
 		window.scrollTo(0, 90);
 	}
 
-	function hasRequired(item: SortReportItemType) {
-		const dcArr = item[3];
-		for (let i = 0; i < dcArr.length; i++) {
-			if (dcArr[i][3]) return true;
+	function hasRequired(items: ItemType[]) {
+		for (let i = 0; i < items.length; i++) {
+			if (items[i].boss?.required) return true;
 		}
 		return false;
 	}
@@ -87,7 +73,7 @@
 				<div class="flex-none w-full flex flex-col">
 					<div
 						class="relative w-full h-[120px] flex flex-col justify-center gap-2 rounded-2xl shadow overflow-hidden"
-						class:rounded-b-none={idx === $counterIndex}
+						class:rounded-b-none={idx === counterIdx}
 						data-index={idx}
 					>
 						<img
@@ -112,6 +98,7 @@
 						<div
 							class="absolute bottom-2 right-0 mx-2 px-2 py-1 flex justify-center items-center gap-2 border-2 rounded-2xl bg-white text-indigo-500
 									 xs:gap-0 sm:flex-col sm:top-0 sm:bottom-0 sm:right-2 sm:my-4"
+							class:border-red-700={hasRequired(boss)}
 						>
 							<span
 								class="text-sm font-bold drop-shadow-[0_0_10px_rgba(255,255,255,1)] xs:px-2 xs:text-base"
@@ -122,7 +109,7 @@
 							>
 						</div>
 					</div>
-					{#if idx === $counterIndex}
+					{#if idx === counterIdx}
 						<div
 							class="grow p-4 flex flex-col justify-between items-center gap-2 rounded-b-2xl shadow"
 						>
@@ -135,6 +122,7 @@
 												 border rounded-xl shadow cursor-pointer hover:bg-gray-500/30
 												 transition duration-100 ease-in-out"
 										class:border-red-400={item.boss?.required}
+										on:click={() => selectChar(item.char.name)}
 									>
 										<span class="max-w-[40%] overflow-hidden whitespace-nowrap text-ellipsis"
 											>{item.char.name}</span
