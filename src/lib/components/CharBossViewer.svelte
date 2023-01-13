@@ -5,7 +5,7 @@
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
 
-	import { charArr } from '$stores/item';
+	import { charArr } from '$stores';
 	import { mapleDayObj } from '$stores/calendar';
 	import { showModal, modalType } from '$stores/modal';
 	import type { MapleDayType } from '$types';

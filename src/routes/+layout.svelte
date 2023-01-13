@@ -1,19 +1,17 @@
 <script lang="ts">
 	import '@fortawesome/fontawesome-free/js/all.min.js';
 	import { onMount } from 'svelte';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	import Header from '$lib/components/common/Header.svelte';
+	import Footer from '$lib/components/common/Footer.svelte';
 	import Modal from '$lib/components/modals/Modal.svelte';
-	import { store } from '$stores';
-	import { mapleDayObj } from '$stores/calendar';
 	import { showModal } from '$stores/modal';
 	import '../app.css';
 
 	let isLoading: boolean = true;
 
 	onMount(() => {
-		if (localStorage.getItem('prev')) $store = JSON.parse(localStorage.getItem('prev')!);
-		if (localStorage.getItem('dayObj')) $mapleDayObj = JSON.parse(localStorage.getItem('dayObj')!);
+		// if (localStorage.getItem('prev')) $store = JSON.parse(localStorage.getItem('prev')!);
+		// if (localStorage.getItem('dayObj')) $mapleDayObj = JSON.parse(localStorage.getItem('dayObj')!);
 		isLoading = false;
 	});
 </script>

@@ -1,13 +1,18 @@
-import { writable, derived } from 'svelte/store';
-import { getBossReport, getTotalBossCount, getBossPrice } from '../utils';
-import type { CharBossType, ClassType } from '../types';
+import type { CharItemType, ItemType, ClassType } from '$types';
+import { getCharArr, getFulfilledData } from '$utils';
+import { derived, writable } from 'svelte/store';
 
-export const charIdx = writable<number | undefined>(undefined);
-export const counterIdx = writable<number | undefined>(undefined);
-export const store = writable<CharBossType[]>([]);
-export const Report = derived(store, getBossReport);
-export const Count = derived(Report, getTotalBossCount);
-export const Price = derived(Report, getBossPrice);
+export const data = writable<ItemType[]>([]);
+
+export const initChar: CharItemType = {
+	name: '',
+	class: '',
+	group: ''
+};
+
+export const char = writable<CharItemType>(initChar);
+export const charArr = derived(data, getCharArr);
+export const fulfilled = derived(data, getFulfilledData);
 
 export const classInfo: {
 	[key in string]: {

@@ -1,13 +1,16 @@
 <script lang="ts">
 	import Title from './common/Title.svelte';
-	import { charArr, fulfilled } from '$stores/item';
+	import { charArr, fulfilled } from '$stores';
 	import { maxBossCount } from '$stores/boss';
 	import { getTotalBossPrice } from '$utils';
 	$: charCount = $charArr.length;
 	$: countStatus =
-		$fulfilled.length < maxBossCount ? '더 가능!' : $fulfilled.length === maxBossCount ? '꽉 채움!' : '줄이람!';
+		$fulfilled.length < maxBossCount
+			? '더 가능!'
+			: $fulfilled.length === maxBossCount
+			? '꽉 채움!'
+			: '줄이람!';
 	$: price = getTotalBossPrice($fulfilled);
-	
 </script>
 
 <div
@@ -23,7 +26,9 @@
 		>
 			{charCount} 캐릭터
 		</div>
-		<div class="w-full px-0 flex justify-center text-xl text-slate-700 xs:px-2 xl:py-2 xl:justify-end">
+		<div
+			class="w-full px-0 flex justify-center text-xl text-slate-700 xs:px-2 xl:py-2 xl:justify-end"
+		>
 			{$fulfilled.length} 보스
 		</div>
 	</div>

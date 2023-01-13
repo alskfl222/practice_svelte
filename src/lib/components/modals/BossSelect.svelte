@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '../common/Button.svelte';
 	import Dropdown from '../common/Dropdown.svelte';
-	import { data, char } from '$stores/item';
+	import { data, char } from '$stores';
 	import { bossInfo, boss } from '$stores/boss';
 
 	function handleSelect(event: CustomEvent) {

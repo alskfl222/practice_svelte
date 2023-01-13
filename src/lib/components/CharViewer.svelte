@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { classInfo } from '$stores';
-	import { data, char, charArr } from '$stores/item';
+	import { data, char, charArr } from '$stores';
 
 	let value: string = '';
 

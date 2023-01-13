@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Title from './common/Title.svelte';
 	import Hbar from './common/Hbar.svelte';
-	import { data, char, charArr } from '$stores/item';
+	import { data, char, charArr } from '$stores';
 	import { bossInfo, maxBossCount } from '$stores/boss';
 	import type { CharNameType, ItemType } from '$types';
 	import { sortDataByPrice, getBossPrice, getCharBossPrice } from '$utils';

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import html2canvas from 'html2canvas';
 	import Button from '../common/Button.svelte';
-	import { store, Report } from '$stores';
-	import { getCharBossCount, getTotalBossCount } from '$utils';
+	// import { store, Report } from '$stores';
+	// import { getCharBossCount, getTotalBossCount } from '$utils';
 	import Hbar from '$lib/components/common/Hbar.svelte';
 
 	let container: HTMLElement;
@@ -24,11 +24,11 @@
 		}
 	}
 
-	$: activeChars = $store.filter((char) => char.boss.length > 0);
+	// $: activeChars = $store.filter((char) => char.boss.length > 0);
 </script>
 
-<div class="max-h-[80vh] p-12 flex flex-col gap-8 rounded-2xl bg-white overflow-scroll">
-	{#if activeChars.length > 0}
+<div class="h-[80vh] p-12 flex flex-col gap-8 rounded-2xl bg-white overflow-scroll">
+	<!-- {#if activeChars.length > 0}
 		<div class="w-[640px] p-8 pb-16 flex flex-col gap-9" bind:this={container}>
 			<div class="flex gap-6 text-2xl font-bold">
 				<span>{activeChars.length} 캐릭터</span><span>{getTotalBossCount($Report)} 보스</span>
@@ -45,9 +45,6 @@
 							<span>X {getCharBossCount(char.boss)}</span>
 						</div>
 						<div class="relative w-full flex overflow-hidden">
-							<!-- <div
-								class="absolute z-50 w-full h-full bg-gradient-to-r from-transparent via-transparent to-white"
-							/> -->
 							{#each char.boss as boss, idx}
 								<div
 									class={`relative flex-none w-[150px] h-[150px] py-4 flex flex-col justify-end items-center
@@ -75,5 +72,5 @@
 			<p><strong>캐릭터</strong>와 <strong>보스</strong>를</p>
 			<p><strong>먼저 추가</strong>해주세요</p>
 		</div>
-	{/if}
+	{/if} -->
 </div>

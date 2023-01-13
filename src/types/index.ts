@@ -16,48 +16,6 @@ export type BossDCType = {
 
 export type ClassType = '마법사' | 'B' | 'C' | 'D' | 'E' | '';
 
-export type BossType = {
-	name: BossNameType;
-	image: string;
-	dc: [keyof BossDCType, PriceType, RequiredType][];
-};
-
-export type CharType = {
-	name: CharNameType;
-	class: ClassNameType;
-	dc: [keyof BossDCType, BossCountType, RequiredType][];
-};
-
-export interface CharBossType {
-	name: CharNameType;
-	class: ClassNameType;
-	boss: BossType[];
-}
-
-export type SelectBossType = {
-	bossName: keyof typeof bossInfo | '';
-	bossDC: keyof BossDCType | '';
-	headcount: HeadcountType;
-	required: boolean;
-};
-
-export type BossReportDCType = [CharNameType, ClassNameType, HeadcountType, RequiredType];
-
-export type BossReportType = {
-	[key in keyof typeof bossInfo]: {
-		chars: CharType[];
-		dc: { [dc in keyof BossDCType]: BossReportDCType[] };
-	};
-};
-
-export type SortReportItemType = [
-	BossNameType,
-	keyof BossDCType,
-	PriceType,
-	BossReportDCType[],
-	BossCountType
-];
-export type SortReportType = SortReportItemType[];
 
 export type MapleDayType = '목' | '금' | '토' | '일' | '월' | '화' | '수' | undefined;
 

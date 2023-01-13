@@ -1,8 +1,7 @@
 <script lang="ts">
-	import Title from './common/Title.svelte';
 	import Button from './common/Button.svelte';
 	import { classInfo } from '$stores';
-	import { data, charArr } from '$stores/item';
+	import { data, charArr } from '$stores';
 
 	let charName: string = '';
 	let charClass: keyof typeof classInfo | '' = '';

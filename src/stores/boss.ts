@@ -1,14 +1,7 @@
 import { writable } from 'svelte/store';
-import type { BossDCType, SelectBossType, BossItemType } from '../types';
+import type { BossDCType, BossItemType } from '../types';
 
 export const maxBossCount = 2;
-
-export const selectBoss = writable<SelectBossType>({
-	bossName: '',
-	bossDC: '',
-	headcount: 1,
-	required: false
-});
 
 export const initBoss: BossItemType = {
 	name: '',
