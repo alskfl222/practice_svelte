@@ -1,4 +1,6 @@
-<script lang="ts">
+<div>작업예정</div>
+
+<!-- <script lang="ts">
 	import { fly, fade } from 'svelte/transition';
 
 	import Title from '$lib/components/common/Title.svelte';
@@ -120,4 +122,4 @@
 			visibility: visible;
 		}
 	}
-</style>
+</style> -->
