@@ -8,7 +8,7 @@ export const initBoss: BossItemType = {
 	dc: '',
 	headcount: 1,
 	required: false,
-	day: undefined
+	day: 'x'
 };
 
 export const boss = writable<BossItemType>(initBoss);

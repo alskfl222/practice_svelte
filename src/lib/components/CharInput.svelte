@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from './common/Button.svelte';
 	import { classInfo } from '$stores';
-	import { data, charArr } from '$stores';
+	import { data, order, charArr } from '$stores';
 
 	let charName: string = '';
 	let charClass: keyof typeof classInfo | '' = '';
@@ -13,6 +13,8 @@
 			group: classInfo[charClass].group
 		};
 		$data = [...$data, { char }];
+		$order = [...$order, charName]
+		localStorage.setItem('prev', JSON.stringify($data))
 		charName = '';
 		charClass = '';
 	}

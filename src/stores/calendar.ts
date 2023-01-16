@@ -12,4 +12,5 @@ export const mapleDayObj = writable<{ [key in MapleDayType]: string[] }>({
   목: [],
 	금: [],
 	토: [],
+	x: [],
 });

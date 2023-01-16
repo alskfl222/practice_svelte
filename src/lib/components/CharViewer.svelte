@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { classInfo } from '$stores';
-	import { data, char, charArr } from '$stores';
+	import { data, order, char, charArr } from '$stores';
 
 	let value: string = '';
 
@@ -9,6 +9,8 @@
 	}
 	function deleteChar() {
 		$data = $data.filter((item) => item.char.name !== $char.name);
+		$order = $order.filter(name => name !== $char.name);
+		localStorage.setItem('prev', JSON.stringify($data));
 		deselectChar();
 	}
 
@@ -24,9 +26,9 @@
 
 <div class="py-4 flex flex-col gap-4">
 	{#if !$char.name}
-		<p class="self-center text-lg">캐릭터를 선택해주세요</p>
+		<p class="self-center h-[45px] text-lg">캐릭터를 선택해주세요</p>
 	{:else}
-		<div class="flex flex-col sm:flex-row justify-between items-center gap-2">
+		<div class="min-h-[45px] flex flex-col sm:px-8 sm:flex-row justify-between items-center gap-2">
 			<p class="flex flex-col gap-2 xs:flex-row xs:gap-4 items-center">
 				<span class="text-lg font-bold sm:text-2xl">{$char.name}</span>
 				<span class="sm:text-xl">{$char.class}</span>

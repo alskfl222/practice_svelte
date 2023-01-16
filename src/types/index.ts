@@ -17,7 +17,7 @@ export type BossDCType = {
 export type ClassType = '마법사' | 'B' | 'C' | 'D' | 'E' | '';
 
 
-export type MapleDayType = '목' | '금' | '토' | '일' | '월' | '화' | '수' | undefined;
+export type MapleDayType = '목' | '금' | '토' | '일' | '월' | '화' | '수' | 'x';
 
 export type CharItemType = {
 	name: CharNameType;
