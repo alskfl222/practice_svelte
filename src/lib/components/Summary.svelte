@@ -22,23 +22,23 @@
 	</div>
 	<div class="self-center w-full flex xl:px-0 xl:flex-col">
 		<div
-			class="w-full px-0 flex justify-center text-xl text-slate-700 xs:px-2 xl:justify-end xl:pt-8 xl:pb-2"
+			class="w-full px-0 flex justify-center text-xl text-neutral-700 xs:px-2 xl:justify-end xl:pt-8 xl:pb-2"
 		>
 			{charCount} 캐릭터
 		</div>
 		<div
-			class="w-full px-0 flex justify-center text-xl text-slate-700 xs:px-2 xl:py-2 xl:justify-end"
+			class="w-full px-0 flex justify-center text-xl text-neutral-700 xs:px-2 xl:py-2 xl:justify-end"
 		>
 			{$fulfilled.length} 보스
 		</div>
 	</div>
 	<div
-		class="w-full px-2 flex justify-center text-xl text-slate-700 xl:py-10 xl:justify-end xl:border-b"
+		class="w-full px-2 flex justify-center text-xl text-neutral-700 xl:py-10 xl:justify-end xl:border-b"
 	>
 		{price} 원
 	</div>
 	<div
-		class="hidden w-full px-2 sm:flex justify-center text-xl text-slate-700 font-bold xl:py-8 xl:justify-end"
+		class="hidden w-full px-2 sm:flex justify-center text-xl text-neutral-700 font-bold xl:py-8 xl:justify-end"
 	>
 		{countStatus}
 	</div>

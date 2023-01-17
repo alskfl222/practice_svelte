@@ -6,9 +6,7 @@
 	import Hbar from './common/Hbar.svelte';
 
 	import { charArr } from '$stores';
-	import { mapleDayObj } from '$stores/calendar';
 	import { showModal, modalType } from '$stores/modal';
-	import type { MapleDayType } from '$types';
 
 	function openExportModal() {
 		$modalType = 'ExportImage';
@@ -16,7 +14,7 @@
 	}
 </script>
 
-<section class="p-8 pt-4 flex flex-col gap-4 rounded-3xl bg-white md:pb-16">
+<section class="p-8 pt-4 flex flex-col gap-4 rounded-3xl bg-white dark:bg-neutral-600 md:pb-16">
 	<Title
 		><span>캐릭터 관리</span><button on:click={openExportModal}
 			><i class="fa-solid fa-cloud-arrow-down" /></button

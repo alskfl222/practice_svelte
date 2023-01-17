@@ -24,7 +24,7 @@
 {#if $char.name}
 	<div class="my-4 flex flex-col">
 		{#if bossArr.length !== 0}
-			<div class="p-4 text-xl font-bold text-slate-700">
+			<div class="p-4 text-xl font-bold text-neutral-700">
 				총 {bossArr.length}종 {bossArr.flat().length}개
 			</div>
 		{/if}
@@ -84,7 +84,7 @@
 		{/if}
 	</div>
 {:else}
-	<div class="mt-4 py-4 text-xl font-bold text-slate-700 overflow-hidden whitespace-nowrap">
+	<div class="mt-4 py-4 text-xl font-bold text-neutral-700 overflow-hidden whitespace-nowrap">
 		선택된 캐릭터가 없습니다
 	</div>
 {/if}

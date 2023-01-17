@@ -13,8 +13,8 @@
 			group: classInfo[charClass].group
 		};
 		$data = [...$data, { char }];
-		$order = [...$order, charName]
-		localStorage.setItem('prev', JSON.stringify($data))
+		$order = [...$order, charName];
+		localStorage.setItem('prev', JSON.stringify($data));
 		charName = '';
 		charClass = '';
 	}
@@ -34,12 +34,12 @@
 		<div class="relative grow-[3] flex justify-center gap-4 md:justify-start md:gap-8">
 			<input
 				bind:value={charName}
-				class="w-[100%] max-w-[240px] px-4 py-2 border-b border-slate-700"
+				class="w-[100%] max-w-[240px] px-4 py-2 border-b rounded-md border-neutral-700 dark:bg-neutral-200"
 				placeholder="캐릭터 이름"
 			/>
 			<select
 				bind:value={charClass}
-				class="w-[100%] max-w-[240px] px-4 py-2 border rounded-lg border-slate-700"
+				class="w-[100%] max-w-[240px] px-4 py-2 border rounded-lg border-neutral-700 dark:bg-neutral-200"
 				required
 			>
 				<option value="" disabled selected hidden>직업</option>

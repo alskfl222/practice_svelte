@@ -9,7 +9,7 @@
 	}
 	function deleteChar() {
 		$data = $data.filter((item) => item.char.name !== $char.name);
-		$order = $order.filter(name => name !== $char.name);
+		$order = $order.filter((name) => name !== $char.name);
 		localStorage.setItem('prev', JSON.stringify($data));
 		deselectChar();
 	}
@@ -28,23 +28,26 @@
 	{#if !$char.name}
 		<p class="self-center h-[45px] text-lg">캐릭터를 선택해주세요</p>
 	{:else}
-		<div class="min-h-[45px] flex flex-col sm:px-8 sm:flex-row justify-between items-center gap-2">
+		<div
+			class="min-h-[45px] flex flex-col sm:px-8 sm:flex-row justify-center items-center gap-2 sm:gap-6"
+		>
 			<p class="flex flex-col gap-2 xs:flex-row xs:gap-4 items-center">
-				<span class="text-lg font-bold sm:text-2xl">{$char.name}</span>
-				<span class="sm:text-xl">{$char.class}</span>
+				<span class="text-xl font-bold sm:text-3xl">{$char.name}</span>
+				<span class="text-lg sm:text-2xl">{$char.class}</span>
 			</p>
 			<div>
-				<button class="p-2 border rounded-xl  hover:bg-slate-300" on:click={deselectChar}
+				<button class="p-2 border rounded-xl  hover:bg-neutral-300" on:click={deselectChar}
 					>해제</button
 				>
-				<button class="p-2 border rounded-xl  hover:bg-slate-300" on:click={deleteChar}>삭제</button
+				<button class="p-2 border rounded-xl  hover:bg-neutral-300" on:click={deleteChar}
+					>삭제</button
 				>
 			</div>
 		</div>
 	{/if}
 	<select
 		bind:value
-		class="self-center w-[100%] max-w-[240px] p-4 border rounded-lg border-slate-700"
+		class="self-center w-[100%] max-w-[240px] p-4 border rounded-lg border-neutral-700"
 		required
 	>
 		<option value="" disabled selected hidden>캐릭터 - 직업</option>

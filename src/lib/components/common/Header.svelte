@@ -3,8 +3,8 @@
 	import { darkMode } from '$stores/mode';
 	import Toggle from './Toggle.svelte';
 
-	const selectedStyle = 'text-3xl font-bold dark:text-slate-200';
-	const normalStyle = 'text-lg dark:text-slate-200';
+	const selectedStyle = 'text-3xl font-bold dark:text-neutral-200';
+	const normalStyle = 'text-lg dark:text-neutral-200';
 
 	$: if ($darkMode) {
 		localStorage.setItem('darkMode', 'true');
@@ -13,9 +13,9 @@
 	}
 </script>
 
-<header class="w-full h-[90px] mb-8 px-12 rounded-b-3xl bg-white dark:bg-slate-600">
+<header class="w-full h-[120px] mb-8 px-12 rounded-b-3xl bg-white dark:bg-neutral-600">
 	<nav class="w-full h-full flex justify-between items-center">
-		<ul class="w-full h-full flex items-center gap-9">
+		<ul class="w-full h-full flex items-center gap-6 sm:gap-9">
 			<li class={$page.url.pathname === '/' ? selectedStyle : normalStyle}>
 				<a href="/"><i class="fa-solid fa-house" /></a>
 			</li>

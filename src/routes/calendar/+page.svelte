@@ -57,7 +57,7 @@
 			<div
 				class="w-full h-[200px] p-4 flex flex-col justify-between gap-4
 							 border-2 rounded-2xl bg-white shadow lg:h-[270px]"
-				class:border-slate-500={entry[0] === selectedDay}
+				class:border-neutral-500={entry[0] === selectedDay}
 				on:click|stopPropagation={() => onClickDay(idx)}
 			>
 				<div class="flex justify-between items-center lg:flex-col lg:items-start">
@@ -95,7 +95,7 @@
 		>
 			<div class="w-full mb-2 flex justify-center">
 				<button
-					class="w-full text-lg font-bold hover:bg-slate-300/30"
+					class="w-full text-lg font-bold hover:bg-neutral-300/30"
 					on:click={() => (isCharListOpen = false)}>닫기 <i class="fa-solid fa-xmark" /></button
 				>
 			</div>
@@ -103,7 +103,7 @@
 			<div class="h-full mt-4 flex flex-col gap-2 overflow-x-hidden overflow-y-scroll">
 				{#each $store as char}
 					{#if char.boss.length > 0}
-						<div class="text-2xl hover:bg-slate-300/30" on:click={() => addCharToDay(char.name)}>
+						<div class="text-2xl hover:bg-neutral-300/30" on:click={() => addCharToDay(char.name)}>
 							{char.name}
 						</div>
 					{/if}

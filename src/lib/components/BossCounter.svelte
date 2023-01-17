@@ -24,7 +24,7 @@
 	function selectChar(name: CharNameType) {
 		const selected = $charArr.filter((char) => char.name === name)[0];
 		$char = { ...selected };
-		window.scrollTo(0, 240);
+		window.scrollTo(0, 270);
 	}
 
 	function hasRequired(items: ItemType[]) {
@@ -153,7 +153,7 @@
 		</div>
 	{:else}
 		<div
-			class="h-[100px] flex flex-col justify-center items-center text-xl font-bold text-slate-700"
+			class="h-[100px] flex flex-col justify-center items-center text-xl font-bold text-neutral-700"
 		>
 			<p>아직 추가된</p>
 			<p>보스가 없습니다</p>
