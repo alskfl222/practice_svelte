@@ -27,12 +27,14 @@
 	{#if $showModal}
 		<Modal on:click={() => ($showModal = !$showModal)} />
 	{/if}
-	<div class:dark={$darkMode}>
+	<div class="transition-colors duration-300" class:dark={$darkMode}>
 		<div
-			class="w-full min-w-[280px] min-h-[100vh] flex flex-col items-center bg-neutral-200 dark:bg-neutral-800 xl:px-0"
+			class="w-full min-w-[280px] min-h-[100vh] flex flex-col items-center
+					 bg-neutral-200 dark:bg-neutral-800 xl:px-0"
 		>
 			<div
-				class="w-full max-w-[1200px] px-4 md:px-8 flex flex-col bg-neutral-300 dark:bg-neutral-700"
+				class="w-full max-w-[1200px] px-4 md:px-8 flex flex-col
+				 bg-neutral-300 dark:bg-neutral-700"
 			>
 				<Header />
 				<main class="w-full min-h-[70vh] pb-8 justify-center gap-8">
@@ -43,3 +45,11 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+	:global(div) {
+		transition-property: inherit;
+		transition-timing-function: inherit;
+		transition-duration: inherit;
+	}
+</style>
