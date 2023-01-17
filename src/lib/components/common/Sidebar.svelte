@@ -9,7 +9,7 @@
 
 <svelte:window bind:scrollY bind:innerWidth bind:innerHeight />
 
-{#if scrollY + innerHeight < document.body.scrollHeight - 10}
+{#if innerWidth >= 1280 || scrollY + innerHeight < document.body.scrollHeight - 10}
 	<div
 		class="fixed z-40 bottom-0 inset-x-0 mx-12 drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]
 				 	 xl:relative xl:grow-0 xl:w-[240px] xl:mx-0"
