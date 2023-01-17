@@ -26,7 +26,7 @@
 
 <div class="py-4 flex flex-col gap-4">
 	{#if !$char.name}
-		<p class="self-center h-[45px] text-lg dark:text-neutral-200">캐릭터를 선택해주세요</p>
+		<p class="self-center h-[45px] text-lg xs:text-xl xs:font-bold sm:text-2xl dark:text-neutral-200">캐릭터를 선택해주세요</p>
 	{:else}
 		<div
 			class="min-h-[45px] flex flex-col sm:px-8 sm:flex-row justify-center items-center gap-2 sm:gap-6"

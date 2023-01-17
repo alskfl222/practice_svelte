@@ -106,7 +106,7 @@
 					</div>
 					{#if idx === counterIdx}
 						<div
-							class="grow p-4 flex flex-col justify-between items-center gap-2 rounded-b-2xl shadow bg-neutral-100"
+							class="grow p-4 flex flex-col justify-between items-center gap-2 rounded-b-2xl shadow dark:bg-neutral-100"
 						>
 							<div
 								class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2"
