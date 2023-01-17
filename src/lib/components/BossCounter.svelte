@@ -68,7 +68,7 @@
 					<div
 						class="relative w-full h-[120px] flex flex-col justify-center gap-2 rounded-2xl shadow overflow-hidden"
 						class:rounded-b-none={idx === counterIdx}
-						class:opacity-70={isBossExceed(boss)}
+						class:opacity-50={isBossExceed(boss)}
 						data-index={idx}
 					>
 						<img
@@ -106,7 +106,7 @@
 					</div>
 					{#if idx === counterIdx}
 						<div
-							class="grow p-4 flex flex-col justify-between items-center gap-2 rounded-b-2xl shadow"
+							class="grow p-4 flex flex-col justify-between items-center gap-2 rounded-b-2xl shadow bg-neutral-100"
 						>
 							<div
 								class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2"
@@ -117,7 +117,7 @@
 												 border rounded-xl shadow cursor-pointer hover:bg-gray-500/30
 												 transition duration-100 ease-in-out"
 										class:border-red-400={item.boss?.required}
-										class:opacity-70={isExceed(item)}
+										class:opacity-50={isExceed(item)}
 										on:click={() => selectChar(item.char.name)}
 									>
 										<div class="w-full flex justify-center items-center gap-2">

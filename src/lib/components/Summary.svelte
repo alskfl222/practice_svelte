@@ -14,7 +14,7 @@
 </script>
 
 <div
-	class="min-h-[90px] px-4 flex flex-col sm:flex-row justify-center items-center rounded-t-2xl bg-neutral-100 text-neutral-700 xl:dark:text-neutral-200
+	class="min-h-[90px] px-4 flex flex-col sm:flex-row justify-center items-center rounded-t-2xl bg-white text-neutral-700 xl:dark:text-neutral-200
 				 whitespace-nowrap xl:px-8 xl:flex-col xl:items-end xl:rounded-2xl xl:dark:bg-neutral-600"
 >
 	<div class="hidden w-[50%] md:flex md:justify-center xl:border-b">
