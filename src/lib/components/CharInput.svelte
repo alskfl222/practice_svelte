@@ -34,7 +34,7 @@
 		<div class="relative grow-[3] flex justify-center gap-4 md:justify-start md:gap-8">
 			<input
 				bind:value={charName}
-				class="w-[100%] max-w-[240px] px-4 py-2 border-b rounded-md border-neutral-700 dark:bg-neutral-200"
+				class="w-[100%] max-w-[240px] px-4 py-2 border-b rounded-t-md focus:rounded-md border-neutral-700 dark:bg-neutral-200"
 				placeholder="캐릭터 이름"
 			/>
 			<select

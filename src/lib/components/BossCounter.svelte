@@ -55,7 +55,7 @@
 </script>
 
 <section
-	class="max-h-[600px] p-8 pt-4 flex flex-col rounded-3xl bg-white"
+	class="max-h-[600px] p-8 pt-4 flex flex-col rounded-3xl bg-white dark:bg-neutral-600"
 	bind:this={container}
 	on:click={(e) => selectBoss(e)}
 >

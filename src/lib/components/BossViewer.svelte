@@ -24,15 +24,17 @@
 {#if $char.name}
 	<div class="my-4 flex flex-col">
 		{#if bossArr.length !== 0}
-			<div class="p-4 text-xl font-bold text-neutral-700">
+			<div class="p-4 text-xl font-bold text-neutral-700 dark:text-neutral-200">
 				총 {bossArr.length}종 {bossArr.flat().length}개
 			</div>
 		{/if}
 		<button
-			class="sm:mb-8 px-2 py-4 border rounded-2xl cursor-pointer text-2xl font-bold
+			class="mb-4 sm:mb-8 px-2 py-4 border rounded-2xl cursor-pointer text-2xl font-bold dark:bg-neutral-200
 					 hover:bg-gray-500/30 transition duration-100 ease-in-out"
-			on:click={openModal}>보스 추가</button
+			on:click={openModal}
 		>
+			보스 추가
+		</button>
 		{#if bossArr.length > 0}
 			<div
 				class="max-h-[400px] py-4 flex flex-col gap-2 sm:gap-6 overflow-x-hidden overflow-y-auto"
@@ -42,7 +44,7 @@
 						<div class="w-full h-full flex flex-col sm:flex-row justify-between items-center">
 							<div
 								class="relative w-full h-full flex flex-col sm:flex-row
-											 justify-center sm:justify-between items-center gap-2 rounded-3xl"
+											 justify-center sm:justify-between items-center gap-2 rounded-3xl overflow-hidden"
 							>
 								<img
 									src={items[0].boss ? bossInfo[items[0].boss.name].image : ''}
@@ -58,14 +60,14 @@
 								>
 									{items[0].boss?.name}
 								</div>
-								<div class="flex flex-row sm:flex-col items-center gap-2 md:gap-4">
+								<div class="mx-2 flex flex-row sm:flex-col items-center gap-2 md:gap-4">
 									{#each items as item}
 										<div
 											on:click={() => {
 												if (item.boss) deleteItem(item.boss.name, item.boss.dc);
 											}}
 											class="z-10 px-2 py-2 xs:px-4 flex justify-center items-center gap-1
-														 border-2 rounded-2xl bg-white cursor-pointer
+														 border-2 rounded-2xl bg-neutral-100 cursor-pointer
 													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 											class:border-red-400={item.boss?.required}
 										>
@@ -84,7 +86,9 @@
 		{/if}
 	</div>
 {:else}
-	<div class="mt-4 py-4 text-xl font-bold text-neutral-700 overflow-hidden whitespace-nowrap">
+	<div
+		class="mt-4 py-4 text-xl font-bold text-neutral-700 dark:text-neutral-200 overflow-hidden whitespace-nowrap"
+	>
 		선택된 캐릭터가 없습니다
 	</div>
 {/if}
