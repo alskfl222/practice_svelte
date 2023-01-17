@@ -153,7 +153,7 @@
 		</div>
 	{:else}
 		<div
-			class="h-[100px] flex flex-col justify-center items-center text-xl font-bold text-neutral-700"
+			class="h-[100px] flex flex-col justify-center items-center text-xl font-bold text-neutral-700 dark:text-neutral-200"
 		>
 			<p>아직 추가된</p>
 			<p>보스가 없습니다</p>
