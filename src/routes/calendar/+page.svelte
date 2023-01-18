@@ -1,44 +1,66 @@
-<div>작업예정</div>
+<script lang="ts">
+	import { data } from '$stores';
+	import { bossInfo } from '$stores/boss';
+	import { calendarData, selectedItem } from '$stores/calendar';
+	import { showModal, modalType } from '$stores/modal';
+	import type { ItemType, MapleDayType } from '$types';
 
-<!-- <script lang="ts">
-	import { fly, fade } from 'svelte/transition';
+	type DayType = 'common' | 'maple';
+	const dayObj: {
+		[key in DayType]: MapleDayType[];
+	} = {
+		common: ['일', '월', '화', '수', '목', '금', '토'],
+		maple: ['목', '금', '토', '일', '월', '화', '수']
+	};
+	let dayType: DayType = 'common';
 
-	import Title from '$lib/components/common/Title.svelte';
-	import Hbar from '$lib/components/common/Hbar.svelte';
+	let scrollY: number = 0;
+	let innerWidth: number = 0;
+	let innerHeight: number = 0;
 
-	import { store } from '$stores';
-	import { mapleDayObj } from '$stores/calendar';
-	import type { MapleDayType } from '$types';
-
-	let isCharListOpen: boolean = false;
-	let selectedDay: MapleDayType | null = null;
-
-	function onClickDay(idx: number) {
-		isCharListOpen = true;
-		selectedDay = Object.keys($mapleDayObj)[idx] as MapleDayType;
+	function openModal() {
+		$showModal = true;
+		$modalType = 'ItemSelect';
 	}
 
-	function addCharToDay(char: string) {
-		if (selectedDay) {
-			let index = $mapleDayObj[selectedDay].indexOf(char);
-			if (index < 0) {
-				const nameArr = $store.map((char) => char.name);
-				$mapleDayObj[selectedDay].push(char);
-				$mapleDayObj[selectedDay].sort((a, b) => nameArr.indexOf(a) - nameArr.indexOf(b));
-			} else {
-				$mapleDayObj[selectedDay] = [
-					...$mapleDayObj[selectedDay].slice(0, index),
-					...$mapleDayObj[selectedDay].slice(index + 1)
-				];
-			}
-			localStorage.setItem('dayObj', JSON.stringify($mapleDayObj));
-			$mapleDayObj = $mapleDayObj;
+	function dragStart(e: DragEvent, item: ItemType | null) {
+		e.dataTransfer?.setData('text/plain', JSON.stringify(item));
+	}
+
+	function dragEnter(e: DragEvent) {
+		const el = e.target as HTMLElement
+		el.classList.add('bg-neutral-500/30')
+	}
+
+	function dragLeave(e: DragEvent) {
+		const el = e.target as HTMLElement
+		el.classList.remove('bg-neutral-500/30')
+	}
+
+	function dragDrop(e: DragEvent, day: MapleDayType) {
+		const dragData = e.dataTransfer?.getData('text/plain') as string;
+		const item = JSON.parse(dragData) as ItemType;
+
+		if (item) {
+			const char = item.char.name;
+			const boss = item.boss?.name;
+			const dc = item.boss?.dc;
+
+			$data.push({ ...item, day });
+			$data = $data.filter(
+				(item) =>
+					char !== item.char.name ||
+					boss !== item.boss?.name ||
+					dc !== item.boss?.dc ||
+					item.day !== 'x'
+			);
+
+			$selectedItem = null;
 		}
+		const container = e.currentTarget as HTMLElement
+		container.classList.remove('bg-neutral-500/30')
 	}
-
-	function getCharBossArr(char: string) {
-		return $store.filter((x) => x.name === char)[0].boss;
-	}
+	$: console.log($data);
 </script>
 
 <svelte:head>
@@ -46,80 +68,67 @@
 	<meta name="description" content="일정 관리" />
 </svelte:head>
 
-<div
-	class="h-full px-2 pt-4 pb-[120px] rounded-2xl bg-white"
-	on:click={() => (isCharListOpen = false)}
-	in:fade
->
-	<Title>주간 일정</Title>
-	<div class="px-4 grid gap-4 lg:grid-cols-7">
-		{#each Object.entries($mapleDayObj) as entry, idx}
+<svelte:window bind:scrollY bind:innerWidth bind:innerHeight />
+
+<div class="grid grid-cols-1 gap-2">
+	{#each dayObj[dayType] as day}
+		<div class="p-2 bg-neutral-100">
+			<div>{day}</div>
 			<div
-				class="w-full h-[200px] p-4 flex flex-col justify-between gap-4
-							 border-2 rounded-2xl bg-white shadow lg:h-[270px]"
-				class:border-neutral-500={entry[0] === selectedDay}
-				on:click|stopPropagation={() => onClickDay(idx)}
+				class="min-h-[60px] p-2 grid grid-cols-1 gap-2 border rounded hover:bg-neutral-300/30"
+				on:dragenter={dragEnter}
+				on:dragleave={dragLeave}
+				on:drop={(e) => dragDrop(e, day)}
+				on:dragover={(e) => e.preventDefault()}
 			>
-				<div class="flex justify-between items-center lg:flex-col lg:items-start">
-					<span class="text-2xl">{entry[0]}</span><span>{entry[1].length} 캐릭터</span>
-				</div>
-				<div class="relative w-full h-[80%] flex flex-col gap-2 overflow-y-auto">
-					{#each entry[1] as char}
-						{#if getCharBossArr(char).length > 0}
-							<div>
-								<div
-									id="char"
-									class="flex-none relative text-lg whitespace-nowrap text-ellipsis overflow-x-hidden"
-								>
-									{char}
-								</div>
-								<div class="absolute z-10 left-0 right-0 m-2 p-4 flex flex-col border rounded-xl bg-white
-														lg:fixed lg:inset-x-[25%] lg:px-8 lg:grid lg:grid-cols-4">
-									{#each getCharBossArr(char) as boss}
-										<p>{boss.name}</p>
-									{/each}
-								</div>
-							</div>
-						{/if}
-					{/each}
-				</div>
-			</div>
-		{/each}
-	</div>
-	{#if isCharListOpen}
-		<div
-			class="fixed bottom-0 inset-x-0 z-30 h-[35%] mx-4 px-12 pt-4 pb-16
-						 rounded-t-2xl bg-white shadow-[0_1px_3px_-1px_rgba(0,0,0,1)]"
-			on:click|stopPropagation={() => (isCharListOpen = true)}
-			in:fly
-		>
-			<div class="w-full mb-2 flex justify-center">
-				<button
-					class="w-full text-lg font-bold hover:bg-neutral-300/30"
-					on:click={() => (isCharListOpen = false)}>닫기 <i class="fa-solid fa-xmark" /></button
-				>
-			</div>
-			<Hbar />
-			<div class="h-full mt-4 flex flex-col gap-2 overflow-x-hidden overflow-y-scroll">
-				{#each $store as char}
-					{#if char.boss.length > 0}
-						<div class="text-2xl hover:bg-neutral-300/30" on:click={() => addCharToDay(char.name)}>
-							{char.name}
+				{#each $calendarData[day] as item}
+					<div class="p-2 border rounded">
+						<div>{item.char.name}</div>
+						<div>
+							{item.boss?.name} - {item.boss?.dc}
 						</div>
-					{/if}
+					</div>
 				{/each}
 			</div>
 		</div>
+	{/each}
+	{#if innerWidth < 1280 && scrollY + innerHeight < document.body.scrollHeight - 10}
+		<div
+			class="fixed z-40 bottom-0 inset-x-0 max-h-[160px] mx-4 p-4 flex justify-center items-center
+						 gap-16 sm:gap-24 md:gap-30 bg-white drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]"
+		>
+			{#if !$selectedItem}
+				<div
+					class="w-[20%] max-w-[128px] aspect-square px-4 py-2 flex justify-center items-center
+								 border rounded-lg border-neutral-700"
+					on:click={openModal}
+				>
+					<i class="fa-solid fa-question" />
+				</div>
+				<div
+					class="w-[15%] max-w-[84px] aspect-square px-4 py-2 flex justify-center items-center
+							 border rounded-lg border-neutral-500 bg-neutral-500"
+				>
+					<i class="fa-solid fa-rotate-right" />
+				</div>
+			{:else}
+				<div
+					draggable="true"
+					class="w-[20%] max-w-[128px] aspect-square px-4 py-2 flex justify-center items-center
+								 border rounded-lg shadow"
+					style={`background-image: url("${
+						$selectedItem.boss ? bossInfo[$selectedItem.boss.name].image : ''
+					}"); background-position: center; background-size: cover;`}
+					on:dragstart={(e) => dragStart(e, $selectedItem)}
+				/>
+				<div
+					class="w-[15%] max-w-[84px] aspect-square px-4 py-2 flex justify-center items-center
+								 border rounded-lg border-neutral-700 hover:bg-neutral-500/30"
+					on:click={openModal}
+				>
+					<i class="fa-solid fa-rotate-right" />
+				</div>
+			{/if}
+		</div>
 	{/if}
 </div>
-
-<style lang="scss">
-	div#char {
-		& + div {
-			visibility: hidden;
-		}
-		&:hover + div {
-			visibility: visible;
-		}
-	}
-</style> -->

@@ -3,6 +3,7 @@
 	import Dropdown from '../common/Dropdown.svelte';
 	import { data, char } from '$stores';
 	import { bossInfo, boss } from '$stores/boss';
+	import type { MapleDayType } from '$types';
 
 	function handleSelect(event: CustomEvent) {
 		switch (event.type) {
@@ -32,7 +33,8 @@
 		if (!isExist) {
 			const item = {
 				char: { ...$char },
-				boss: { ...$boss }
+				boss: { ...$boss },
+				day: 'x' as MapleDayType
 			};
 
 			$data = [...rest, ...charItemArr, item];
@@ -47,7 +49,6 @@
 			dc: '',
 			headcount: 1,
 			required: false,
-			day: 'x'
 		};
 	}
 

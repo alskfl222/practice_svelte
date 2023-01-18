@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Title from './common/Title.svelte';
 	import { charArr, fulfilled } from '$stores';
 	import { maxBossCount } from '$stores/boss';
 	import { getTotalBossPrice } from '$utils';

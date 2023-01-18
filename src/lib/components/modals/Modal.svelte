@@ -2,12 +2,14 @@
 	import type { ComponentType } from 'svelte';
 	import BossSelect from './BossSelect.svelte';
 	import ExportImage from './ExportImage.svelte';
+	import ItemSelect from './ItemSelect.svelte';
 	import Message from './Message.svelte';
 	import { modalType } from '$stores/modal';
 
 	const component: { [key in string]: ComponentType } = {
 		BossSelect,
 		ExportImage,
+		ItemSelect,
 		Message
 	};
 </script>

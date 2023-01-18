@@ -67,7 +67,7 @@
 												if (item.boss) deleteItem(item.boss.name, item.boss.dc);
 											}}
 											class="z-10 px-2 py-2 xs:px-4 flex justify-center items-center gap-1
-														 border-2 rounded-2xl bg-neutral-100 cursor-pointer
+														 border-2 rounded-2xl bg-white dark:bg-neutral-100 cursor-pointer
 													 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 											class:border-red-400={item.boss?.required}
 										>
