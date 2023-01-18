@@ -30,10 +30,10 @@ export type BossItemType = {
 	dc: BossDC;
 	headcount: HeadcountType;
 	required: RequiredType;
-	day: MapleDayType;
 };
 
 export type ItemType = {
 	char: CharItemType;
 	boss?: BossItemType;
+	day: MapleDayType;
 };
