@@ -36,4 +36,4 @@ function getCalendarData(fulfilled: ItemType[]) {
 }
 
 export const calendarData = derived(fulfilled, getCalendarData);
-export const selectedItem = writable<ItemType | null>(null);
+export const selectedItems = writable<ItemType[]>([]);

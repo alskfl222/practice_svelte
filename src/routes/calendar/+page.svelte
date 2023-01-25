@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { data } from '$stores';
-	import { bossInfo } from '$stores/boss';
-	import { calendarData, selectedItem } from '$stores/calendar';
+	import { calendarData, selectedItems } from '$stores/calendar';
 	import { showModal, modalType } from '$stores/modal';
 	import type { ItemType, MapleDayType } from '$types';
 
@@ -23,8 +22,8 @@
 		$modalType = 'ItemSelect';
 	}
 
-	function dragStart(e: DragEvent, item: ItemType | null) {
-		e.dataTransfer?.setData('text/plain', JSON.stringify(item));
+	function dragStart(e: DragEvent, items: ItemType[]) {
+		e.dataTransfer?.setData('text/plain', JSON.stringify(items));
 	}
 
 	function dragEnter(e: DragEvent) {
@@ -39,37 +38,38 @@
 
 	function dragDrop(e: DragEvent, day: MapleDayType) {
 		const dragData = e.dataTransfer?.getData('text/plain') as string;
-		const item = JSON.parse(dragData) as ItemType;
+		const items = JSON.parse(dragData) as ItemType[];
 
-		if (item) {
-			const char = item.char.name;
-			const boss = item.boss?.name;
-			const dc = item.boss?.dc;
+		if (items && items.length > 0) {
+			items.forEach((item) => {
+				const char = item.char.name;
+				const boss = item.boss?.name;
+				const dc = item.boss?.dc;
 
-			if (
-				$data.filter(
-					(item) =>
-						char === item.char.name &&
-						boss === item.boss?.name &&
-						dc === item.boss?.dc &&
-						item.day === day
-				).length === 0
-			) {
-				$data.push({ ...item, day });
-				$data = $data.filter(
-					(item) =>
-						!(
+				if (
+					$data.filter(
+						(item) =>
 							char === item.char.name &&
 							boss === item.boss?.name &&
 							dc === item.boss?.dc &&
-							item.day !== day
-						)
-				);
-			}
+							item.day === day
+					).length === 0
+				) {
+					$data.push({ ...item, day });
+					$data = $data.filter(
+						(item) =>
+							!(
+								char === item.char.name &&
+								boss === item.boss?.name &&
+								dc === item.boss?.dc &&
+								item.day !== day
+							)
+					);
+				}
+			});
 
 			localStorage.setItem('prev', JSON.stringify($data));
-
-			$selectedItem = null;
+			$selectedItems = [];
 		}
 
 		const container = e.currentTarget as HTMLElement;
@@ -96,7 +96,11 @@
 				on:dragover={(e) => e.preventDefault()}
 			>
 				{#each $calendarData[day] as item}
-					<div draggable="true" class="p-2 border rounded" on:dragstart={(e) => dragStart(e, item)}>
+					<div
+						draggable="true"
+						class="p-2 border rounded"
+						on:dragstart={(e) => dragStart(e, [item])}
+					>
 						<div>{item.char.name}</div>
 						<div>
 							{item.boss?.name} - {item.boss?.dc}
@@ -111,7 +115,7 @@
 			class="fixed z-40 bottom-0 inset-x-0 max-h-[160px] mx-4 p-4 flex justify-center items-center
 						 gap-16 sm:gap-24 md:gap-30 bg-white drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]"
 		>
-			{#if !$selectedItem}
+			{#if $selectedItems.length === 0}
 				<div
 					class="w-[20%] max-w-[128px] aspect-square px-4 py-2 flex justify-center items-center
 								 border rounded-lg border-neutral-700"
@@ -130,11 +134,8 @@
 					draggable="true"
 					class="w-[20%] max-w-[128px] aspect-square px-4 py-2 flex justify-center items-center
 								 border rounded-lg shadow"
-					style={`background-image: url("${
-						$selectedItem.boss ? bossInfo[$selectedItem.boss.name].image : ''
-					}"); background-position: center; background-size: cover;`}
-					on:dragstart={(e) => dragStart(e, $selectedItem)}
-				/>
+					on:dragstart={(e) => dragStart(e, $selectedItems)}
+				><i class="fa-solid fa-user-check"></i></div>
 				<div
 					class="w-[15%] max-w-[84px] aspect-square px-4 py-2 flex justify-center items-center
 								 border rounded-lg border-neutral-700 hover:bg-neutral-500/30"
