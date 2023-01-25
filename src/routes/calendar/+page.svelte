@@ -28,13 +28,13 @@
 	}
 
 	function dragEnter(e: DragEvent) {
-		const el = e.target as HTMLElement
-		el.classList.add('bg-neutral-500/30')
+		const el = e.target as HTMLElement;
+		el.classList.add('bg-neutral-500/30');
 	}
 
 	function dragLeave(e: DragEvent) {
-		const el = e.target as HTMLElement
-		el.classList.remove('bg-neutral-500/30')
+		const el = e.target as HTMLElement;
+		el.classList.remove('bg-neutral-500/30');
 	}
 
 	function dragDrop(e: DragEvent, day: MapleDayType) {
@@ -46,21 +46,35 @@
 			const boss = item.boss?.name;
 			const dc = item.boss?.dc;
 
-			$data.push({ ...item, day });
-			$data = $data.filter(
-				(item) =>
-					char !== item.char.name ||
-					boss !== item.boss?.name ||
-					dc !== item.boss?.dc ||
-					item.day !== 'x'
-			);
+			if (
+				$data.filter(
+					(item) =>
+						char === item.char.name &&
+						boss === item.boss?.name &&
+						dc === item.boss?.dc &&
+						item.day === day
+				).length === 0
+			) {
+				$data.push({ ...item, day });
+				$data = $data.filter(
+					(item) =>
+						!(
+							char === item.char.name &&
+							boss === item.boss?.name &&
+							dc === item.boss?.dc &&
+							item.day !== day
+						)
+				);
+			}
+
+			localStorage.setItem('prev', JSON.stringify($data));
 
 			$selectedItem = null;
 		}
-		const container = e.currentTarget as HTMLElement
-		container.classList.remove('bg-neutral-500/30')
+
+		const container = e.currentTarget as HTMLElement;
+		container.classList.remove('bg-neutral-500/30');
 	}
-	$: console.log($data);
 </script>
 
 <svelte:head>
@@ -82,7 +96,7 @@
 				on:dragover={(e) => e.preventDefault()}
 			>
 				{#each $calendarData[day] as item}
-					<div class="p-2 border rounded">
+					<div draggable="true" class="p-2 border rounded" on:dragstart={(e) => dragStart(e, item)}>
 						<div>{item.char.name}</div>
 						<div>
 							{item.boss?.name} - {item.boss?.dc}
