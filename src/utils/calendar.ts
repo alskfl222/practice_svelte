@@ -1,7 +1,7 @@
-import { fulfilled } from '$stores';
+import { data, fulfilled } from '$stores';
 import { selectedItems } from '$stores/calendar';
 import { showModal, modalType } from '$stores/modal';
-import type { ItemType, CharItemType } from '$types';
+import type { ItemType, CharItemType, MapleDayType } from '$types';
 
 function isCheckedChar(fulfilled: ItemType[], selected: ItemType[], charItemsArr: ItemType[]) {
 	return (
@@ -10,8 +10,55 @@ function isCheckedChar(fulfilled: ItemType[], selected: ItemType[], charItemsArr
 	);
 }
 
+function isExist(data: ItemType[], item: ItemType, day: MapleDayType) {
+	const char = item.char.name;
+	const boss = item.boss?.name;
+	const dc = item.boss?.dc;
+	return (
+		data.filter(
+			(item) =>
+				char === item.char.name &&
+				boss === item.boss?.name &&
+				dc === item.boss?.dc &&
+				item.day === day
+		).length === 0
+	);
+}
+
 function dragStart(e: DragEvent, items: ItemType[]) {
 	e.dataTransfer?.setData('text/plain', JSON.stringify(items));
+}
+
+function dragDrop(e: DragEvent, day: MapleDayType) {
+	data.update((d) => {
+		const dragData = e.dataTransfer?.getData('text/plain') as string;
+		const items = JSON.parse(dragData) as ItemType[];
+
+		if (items && items.length > 0) {
+			items.forEach((item) => {
+				const char = item.char.name;
+				const boss = item.boss?.name;
+				const dc = item.boss?.dc;
+
+				if (isExist(d, item, day)) {
+					d.push({ ...item, day });
+					d = d.filter(
+						(item) =>
+							!(
+								char === item.char.name &&
+								boss === item.boss?.name &&
+								dc === item.boss?.dc &&
+								item.day !== day
+							)
+					);
+				}
+			});
+
+			localStorage.setItem('prev', JSON.stringify(d));
+			selectedItems.set([]);
+		}
+		return d;
+	});
 }
 
 function openModal() {
@@ -79,7 +126,9 @@ function getCharsData(fulfilled: ItemType[], charArr: CharItemType[]) {
 
 export {
 	isCheckedChar,
+	isExist,
 	dragStart,
+	dragDrop,
 	openModal,
 	resetSelected,
 	handleCharCheckbox,

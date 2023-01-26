@@ -2,7 +2,7 @@
 	import type { ComponentType } from 'svelte';
 	import BossSelect from './BossSelect.svelte';
 	import ExportImage from './ExportImage.svelte';
-	import ItemSelect from './ItemSelect.svelte';
+	import ItemSelect from './ItemSelectModal.svelte';
 	import Message from './Message.svelte';
 	import { modalType } from '$stores/modal';
 

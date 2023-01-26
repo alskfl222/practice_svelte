@@ -1,19 +1,14 @@
 <script lang="ts">
-	import SelectList from '$lib/components/common/SelectList.svelte';
+	import SelectList from '$lib/components/ItemSelectBar.svelte';
 	import { data, order, fulfilled } from '$stores';
 	import { bossInfo } from '$stores/boss';
-	import { calendarData, selectedItems } from '$stores/calendar';
-	import { showModal, modalType } from '$stores/modal';
+	import { calendarData, selectedItems, dayObj } from '$stores/calendar';
+	import type { DayType } from '$stores/calendar';
 	import type { ItemType, MapleDayType } from '$types';
 	import { fly } from 'svelte/transition';
 
-	type DayType = 'common' | 'maple';
-	const dayObj: {
-		[key in DayType]: MapleDayType[];
-	} = {
-		common: ['일', '월', '화', '수', '목', '금', '토'],
-		maple: ['목', '금', '토', '일', '월', '화', '수']
-	};
+	import { dragStart, dragDrop, openModal, resetSelected } from '$utils/calendar';
+
 	let dayType: DayType = 'common';
 
 	let selected: {
@@ -36,64 +31,6 @@
 	function handleSelected(day: MapleDayType, char: string | undefined) {
 		if (selected.day !== day || selected.char !== char) selected = { day, char };
 		else selected = { day: 'x', char: undefined };
-	}
-
-	function openModal() {
-		$showModal = true;
-		$modalType = 'ItemSelect';
-	}
-
-	function resetSelected() {
-		$selectedItems = [];
-		openModal();
-	}
-
-	function isExist(item: ItemType, day: MapleDayType) {
-		const char = item.char.name;
-		const boss = item.boss?.name;
-		const dc = item.boss?.dc;
-		return (
-			$data.filter(
-				(item) =>
-					char === item.char.name &&
-					boss === item.boss?.name &&
-					dc === item.boss?.dc &&
-					item.day === day
-			).length === 0
-		);
-	}
-
-	function dragStart(e: DragEvent, items: ItemType[]) {
-		e.dataTransfer?.setData('text/plain', JSON.stringify(items));
-	}
-
-	function dragDrop(e: DragEvent, day: MapleDayType) {
-		const dragData = e.dataTransfer?.getData('text/plain') as string;
-		const items = JSON.parse(dragData) as ItemType[];
-
-		if (items && items.length > 0) {
-			items.forEach((item) => {
-				const char = item.char.name;
-				const boss = item.boss?.name;
-				const dc = item.boss?.dc;
-
-				if (isExist(item, day)) {
-					$data.push({ ...item, day });
-					$data = $data.filter(
-						(item) =>
-							!(
-								char === item.char.name &&
-								boss === item.boss?.name &&
-								dc === item.boss?.dc &&
-								item.day !== day
-							)
-					);
-				}
-			});
-
-			localStorage.setItem('prev', JSON.stringify($data));
-			$selectedItems = [];
-		}
 	}
 </script>
 
@@ -179,7 +116,7 @@
 			class:hidden={scrollY + innerHeight > document.body.scrollHeight - 10}
 			transition:fly
 		>
-		<span class='text-lg sm:text-xl font-bold'>보스 추가</span>
+			<span class="text-lg sm:text-xl font-bold">보스 추가</span>
 			{#if $selectedItems.length === 0}
 				<div
 					class="w-[20%] max-w-[128px] aspect-square px-4 py-2 flex justify-center items-center
