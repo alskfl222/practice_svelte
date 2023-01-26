@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { selectedItems } from '$stores/calendar';
 	import { openModal, dragStart, resetSelected } from '$utils/calendar';
 
@@ -11,12 +11,12 @@
 <svelte:window bind:scrollY bind:innerWidth bind:innerHeight />
 
 <div
-	class="fixed z-40 bottom-0 inset-x-0 max-h-[160px] mx-4 p-4 flex justify-center items-center
-       gap-4 sm:gap-12 md:gap-24 bg-white drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]"
+	class="fixed z-40 bottom-0 inset-x-0 max-h-[160px] mx-12 p-4 flex justify-evenly sm:justify-center items-center
+       gap-4 rounded-t-3xl sm:gap-12 md:gap-24 bg-white drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]"
 	class:hidden={scrollY + innerHeight > document.body.scrollHeight - 10}
-	transition:fly
+	in:fade
 >
-	<span class="text-lg sm:text-xl font-bold">보스 추가</span>
+	<span class="text-lg sm:text-2xl font-bold">보스 추가</span>
 	{#if $selectedItems.length === 0}
 		<div
 			class="w-[15%] max-w-[84px] aspect-square px-4 py-2 flex justify-center items-center

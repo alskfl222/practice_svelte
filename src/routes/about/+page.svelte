@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class="w-full min-h-[70vh] flex flex-col bg-white rounded-3xl dark:bg-neutral-600" in:fly>
-	<Title><span class='px-12'>이 페이지는?</span></Title>
+	<Title><span class='px-12 py-8'>이 페이지는?</span></Title>
 	<div class="grow px-12 mt-4 pb-8 flex flex-col gap-12 sm:gap-16 dark:text-neutral-200">
 		<Hbar />
 		<div class="flex flex-col gap-8 text-lg">

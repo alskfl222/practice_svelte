@@ -14,12 +14,13 @@
 	}
 </script>
 
-<section class="p-8 pt-4 flex flex-col gap-4 rounded-3xl bg-white dark:bg-neutral-600 md:pb-16">
-	<Title
-		><span>캐릭터 관리</span><button on:click={openExportModal}
-			><i class="fa-solid fa-cloud-arrow-down" /></button
-		></Title
-	>
+<section class="p-8 flex flex-col gap-4 rounded-3xl bg-white dark:bg-neutral-600 md:pb-16">
+	<Title>
+		<span>캐릭터 관리</span>
+		<button on:click={openExportModal}>
+			<i class="fa-solid fa-cloud-arrow-down" />
+		</button>
+	</Title>
 	<Hbar />
 	<CharInput />
 	<Hbar />
@@ -28,8 +29,6 @@
 		<Hbar />
 		<BossViewer />
 	{:else}
-		<div>
-			<Title type="s">캐릭터를 추가해주세요</Title>
-		</div>
+		<Title type="s">캐릭터를 추가해주세요</Title>
 	{/if}
 </section>

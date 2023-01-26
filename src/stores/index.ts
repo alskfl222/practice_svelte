@@ -1,4 +1,4 @@
-import type { CharItemType, ItemType, ClassType } from '$types';
+import type { CharItemType, ItemType, ClassType, SpeciesType } from '$types';
 import { getCharArr, getFulfilledData } from '$utils';
 import { derived, writable } from 'svelte/store';
 
@@ -17,43 +17,64 @@ export const fulfilled = derived(data, getFulfilledData);
 
 export const classInfo: {
 	[key in string]: {
+		species: SpeciesType;
 		group: ClassType;
 	};
 } = {
+	히어로: {
+		species: '모험가',
+		group: '전사'
+	},
+	팔라딘: {
+		species: '모험가',
+		group: '전사'
+	},
+	다크나이트: {
+		species: '모험가',
+		group: '전사'
+	},
 	'아크메이지(불,독)': {
+		species: '모험가',
 		group: '마법사'
 	},
-	마법사2: {
+	'아크메이지(썬,콜)': {
+		species: '모험가',
 		group: '마법사'
 	},
-	마법사3: {
+	비숍: {
+		species: '모험가',
 		group: '마법사'
 	},
-	B1: {
-		group: 'B'
+	보우마스터: {
+		species: '모험가',
+		group: '궁수'
 	},
-	B2: {
-		group: 'B'
+	신궁: {
+		species: '모험가',
+		group: '궁수'
 	},
-	B3: {
-		group: 'B'
+	패스파인더: {
+		species: '모험가',
+		group: '궁수'
 	},
-	C1: {
-		group: 'C'
+	나이트로드: {
+		species: '모험가',
+		group: '도적'
 	},
-	C2: {
-		group: 'C'
+	듀얼블레이드: {
+		species: '모험가',
+		group: '도적'
 	},
-	C3: {
-		group: 'C'
+	바이퍼: {
+		species: '모험가',
+		group: '해적'
 	},
-	D1: {
-		group: 'D'
+	캡틴: {
+		species: '모험가',
+		group: '해적'
 	},
-	D2: {
-		group: 'D'
+	캐논슈터: {
+		species: '모험가',
+		group: '해적'
 	},
-	D3: {
-		group: 'D'
-	}
 };

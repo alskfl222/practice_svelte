@@ -30,4 +30,8 @@
 		transform: scale(1);
 		clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 	}
+
+	:global(*.dark input[type='checkbox']::before) {
+		box-shadow: inset 1em 1em rgba(222, 222, 222, 0.8);
+	}
 </style>

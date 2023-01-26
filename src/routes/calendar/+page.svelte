@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
+	import Title from '$lib/components/common/Title.svelte';
+	import ItemDragBar from '$lib/components/ItemDragBar.svelte';
 	import ItemSelectBar from '$lib/components/ItemSelectBar.svelte';
 	import { order, fulfilled } from '$stores';
 	import { bossInfo } from '$stores/boss';
@@ -6,7 +9,6 @@
 	import type { DayType } from '$stores/calendar';
 	import type { ItemType, MapleDayType } from '$types';
 	import { dragStart, dragDrop } from '$utils/calendar';
-	import ItemDragBar from '$lib/components/ItemDragBar.svelte';
 
 	let dayType: DayType = 'common';
 
@@ -15,9 +17,7 @@
 		char: string | undefined;
 	} = { day: 'x', char: undefined };
 
-	let scrollY: number = 0;
 	let innerWidth: number = 0;
-	let innerHeight: number = 0;
 
 	function getDayCharsArr(items: ItemType[]) {
 		return $order
@@ -38,24 +38,34 @@
 	<meta name="description" content="일정 관리" />
 </svelte:head>
 
-<svelte:window bind:scrollY bind:innerWidth bind:innerHeight />
+<svelte:window bind:innerWidth />
 
 <div
 	class="flex flex-col md:flex-row gap-4"
 	on:drop={(e) => dragDrop(e, 'x')}
 	on:dragover={(e) => e.preventDefault()}
+	in:fade
 >
-	<div class="p-4 xs:p-4 sm:p-8 w-full rounded-3xl bg-neutral-50">
-		<span>총 {$fulfilled.filter((item) => item.day !== 'x').length}개</span>
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+	<div
+		class="p-8 w-full flex flex-col gap-4 sm:gap-8 rounded-3xl bg-neutral-50
+					 dark:bg-neutral-600 dark:text-neutral-200"
+	>
+		<Title>
+			<span class="text-2xl font-bold">보스 일정</span>
+			<span class="text-xl font-semibold"
+				>x {$fulfilled.filter((item) => item.day !== 'x').length}</span
+			>
+		</Title>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 			{#each dayObj[dayType] as day}
 				<div
-					class="p-4 border rounded-3xl"
+					class="p-4 border rounded-3xl dark:bg-neutral-700 dark:text-neutral-50"
 					on:drop={(e) => dragDrop(e, 'x')}
 					on:dragover={(e) => e.preventDefault()}
 				>
 					<div class="pb-2 xs:pb-4 flex justify-between text-lg font-semibold">
-						<span>{day}</span> <span>x{$calendarData[day].length}</span>
+						<span>{day}</span> <span>x {$calendarData[day].length}</span>
 					</div>
 					<div
 						class="min-h-[60px] px-2 xs:px-4 flex flex-col justify-center gap-2 rounded-2xl"
