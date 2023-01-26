@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '../common/Button.svelte';
 	import Dropdown from '../common/Dropdown.svelte';
-	import { data, char } from '$stores';
+	import { data, char, order } from '$stores';
 	import { bossInfo, boss } from '$stores/boss';
 	import type { MapleDayType } from '$types';
 
@@ -38,6 +38,7 @@
 			};
 
 			$data = [...rest, ...charItemArr, item];
+			$data.sort((a, b) => $order.indexOf(a.char.name) - $order.indexOf(b.char.name))
 			localStorage.setItem('prev', JSON.stringify($data));
 			clearBoss();
 		}

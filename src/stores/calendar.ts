@@ -7,6 +7,14 @@ import type { ItemType, MapleDayType } from '$types';
 const today = dayjs().day();
 export const mapleDay = today < 4 ? today + 3 : today - 4;
 
+export type DayType = 'common' | 'maple';
+export const dayObj: {
+	[key in DayType]: MapleDayType[];
+} = {
+	common: ['일', '월', '화', '수', '목', '금', '토'],
+	maple: ['목', '금', '토', '일', '월', '화', '수']
+};
+
 function getCalendarData(fulfilled: ItemType[]) {
 	const bossNames = Object.keys(bossInfo);
 	const calendarData: { [key in MapleDayType]: ItemType[] } = {
@@ -36,4 +44,4 @@ function getCalendarData(fulfilled: ItemType[]) {
 }
 
 export const calendarData = derived(fulfilled, getCalendarData);
-export const selectedItem = writable<ItemType | null>(null);
+export const selectedItems = writable<ItemType[]>([]);

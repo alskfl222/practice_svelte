@@ -2,4 +2,4 @@
 	export let color: string = 'neutral-500';
 </script>
 
-<div class={`mx-2 border-b border-${color}`} />
+<div class={`w-full border-b border-${color} dark:border-neutral-100`} />

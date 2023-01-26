@@ -23,7 +23,7 @@
 				<a href="/calendar"><i class="fa-solid fa-calendar" /></a>
 			</li>
 		</ul>
-		<div class="flex flex-col xs:flex-row items-center gap-4 sm:gap-8">
+		<div class="flex flex-col xs:flex-row items-center gap-2 xs:gap-4 sm:gap-8">
 			<div class={$page.url.pathname === '/about' ? selectedStyle : normalStyle}>
 				<a href="/about"><i class="fa-solid fa-circle-question" /></a>
 			</div>

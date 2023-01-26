@@ -73,9 +73,11 @@
 								bossItems[0].boss ? bossInfo[bossItems[0].boss.name].image : ''
 							}"); background-position: center; background-size: cover;`}
 						>
-							{#each bossItems as item}<span class="font-bold text-neutral-100 drop-shadow-lg"
-									>{item.boss?.dc}</span
-								>{/each}
+							{#each bossItems as item}
+								<span class="font-bold text-neutral-100 drop-shadow-lg">
+									{item.boss?.dc}
+								</span>
+							{/each}
 						</div>
 					{/each}
 				</div>
