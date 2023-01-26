@@ -63,26 +63,33 @@
 		.filter((arr) => arr.length > 0);
 </script>
 
-<div class="w-[80vw] h-[80vh] flex flex-col items-center rounded-2xl bg-white">
-	<div>
-		<button on:click={() => ($showModal = false)}>닫기</button>
-	</div>
+<div
+	class="w-[70vw] max-w-[900px] h-[80vh] p-2 xs:p-4 sm:p-8 flex flex-col items-center gap-2 xs:gap-4 rounded-2xl bg-white"
+>
+	<button class="w-[70%] p-2 border hover:bg-neutral-500/30" on:click={() => ($showModal = false)}>
+		닫기
+	</button>
 	{#each charsData as charItemsArr, idx}
 		<div class="w-full p-2 border flex flex-col" on:click={() => selectChar(idx)}>
-			<div class="flex items-center gap-2">
-				<input
-					type="checkbox"
-					class="appearance-none w-6 h-6 border-2 rounded-sm grid place-content-center"
-					checked={isCheckedChar($selectedItems, charItemsArr)}
-					indeterminate={!isCheckedChar($selectedItems, charItemsArr) &&
-						$selectedItems.filter((item) => item.char.name === charItemsArr[0].char.name).length >
-							0}
-					on:click|stopPropagation={(e) =>
-						handleCharCheckbox(e, $selectedItems, charItemsArr[0].char.name)}
-				/><span class="text-lg font-bold">{charItemsArr[0].char.name}</span>
+			<div class="p-2 flex justify-between items-center gap-2">
+				<div class='flex items-center gap-2 xs:gap-4'>
+					<input
+						type="checkbox"
+						class="appearance-none w-6 h-6 border-2 rounded-sm grid place-content-center"
+						checked={isCheckedChar($selectedItems, charItemsArr)}
+						indeterminate={!isCheckedChar($selectedItems, charItemsArr) &&
+							$selectedItems.filter((item) => item.char.name === charItemsArr[0].char.name).length >
+								0}
+						on:click|stopPropagation={(e) =>
+							handleCharCheckbox(e, $selectedItems, charItemsArr[0].char.name)}
+					/><span class="text-lg font-bold">{charItemsArr[0].char.name}</span>
+				</div>
+				<span
+					class="font-semibold">x {charItemsArr.length}</span
+				>
 			</div>
 			{#if counterIdx === idx}
-				<div class="mt-2 grid grid-cols-2 gap-2">
+				<div class="mt-2 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
 					{#each charItemsArr as item}
 						<div
 							class="w-full aspect-square p-2 flex justify-center items-end border rounded-3xl"
@@ -111,12 +118,12 @@
 		transform: scale(0);
 		box-shadow: inset 1em 1em rgba(0, 0, 0, 0.2);
 	}
-	
+
 	input[type='checkbox']:indeterminate::before {
-		transform: scale(.9, .3);
-		clip-path:none;
+		transform: scale(0.9, 0.3);
+		clip-path: none;
 	}
-	
+
 	input[type='checkbox']:checked::before {
 		transform: scale(1);
 		clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
