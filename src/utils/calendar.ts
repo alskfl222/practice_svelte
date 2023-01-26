@@ -1,4 +1,4 @@
-import { data, fulfilled } from '$stores';
+import { data, order, fulfilled } from '$stores';
 import { selectedItems } from '$stores/calendar';
 import { showModal, modalType } from '$stores/modal';
 import type { ItemType, CharItemType, MapleDayType } from '$types';
@@ -51,14 +51,16 @@ function dragDrop(e: DragEvent, day: MapleDayType) {
 								item.day !== day
 							)
 					);
+					order.subscribe((o) => {
+						d.sort((a, b) => o.indexOf(a.char.name) - o.indexOf(b.char.name));
+					});
 				}
 			});
-
 			localStorage.setItem('prev', JSON.stringify(d));
-			selectedItems.set([]);
 		}
 		return d;
 	});
+	selectedItems.set([]);
 }
 
 function openModal() {
@@ -68,7 +70,6 @@ function openModal() {
 
 function resetSelected() {
 	selectedItems.set([]);
-	openModal();
 }
 
 function handleCharCheckbox(checked: boolean, charName: string) {

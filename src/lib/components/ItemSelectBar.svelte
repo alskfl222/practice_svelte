@@ -19,7 +19,7 @@
 	$: charsData = getCharsData($fulfilled, $charArr);
 </script>
 
-<div class="p-4 flex flex-col gap-2">
+<div class="min-w-[270px] p-4 flex flex-col gap-2 bg-neutral-50">
 	<Title type="s">보스 추가</Title>
 	{#each charsData as charItemsArr, idx}
 		<div
