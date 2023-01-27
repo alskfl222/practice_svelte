@@ -10,8 +10,6 @@
 
 	let selectedIdx: number | undefined = undefined;
 
-	let day: MapleDayType = 'x';
-
 	onMount(() => {
 		$bosses = $data
 			.filter((item) => item.char.name === $char.name && item.boss)
@@ -19,7 +17,7 @@
 	});
 
 	function selectBoss(idx: number) {
-		$boss = { name: bossNameArr[idx], dc: '', headcount: 1, required: false };
+		$boss = { name: bossNameArr[idx], dc: '', headcount: 1, required: false, day: 'x' };
 		if ($bosses.filter((item) => item.name === $boss.name).length > 0) {
 			$boss = $bosses.filter((item) => item.name === $boss.name)[0];
 		}
@@ -39,6 +37,7 @@
 		$boss = {
 			name: '',
 			dc: '',
+			day: 'x',
 			headcount: 1,
 			required: false
 		};
@@ -72,7 +71,7 @@
 	function addData(charItem: CharItemType, selected: BossItemType[]) {
 		$data = $data.filter((item) => item.char.name !== $char.name);
 		const newItems: ItemType[] = selected.map((bossItem) => {
-			return { char: charItem, boss: bossItem, day };
+			return { char: charItem, boss: bossItem };
 		});
 		$data = [...$data, ...newItems];
 		$data.sort((a, b) => $order.indexOf(a.char.name) - $order.indexOf(b.char.name));
@@ -95,7 +94,7 @@
 	class="w-[80vw] max-w-[768px] min-h-[40vh] p-8 flex flex-col gap-4 rounded-2xl bg-white dark:bg-neutral-500"
 >
 	<div
-		class="max-h-[300px] grid grid-cols-1 ss:grid-cols-2 md:grid-cols-3 place-items-center gap-2 overflow-y-auto"
+		class="max-h-[300px] grid grid-cols-1 ss:grid-cols-2 md:grid-cols-3 place-items-top gap-2 overflow-y-auto"
 	>
 		{#each Object.entries(bossInfo) as boss, idx}
 			<div
@@ -153,7 +152,12 @@
 			파티
 		</div>
 		<div class="flex items-center gap-2">
-			<select class="px-2 py-1 border rounded-xl border-neutral-700" bind:value={day} required>
+			<select
+				class="px-2 py-1 border rounded-xl border-neutral-700"
+				bind:value={$boss.day}
+				on:change={() => handleOptions($bosses)}
+				required
+			>
 				<option value="x" disabled selected hidden>요일</option>
 				{#each dayObj.common as dayType}
 					<option value={dayType}>{dayType}</option>

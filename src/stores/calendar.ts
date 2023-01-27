@@ -29,7 +29,7 @@ function getCalendarData(fulfilled: ItemType[]) {
 	};
 
 	Object.keys(calendarData).forEach((day) => {
-		const dayItems = fulfilled.filter((item) => item.day === day);
+		const dayItems = fulfilled.filter((item) => item.boss?.day === day);
 		order.subscribe((chars) => {
 			const row: ItemType[] = [];
 			chars.forEach((char) => {

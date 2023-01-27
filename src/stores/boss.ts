@@ -6,6 +6,7 @@ export const maxBossCount = 2;
 export const initBoss: BossItemType = {
 	name: '',
 	dc: '',
+	day: 'x',
 	headcount: 1,
 	required: false,
 };
