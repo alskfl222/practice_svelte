@@ -18,7 +18,7 @@
 {#if $modalType}
 	<div
 		on:click|self
-		class="fixed z-50 w-screen h-screen pt-4 sm:pt-10 flex justify-center items-start bg-black/30"
+		class="fixed z-50 w-screen h-screen pt-12 sm:pt-10 flex justify-center items-start bg-black/30"
 		class:dark={$darkMode}
 	>
 		<svelte:component this={component[$modalType]} on:click />

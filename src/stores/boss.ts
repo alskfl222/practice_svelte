@@ -11,6 +11,8 @@ export const initBoss: BossItemType = {
 };
 
 export const boss = writable<BossItemType>(initBoss);
+export const bosses = writable<BossItemType[]>([])
+
 
 export const bossInfo: {
 	[key in string]: {

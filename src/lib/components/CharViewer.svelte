@@ -46,17 +46,17 @@
 		</div>
 	</div>
 
-	<div class="max-h-[200px] grid grid-cols-2 gap-2 overflow-y-auto">
+	<div class="max-h-[240px] xs:max-h-[300px] sm:max-h-[360px] mt-2 p-1 grid grid-cols-2 sm:grid-cols-3 gap-1 overflow-y-auto">
 		{#each $charArr as char}
 			<div
-				class="w-full h-full px-2 py-4 flex flex-col border border-white gap-2 rounded-xl shadow-lg"
+				class="w-full h-full px-2 py-4 xs:px-4 xs:py-6 flex flex-col border border-white gap-2 rounded-xl shadow-lg"
 				class:border-red-500={isSelected(char)}
 				on:click={() => selectChar(char)}
 			>
-				<div class="text-lg overflow-hidden whitespace-nowrap text-ellipsis">
+				<div class="text-lg md:text-xl overflow-hidden whitespace-nowrap text-ellipsis">
 					{char.name}
 				</div>
-				<div class="overflow-hidden whitespace-nowrap text-ellipsis">{char.class}</div>
+				<div class="md:text-lg overflow-hidden whitespace-nowrap text-ellipsis">{char.class}</div>
 			</div>
 		{/each}
 	</div>

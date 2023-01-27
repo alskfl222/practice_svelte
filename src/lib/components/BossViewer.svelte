@@ -33,7 +33,7 @@
 					 hover:bg-gray-500/30 transition duration-100 ease-in-out"
 			on:click={openModal}
 		>
-			보스 추가
+			보스 선택
 		</button>
 		{#if bossArr.length > 0}
 			<div
