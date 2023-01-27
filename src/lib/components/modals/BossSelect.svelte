@@ -4,6 +4,7 @@
 	import { bossInfo, bosses, boss } from '$stores/boss';
 	import { showModal } from '$stores/modal';
 	import type { MapleDayType, BossItemType, BossDC, CharItemType, ItemType } from '$types';
+	import { dayObj } from '$stores/calendar';
 
 	const bossNameArr = Object.keys(bossInfo);
 
@@ -80,7 +81,7 @@
 	}
 
 	function handleLoadChar(event: Event) {
-		const el = event.target as HTMLSelectElement
+		const el = event.target as HTMLSelectElement;
 		const charName = el.value;
 		$bosses = $data
 			.filter((item) => item.char.name === charName && item.boss)
@@ -134,10 +135,16 @@
 	</div>
 
 	<div
-		class="self-center w-full max-w-[240px] ss:mt-2 sm:mt-4 p-2 flex flex-col items-center border rounded-xl border-neutral-700"
+		class="self-center w-full max-w-[240px] ss:mt-2 sm:mt-4 p-2 flex flex-col 
+					 items-center gap-2 border rounded-xl border-neutral-700"
 	>
 		<div class="flex items-center gap-2">
-			<select bind:value={$boss.headcount} on:change={() => handleOptions($bosses)} required>
+			<select
+				class="px-2 py-1 border rounded-xl border-neutral-700"
+				bind:value={$boss.headcount}
+				on:change={() => handleOptions($bosses)}
+				required
+			>
 				<option value="" disabled selected hidden>인원수</option>
 				{#each [1, 2, 3, 4, 5, 6] as count}
 					<option value={count}>{count}인</option>
@@ -145,18 +152,26 @@
 			</select>
 			파티
 		</div>
-		<span class="flex items-center gap-2">
-			<input
-				type="checkbox"
-				bind:checked={$boss.required}
-				on:change={() => handleOptions($bosses)}
-			/>
-			{#if $boss.required}
-				필수
-			{:else}
-				선택
-			{/if}
-		</span>
+		<div class="flex items-center gap-2">
+			<select class="px-2 py-1 border rounded-xl border-neutral-700" bind:value={day} required>
+				<option value="x" disabled selected hidden>요일</option>
+				{#each dayObj.common as dayType}
+					<option value={dayType}>{dayType}</option>
+				{/each}
+			</select>
+			<span class="flex items-center gap-2">
+				<input
+					type="checkbox"
+					bind:checked={$boss.required}
+					on:change={() => handleOptions($bosses)}
+				/>
+				{#if $boss.required}
+					필수
+				{:else}
+					선택
+				{/if}
+			</span>
+		</div>
 	</div>
 
 	<div class="self-center w-full max-w-[240px]">
@@ -166,7 +181,10 @@
 		>
 	</div>
 
-	<select on:change={(e) => handleLoadChar(e)}>
+	<select
+		class="self-center w-full max-w-[240px] p-2 border rounded-xl border-neutral-700"
+		on:change={(e) => handleLoadChar(e)}
+	>
 		<option value="" disabled selected hidden>불러올 캐릭터</option>
 		{#each $charArr.map((item) => item.name) as charName}
 			<option value={charName}>{charName}</option>
