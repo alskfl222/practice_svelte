@@ -31,6 +31,8 @@
 		if (selected.day !== day || selected.char !== char) selected = { day, char };
 		else selected = { day: 'x', char: undefined };
 	}
+
+	$: console.log($fulfilled)
 </script>
 
 <svelte:head>
@@ -53,7 +55,7 @@
 		<Title>
 			<span class="text-2xl font-bold">보스 일정</span>
 			<span class="text-xl font-semibold"
-				>x {$fulfilled.filter((item) => item.day !== 'x').length}</span
+				>x {$fulfilled.filter((item) => item.boss?.day !== 'x').length}</span
 			>
 		</Title>
 

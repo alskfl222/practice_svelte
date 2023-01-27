@@ -12,7 +12,7 @@
 			class: charClass,
 			group: classInfo[charClass].group
 		};
-		$data = [...$data, { char, day: 'x' }];
+		$data = [...$data, { char }];
 		$order = [...$order, charName];
 		localStorage.setItem('prev', JSON.stringify($data));
 		charName = '';

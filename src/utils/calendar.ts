@@ -20,7 +20,7 @@ function isExist(data: ItemType[], item: ItemType, day: MapleDayType) {
 				char === item.char.name &&
 				boss === item.boss?.name &&
 				dc === item.boss?.dc &&
-				item.day === day
+				day === item.boss?.day
 		).length > 0
 	);
 }
@@ -41,14 +41,16 @@ function dragDrop(e: DragEvent, day: MapleDayType) {
 				const dc = item.boss?.dc;
 
 				if (!isExist(d, item, day)) {
-					d.push({ ...item, day });
+					const newItem = { ...item }
+					newItem.boss!.day = day
+					d.push(newItem);
 					d = d.filter(
 						(item) =>
 							!(
 								char === item.char.name &&
 								boss === item.boss?.name &&
 								dc === item.boss?.dc &&
-								item.day !== day
+								day !== item.boss?.day
 							)
 					);
 					order.subscribe((o) => {
