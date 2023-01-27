@@ -21,13 +21,10 @@
 
 <svelte:window on:click={onDropdownClick} />
 
-<div class="relative" bind:this={container}>
-	<div class="p-2 flex justify-center border rounded-xl border-neutral-700" on:click={() => (show = !show)}>
-		<slot />
-	</div>
+<div class="relative self-center w-full max-w-[240px]" bind:this={container}>
 	{#if show}
 		<ul
-			class="z-10 w-[100%] max-h-[150px] absolute mt-2 py-2 border rounded-xl
+			class="absolute top-1 z-10 w-[100%] max-h-[150px] mt-2 py-2 border rounded-xl
 			 border-neutral-700 dark:border-white bg-white dark:bg-neutral-500 overflow-y-auto"
 		>
 			{#each options as opt}
@@ -41,4 +38,7 @@
 			{/each}
 		</ul>
 	{/if}
+	<div class="p-2 flex justify-center border rounded-xl border-neutral-700" on:click={() => (show = !show)}>
+		<slot />
+	</div>
 </div>
