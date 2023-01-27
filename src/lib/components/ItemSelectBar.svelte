@@ -43,7 +43,7 @@
 									isCheckedChar($fulfilled, $selectedItems, charItemsArr),
 									charItemsArr[0].char.name
 								)}
-						/><span class="w-full text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis"
+						/><span class="text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis"
 							>{charItemsArr[0].char.name}</span
 						>
 					</div>

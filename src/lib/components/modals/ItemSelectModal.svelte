@@ -18,17 +18,22 @@
 </script>
 
 <div
-	class="w-[70vw] max-w-[900px] h-[80vh] p-2 xs:p-4 sm:p-8 flex flex-col items-center gap-2 xs:gap-4 rounded-2xl bg-white"
+	class="w-[70vw] max-w-[900px] h-[80vh] p-2 xs:p-4 sm:p-8 flex flex-col items-center gap-2 xs:gap-4
+				 rounded-2xl bg-white dark:bg-neutral-500 dark:text-neutral-100"
 >
-	<button class="w-[70%] p-2 border hover:bg-neutral-500/30" on:click={() => ($showModal = false)}>
-		선택 완료
+	<button
+		class="w-[70%] mb-2 p-2 border rounded-3xl hover:bg-neutral-500/30 hover:dark:bg-neutral-200/30
+					 text-lg sm:text-xl font-semibold"
+		on:click={() => ($showModal = false)}
+	>
+		닫기
 	</button>
 	{#each charsData as charItemsArr, idx}
 		<div
-			class="w-full p-2 border flex flex-col"
+			class="w-full p-2 sm:p-4 md:p-6 border flex flex-col rounded-3xl hover:dark:bg-neutral-200/30 cursor-pointer"
 			on:click={() => (counterIdx = getCounterIdx(counterIdx, idx))}
 		>
-			<div class="p-2 flex justify-between items-center gap-2">
+			<div class="p-2 flex justify-between items-center gap-2 ">
 				<div class="flex items-center gap-2 xs:gap-4">
 					<Checkbox
 						checked={isCheckedChar($fulfilled, $selectedItems, charItemsArr)}
@@ -41,12 +46,12 @@
 								charItemsArr[0].char.name
 							)}
 					/>
-					<span class="text-lg font-bold">{charItemsArr[0].char.name}</span>
+					<span class="text-lg sm:text-xl font-bold">{charItemsArr[0].char.name}</span>
 				</div>
-				<span class="font-semibold">x {charItemsArr.length}</span>
+				<span class="sm:text-lg font-semibold">x {charItemsArr.length}</span>
 			</div>
 			{#if counterIdx === idx}
-				<div class="mt-2 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
+				<div class="mt-2 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 gap-2">
 					{#each charItemsArr as item}
 						<div
 							class="w-full aspect-square p-2 flex justify-center items-end border-2 rounded-3xl"
@@ -56,7 +61,7 @@
 							}"); background-position: center; background-size: cover;`}
 							on:click|stopPropagation={() => handleItemCheckbox(item)}
 						>
-							<span class="font-bold text-neutral-100 drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]">
+							<span class="font-bold text-neutral-100 drop-shadow-[0_0_3px_rgba(0,0,0,0.1)]">
 								{item.boss?.dc}
 							</span>
 						</div>

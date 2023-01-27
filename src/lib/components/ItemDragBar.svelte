@@ -11,8 +11,8 @@
 <svelte:window bind:scrollY bind:innerWidth bind:innerHeight />
 
 <div
-	class="fixed z-40 bottom-0 inset-x-0 max-h-[160px] mx-12 p-4 flex justify-evenly sm:justify-center items-center
-       gap-4 rounded-t-3xl sm:gap-12 md:gap-24 bg-white drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]"
+	class="fixed z-40 bottom-0 inset-x-0 max-h-[160px] mx-12 p-4 pb-8 flex justify-evenly sm:justify-center items-center
+       gap-4 rounded-t-3xl sm:gap-12 md:gap-24 bg-white dark:bg-neutral-300 drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]"
 	class:hidden={scrollY + innerHeight > document.body.scrollHeight - 10}
 	in:fade
 >
@@ -20,7 +20,7 @@
 	{#if $selectedItems.length === 0}
 		<div
 			class="w-[15%] max-w-[84px] aspect-square px-4 py-2 flex justify-center items-center
-           border rounded-lg border-neutral-700"
+           border rounded-lg border-neutral-700 hover:bg-neutral-500/30"
 			on:click={openModal}
 		>
 			<i class="fa-solid fa-question" />
@@ -35,7 +35,7 @@
 		<div
 			draggable="true"
 			class="w-[15%] max-w-[84px] aspect-square px-4 py-2 flex justify-center items-center
-           border rounded-lg shadow"
+           border rounded-lg shadow cursor-move"
 			on:click={openModal}
 			on:dragstart={(e) => dragStart(e, $selectedItems)}
 		>

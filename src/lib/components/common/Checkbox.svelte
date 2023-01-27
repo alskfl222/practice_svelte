@@ -6,7 +6,7 @@
 
 <input
 	type="checkbox"
-	class="appearance-none w-6 h-6 border-2 rounded-sm grid place-content-center"
+	class="appearance-none flex-none w-6 h-6 border-2 rounded-sm grid place-content-center cursor-pointer"
 	{checked}
 	{indeterminate}
 	on:click|stopPropagation={() => onClick()}
