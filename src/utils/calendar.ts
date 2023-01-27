@@ -21,7 +21,7 @@ function isExist(data: ItemType[], item: ItemType, day: MapleDayType) {
 				boss === item.boss?.name &&
 				dc === item.boss?.dc &&
 				item.day === day
-		).length === 0
+		).length > 0
 	);
 }
 
@@ -40,7 +40,7 @@ function dragDrop(e: DragEvent, day: MapleDayType) {
 				const boss = item.boss?.name;
 				const dc = item.boss?.dc;
 
-				if (isExist(d, item, day)) {
+				if (!isExist(d, item, day)) {
 					d.push({ ...item, day });
 					d = d.filter(
 						(item) =>

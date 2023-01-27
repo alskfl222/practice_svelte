@@ -61,17 +61,13 @@
 			{#each dayObj[dayType] as day}
 				<div
 					class="p-4 border rounded-3xl dark:bg-neutral-700 dark:text-neutral-50"
-					on:drop={(e) => dragDrop(e, 'x')}
+					on:drop|stopPropagation={(e) => dragDrop(e, day)}
 					on:dragover={(e) => e.preventDefault()}
 				>
 					<div class="pb-2 xs:pb-4 flex justify-between text-lg font-semibold">
 						<span>{day}</span> <span>x {$calendarData[day].length}</span>
 					</div>
-					<div
-						class="min-h-[60px] px-2 xs:px-4 flex flex-col justify-center gap-2 rounded-2xl"
-						on:drop|stopPropagation={(e) => dragDrop(e, day)}
-						on:dragover={(e) => e.preventDefault()}
-					>
+					<div class="min-h-[60px] px-2 xs:px-4 flex flex-col justify-center gap-2 rounded-2xl">
 						{#if $calendarData[day].length > 0}
 							{#each getDayCharsArr($calendarData[day]) as charArr}
 								<div
@@ -89,7 +85,8 @@
 											{#each charArr as item}
 												<div
 													draggable="true"
-													class="aspect-square p-2 flex flex-col justify-end items-center border rounded-xl font-bold text-neutral-100"
+													class="aspect-square p-2 flex flex-col justify-end items-center
+																 border rounded-xl font-bold text-neutral-100"
 													style={`background-image: url("${
 														item.boss ? bossInfo[item.boss.name].image : ''
 													}"); background-position: center; background-size: cover;`}

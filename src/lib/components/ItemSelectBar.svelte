@@ -23,7 +23,7 @@
 	class="min-w-[270px] p-8 flex flex-col gap-4 rounded-3xl bg-neutral-50 dark:bg-neutral-600 dark:text-neutral-100"
 >
 	<Title type="s">보스 추가</Title>
-	<div class='max-h-[450px] mt-4 flex flex-col gap-4 overflow-y-auto'>
+	<div class="max-h-[450px] mt-4 flex flex-col gap-4 overflow-y-auto">
 		{#each charsData as charItemsArr, idx}
 			<div
 				draggable="true"
@@ -43,7 +43,9 @@
 									isCheckedChar($fulfilled, $selectedItems, charItemsArr),
 									charItemsArr[0].char.name
 								)}
-						/><span class="w-full text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis">{charItemsArr[0].char.name}</span>
+						/><span class="text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis"
+							>{charItemsArr[0].char.name}</span
+						>
 					</div>
 					<span class="font-semibold">x {charItemsArr.length}</span>
 				</div>
@@ -51,11 +53,13 @@
 					<div class="mt-2 grid grid-cols-2 gap-2">
 						{#each charItemsArr as item}
 							<div
+								draggable="true"
 								class="w-full aspect-square p-2 flex justify-center items-end border-2 rounded-3xl"
 								class:border-red-500={isCheckedItem($selectedItems, item)}
 								style={`background-image: url("${
 									item.boss ? bossInfo[item.boss.name].image : ''
 								}"); background-position: center; background-size: cover;`}
+								on:dragstart={(e) => dragStart(e, [item])}
 								on:click|stopPropagation={() => handleItemCheckbox(item)}
 							>
 								<span class="font-bold text-neutral-100 drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]">
