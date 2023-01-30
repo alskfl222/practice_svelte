@@ -88,12 +88,24 @@ function touchStart(e: TouchEvent, items: ItemType[]) {
 }
 
 function touchMove(e: TouchEvent) {
+	const mainEl = document.querySelector('div#main') as HTMLDivElement;
 	const shadow = document.querySelector('div#float') as HTMLElement;
 	const left = e.changedTouches[0].pageX;
 	const top = e.changedTouches[0].pageY;
 	shadow.style.position = 'absolute';
 	shadow.style.left = left + 'px';
 	shadow.style.top = top + 'px';
+
+	if (
+		e.changedTouches[0].pageY - window.scrollY > window.innerHeight - 16 &&
+		e.changedTouches[0].pageY < mainEl.scrollHeight
+	)
+		window.scrollTo(0, window.scrollY + 16);
+	if (
+		e.changedTouches[0].pageY - window.scrollY < 16 &&
+		window.scrollY >= 0
+	)
+		window.scrollTo(0, window.scrollY - 16);
 }
 
 function getTouchEndZone(e: TouchEvent): MapleDayType {
