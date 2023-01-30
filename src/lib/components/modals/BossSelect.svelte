@@ -86,19 +86,17 @@
 			.filter((item) => item.char.name === charName && item.boss)
 			.map((item) => item.boss!);
 	}
-
-	$: console.log($bosses);
 </script>
 
 <div
 	class="w-[80vw] max-w-[768px] min-h-[40vh] p-8 flex flex-col gap-4 rounded-2xl bg-white dark:bg-neutral-500"
 >
 	<div
-		class="max-h-[300px] grid grid-cols-1 ss:grid-cols-2 md:grid-cols-3 place-items-top gap-2 overflow-y-auto"
+		class="max-h-[300px] grid grid-cols-1 ss:grid-cols-2 md:grid-cols-3 place-items-center gap-2 overflow-y-auto"
 	>
 		{#each Object.entries(bossInfo) as boss, idx}
 			<div
-				class="relative max-w-[240px] flex flex-col rounded-t-2xl overflow-hidden"
+				class="relative flex-none max-w-[240px] flex flex-col rounded-t-2xl overflow-hidden"
 				on:click={() => selectBoss(idx)}
 			>
 				<div

@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { selectedItems } from '$stores/calendar';
-	import { openModal, dragStart, resetSelected } from '$utils/calendar';
+	import {
+		openModal,
+		dragStart,
+		touchStart,
+		touchMove,
+		touchEnd,
+		resetSelected
+	} from '$utils/calendar';
 
 	let scrollY: number = 0;
 	let innerWidth: number = 0;
@@ -38,6 +45,9 @@
            border rounded-lg shadow cursor-move"
 			on:click={openModal}
 			on:dragstart={(e) => dragStart(e, $selectedItems)}
+			on:touchstart={(e) => touchStart(e, $selectedItems)}
+			on:touchmove={(e) => touchMove(e)}
+			on:touchend={(e) => touchEnd(e)}
 		>
 			<i class="fa-solid fa-user-check" />
 		</div>
@@ -50,3 +60,11 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	div {
+		-webkit-touch-callout: none;
+		-ms-touch-action: none;
+		touch-action: none;
+	}
+</style>

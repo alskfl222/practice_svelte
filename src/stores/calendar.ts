@@ -45,3 +45,4 @@ function getCalendarData(fulfilled: ItemType[]) {
 
 export const calendarData = derived(fulfilled, getCalendarData);
 export const selectedItems = writable<ItemType[]>([]);
+export const transferData = writable<string>('');
