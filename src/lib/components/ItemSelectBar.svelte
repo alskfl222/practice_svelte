@@ -59,7 +59,7 @@
 								style={`background-image: url("${
 									item.boss ? bossInfo[item.boss.name].image : ''
 								}"); background-position: center; background-size: cover;`}
-								on:dragstart={(e) => dragStart(e, [item])}
+								on:dragstart|stopPropagation={(e) => dragStart(e, [item])}
 								on:click|stopPropagation={() => handleItemCheckbox(item)}
 							>
 								<span class="font-bold text-neutral-100 drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]">

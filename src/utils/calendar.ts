@@ -1,5 +1,6 @@
 import { data, order, fulfilled } from '$stores';
-import { selectedItems } from '$stores/calendar';
+import { bossInfo } from '$stores/boss';
+import { selectedItems, transferData } from '$stores/calendar';
 import { showModal, modalType } from '$stores/modal';
 import type { ItemType, CharItemType, MapleDayType } from '$types';
 
@@ -41,8 +42,8 @@ function dragDrop(e: DragEvent, day: MapleDayType) {
 				const dc = item.boss?.dc;
 
 				if (!isExist(d, item, day)) {
-					const newItem = { ...item }
-					newItem.boss!.day = day
+					const newItem = { ...item };
+					newItem.boss!.day = day;
 					d.push(newItem);
 					d = d.filter(
 						(item) =>
@@ -60,6 +61,110 @@ function dragDrop(e: DragEvent, day: MapleDayType) {
 			});
 			localStorage.setItem('prev', JSON.stringify(d));
 		}
+		return d;
+	});
+	selectedItems.set([]);
+}
+
+function touchStart(e: TouchEvent, items: ItemType[]) {
+	e.preventDefault();
+	transferData.set(JSON.stringify(items));
+
+	const el = e.target as HTMLElement;
+	const shadow = document.createElement('div');
+	const left = e.changedTouches[0].pageX;
+	const top = e.changedTouches[0].pageY;
+
+	shadow.setAttribute('id', 'float');
+	shadow.innerHTML = el.outerHTML;
+	shadow.style.position = 'absolute';
+	shadow.style.zIndex = 'auto';
+	shadow.style.minWidth = '150px';
+	shadow.style.left = left + 'px';
+	shadow.style.top = top + 'px';
+	shadow.style.opacity = '0.7';
+
+	document.querySelector('div#main')!.appendChild(shadow);
+}
+
+function touchMove(e: TouchEvent) {
+	const mainEl = document.querySelector('div#main') as HTMLDivElement;
+	const shadow = document.querySelector('div#float') as HTMLElement;
+	const left = e.changedTouches[0].pageX;
+	const top = e.changedTouches[0].pageY;
+	shadow.style.position = 'absolute';
+	shadow.style.left = left + 'px';
+	shadow.style.top = top + 'px';
+
+	if (
+		e.changedTouches[0].pageY - window.scrollY > window.innerHeight - 16 &&
+		e.changedTouches[0].pageY < mainEl.scrollHeight
+	)
+		window.scrollTo(0, window.scrollY + 16);
+	if (
+		e.changedTouches[0].pageY - window.scrollY < 16 &&
+		window.scrollY >= 0
+	)
+		window.scrollTo(0, window.scrollY - 16);
+}
+
+function getTouchEndZone(e: TouchEvent): MapleDayType {
+	const left = e.changedTouches[0].pageX;
+	const top = e.changedTouches[0].pageY;
+	const arr = document.querySelectorAll('div#day');
+	for (let i = 0; i < arr.length; i++) {
+		const rect = arr[i].getBoundingClientRect();
+		const day = arr[i].getAttribute('data-value');
+		if (
+			!(
+				rect.right < left ||
+				rect.left > left ||
+				window.scrollY + rect.bottom < top ||
+				window.scrollY + rect.top > top
+			) &&
+			day
+		)
+			return day as MapleDayType;
+	}
+	return 'x';
+}
+
+function touchEnd(e: TouchEvent) {
+	const mainEl = document.querySelector('div#main') as HTMLDivElement;
+	const shadow = document.querySelector('div#float') as HTMLElement;
+	mainEl.removeChild(shadow);
+	const day = getTouchEndZone(e);
+	data.update((d) => {
+		transferData.subscribe((t) => {
+			const items = JSON.parse(t) as ItemType[];
+
+			if (items && items.length > 0) {
+				items.forEach((item) => {
+					const char = item.char.name;
+					const boss = item.boss?.name;
+					const dc = item.boss?.dc;
+
+					if (!isExist(d, item, day)) {
+						const newItem = { ...item };
+						newItem.boss!.day = day;
+						d.push(newItem);
+						d = d.filter(
+							(item) =>
+								!(
+									char === item.char.name &&
+									boss === item.boss?.name &&
+									dc === item.boss?.dc &&
+									day !== item.boss?.day
+								)
+						);
+						order.subscribe((o) => {
+							d.sort((a, b) => o.indexOf(a.char.name) - o.indexOf(b.char.name));
+						});
+					}
+				});
+				localStorage.setItem('prev', JSON.stringify(d));
+			}
+		});
 		return d;
 	});
 	selectedItems.set([]);
@@ -122,9 +227,13 @@ function handleItemCheckbox(item: ItemType) {
 }
 
 function getCharsData(fulfilled: ItemType[], charArr: CharItemType[]) {
+	const bossNameArr = Object.keys(bossInfo);
 	return charArr
 		.map((char) => fulfilled.filter((item) => item.char.name === char.name))
-		.filter((arr) => arr.length > 0);
+		.filter((arr) => arr.length > 0)
+		.map((arr) =>
+			arr.sort((a, b) => bossNameArr.indexOf(a.boss!.name) - bossNameArr.indexOf(b.boss!.name))
+		);
 }
 
 export {
@@ -132,6 +241,9 @@ export {
 	isExist,
 	dragStart,
 	dragDrop,
+	touchStart,
+	touchMove,
+	touchEnd,
 	openModal,
 	resetSelected,
 	handleCharCheckbox,
