@@ -77,8 +77,8 @@ function touchStart(e: TouchEvent, items: ItemType[]) {
 
 	shadow.setAttribute('id', 'float');
 	shadow.innerHTML = el.outerHTML;
-	shadow.style.position = 'absolute';
-	shadow.style.zIndex = 'auto';
+	shadow.style.position = 'fixed';
+	shadow.style.zIndex = '1000';
 	shadow.style.minWidth = '150px';
 	shadow.style.left = left + 'px';
 	shadow.style.top = top + 'px';
@@ -91,21 +91,14 @@ function touchMove(e: TouchEvent) {
 	const mainEl = document.querySelector('div#main') as HTMLDivElement;
 	const shadow = document.querySelector('div#float') as HTMLElement;
 	const left = e.changedTouches[0].pageX;
-	const top = e.changedTouches[0].pageY;
-	shadow.style.position = 'absolute';
+	const top = e.changedTouches[0].pageY - window.scrollY;
+	shadow.style.position = 'fixed';
 	shadow.style.left = left + 'px';
 	shadow.style.top = top + 'px';
 
-	if (
-		e.changedTouches[0].pageY - window.scrollY > window.innerHeight - 16 &&
-		e.changedTouches[0].pageY < mainEl.scrollHeight
-	)
+	if (top > window.innerHeight - 16 && e.changedTouches[0].pageY < mainEl.scrollHeight)
 		window.scrollTo(0, window.scrollY + 16);
-	if (
-		e.changedTouches[0].pageY - window.scrollY < 16 &&
-		window.scrollY >= 0
-	)
-		window.scrollTo(0, window.scrollY - 16);
+	if (top < 16 && window.scrollY >= 0) window.scrollTo(0, window.scrollY - 16);
 }
 
 function getTouchEndZone(e: TouchEvent): MapleDayType {
@@ -114,7 +107,7 @@ function getTouchEndZone(e: TouchEvent): MapleDayType {
 	const arr = document.querySelectorAll('div#day');
 	for (let i = 0; i < arr.length; i++) {
 		const rect = arr[i].getBoundingClientRect();
-		const day = arr[i].getAttribute('data-value');
+		const day = arr[i].getAttribute('data-value') as MapleDayType;
 		if (
 			!(
 				rect.right < left ||
@@ -124,7 +117,7 @@ function getTouchEndZone(e: TouchEvent): MapleDayType {
 			) &&
 			day
 		)
-			return day as MapleDayType;
+			return day;
 	}
 	return 'x';
 }
