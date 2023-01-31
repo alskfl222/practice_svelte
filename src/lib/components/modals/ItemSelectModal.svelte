@@ -18,8 +18,8 @@
 </script>
 
 <div
-	class="w-[70vw] max-w-[900px] h-[80vh] p-2 xs:p-4 sm:p-8 flex flex-col items-center gap-2 xs:gap-4
-				 rounded-2xl bg-white dark:bg-neutral-500 dark:text-neutral-100"
+	class="w-[75vw] max-w-[900px] h-[80vh] p-4 sm:p-8 flex flex-col items-center gap-2 xs:gap-4
+				 rounded-2xl bg-neutral-50 dark:bg-neutral-500 dark:text-neutral-100"
 >
 	<button
 		class="w-[70%] mb-2 p-2 border rounded-3xl hover:bg-neutral-500/30 hover:dark:bg-neutral-200/30
@@ -30,7 +30,8 @@
 	</button>
 	{#each charsData as charItemsArr, idx}
 		<div
-			class="w-full p-2 sm:p-4 md:p-6 border flex flex-col rounded-3xl hover:dark:bg-neutral-200/30 cursor-pointer"
+			class="w-full p-2 sm:p-4 md:p-6 flex flex-col rounded-3xl hover:dark:bg-neutral-200/30 shadow cursor-pointer"
+			class:shadow-lg={counterIdx===idx}
 			on:click={() => (counterIdx = getCounterIdx(counterIdx, idx))}
 		>
 			<div class="p-2 flex justify-between items-center gap-2 ">
@@ -61,7 +62,7 @@
 							}"); background-position: center; background-size: cover;`}
 							on:click|stopPropagation={() => handleItemCheckbox(item)}
 						>
-							<span class="font-bold text-neutral-100 drop-shadow-[0_0_3px_rgba(0,0,0,0.1)]">
+							<span class="font-bold text-neutral-100 drop-shadow-xs">
 								{item.boss?.dc}
 							</span>
 						</div>

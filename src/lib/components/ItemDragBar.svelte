@@ -18,12 +18,14 @@
 <svelte:window bind:scrollY bind:innerWidth bind:innerHeight />
 
 <div
-	class="fixed z-40 bottom-0 inset-x-0 max-h-[160px] mx-12 p-4 pb-8 flex justify-evenly sm:justify-center items-center
+	class="fixed z-40 bottom-0 inset-x-0 max-h-[160px] mx-12 p-4 pb-6 flex justify-evenly sm:justify-center items-center
        gap-4 rounded-t-3xl sm:gap-12 md:gap-24 bg-white dark:bg-neutral-300 drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]"
 	class:hidden={scrollY + innerHeight > document.body.scrollHeight - 10}
 	in:fade
 >
-	<span class="text-lg sm:text-2xl font-bold">보스 추가</span>
+	{#if innerWidth >= 360}
+		<span class="text-lg sm:text-2xl font-bold">보스 추가</span>
+	{/if}
 	{#if $selectedItems.length === 0}
 		<div
 			class="w-[15%] max-w-[84px] aspect-square px-4 py-2 flex justify-center items-center
