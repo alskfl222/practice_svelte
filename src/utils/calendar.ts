@@ -232,6 +232,7 @@ function getCharsData(fulfilled: ItemType[], charArr: CharItemType[]) {
 export {
 	isCheckedChar,
 	isExist,
+	isCheckedItem,
 	dragStart,
 	dragDrop,
 	touchStart,
@@ -240,8 +241,7 @@ export {
 	openModal,
 	resetSelected,
 	handleCharCheckbox,
-	getCounterIdx,
-	isCheckedItem,
 	handleItemCheckbox,
-	getCharsData
+	getCounterIdx,
+	getCharsData,
 };
