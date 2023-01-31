@@ -26,6 +26,34 @@ function isExist(data: ItemType[], item: ItemType, day: MapleDayType) {
 	);
 }
 
+function handleDropEnd(data: ItemType[], items: ItemType[], day: MapleDayType) {
+	items.forEach((item) => {
+		const char = item.char.name;
+		const boss = item.boss?.name;
+		const dc = item.boss?.dc;
+
+		if (!isExist(data, item, day)) {
+			const newItem = { ...item };
+			newItem.boss!.day = day;
+			data.push(newItem);
+		}
+		data = data.filter(
+			(item) =>
+				!(
+					char === item.char.name &&
+					boss === item.boss?.name &&
+					dc === item.boss?.dc &&
+					day !== item.boss?.day
+				)
+		);
+		order.subscribe((o) => {
+			data.sort((a, b) => o.indexOf(a.char.name) - o.indexOf(b.char.name));
+		});
+	});
+	localStorage.setItem('prev', JSON.stringify(data));
+	return data;
+}
+
 function dragStart(e: DragEvent, items: ItemType[]) {
 	e.dataTransfer?.setData('text/plain', JSON.stringify(items));
 }
@@ -36,30 +64,7 @@ function dragDrop(e: DragEvent, day: MapleDayType) {
 		const items = JSON.parse(dragData) as ItemType[];
 
 		if (items && items.length > 0) {
-			items.forEach((item) => {
-				const char = item.char.name;
-				const boss = item.boss?.name;
-				const dc = item.boss?.dc;
-
-				if (!isExist(d, item, day)) {
-					const newItem = { ...item };
-					newItem.boss!.day = day;
-					d.push(newItem);
-					d = d.filter(
-						(item) =>
-							!(
-								char === item.char.name &&
-								boss === item.boss?.name &&
-								dc === item.boss?.dc &&
-								day !== item.boss?.day
-							)
-					);
-					order.subscribe((o) => {
-						d.sort((a, b) => o.indexOf(a.char.name) - o.indexOf(b.char.name));
-					});
-				}
-			});
-			localStorage.setItem('prev', JSON.stringify(d));
+			d = handleDropEnd(d, items, day);
 		}
 		return d;
 	});
@@ -70,15 +75,19 @@ function touchStart(e: TouchEvent, items: ItemType[]) {
 	e.preventDefault();
 	transferData.set(JSON.stringify(items));
 
-	const el = e.target as HTMLElement;
 	const shadow = document.createElement('div');
 	const left = e.changedTouches[0].pageX;
-	const top = e.changedTouches[0].pageY;
+	const top = e.changedTouches[0].pageY - window.scrollY;
 
 	shadow.setAttribute('id', 'float');
-	shadow.innerHTML = el.outerHTML;
-	shadow.style.position = 'absolute';
-	shadow.style.zIndex = 'auto';
+	shadow.innerHTML = `
+		<svg class="svg-inline--fa fa-user-check s-sO9vkuMkcVCS" aria-hidden="true" focusable="false" data-prefix="fas" 
+				 data-icon="user-check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg="">
+			<path fill="currentColor" d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM625 177L497 305c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L591 143c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path>
+		</svg>
+	`;
+	shadow.style.position = 'fixed';
+	shadow.style.zIndex = '1000';
 	shadow.style.minWidth = '150px';
 	shadow.style.left = left + 'px';
 	shadow.style.top = top + 'px';
@@ -91,21 +100,14 @@ function touchMove(e: TouchEvent) {
 	const mainEl = document.querySelector('div#main') as HTMLDivElement;
 	const shadow = document.querySelector('div#float') as HTMLElement;
 	const left = e.changedTouches[0].pageX;
-	const top = e.changedTouches[0].pageY;
-	shadow.style.position = 'absolute';
+	const top = e.changedTouches[0].pageY - window.scrollY;
+	shadow.style.position = 'fixed';
 	shadow.style.left = left + 'px';
 	shadow.style.top = top + 'px';
 
-	if (
-		e.changedTouches[0].pageY - window.scrollY > window.innerHeight - 16 &&
-		e.changedTouches[0].pageY < mainEl.scrollHeight
-	)
+	if (top > window.innerHeight - 16 && e.changedTouches[0].pageY < mainEl.scrollHeight)
 		window.scrollTo(0, window.scrollY + 16);
-	if (
-		e.changedTouches[0].pageY - window.scrollY < 16 &&
-		window.scrollY >= 0
-	)
-		window.scrollTo(0, window.scrollY - 16);
+	if (top < 16 && window.scrollY >= 0) window.scrollTo(0, window.scrollY - 16);
 }
 
 function getTouchEndZone(e: TouchEvent): MapleDayType {
@@ -114,7 +116,7 @@ function getTouchEndZone(e: TouchEvent): MapleDayType {
 	const arr = document.querySelectorAll('div#day');
 	for (let i = 0; i < arr.length; i++) {
 		const rect = arr[i].getBoundingClientRect();
-		const day = arr[i].getAttribute('data-value');
+		const day = arr[i].getAttribute('data-value') as MapleDayType;
 		if (
 			!(
 				rect.right < left ||
@@ -124,7 +126,7 @@ function getTouchEndZone(e: TouchEvent): MapleDayType {
 			) &&
 			day
 		)
-			return day as MapleDayType;
+			return day;
 	}
 	return 'x';
 }
@@ -139,30 +141,7 @@ function touchEnd(e: TouchEvent) {
 			const items = JSON.parse(t) as ItemType[];
 
 			if (items && items.length > 0) {
-				items.forEach((item) => {
-					const char = item.char.name;
-					const boss = item.boss?.name;
-					const dc = item.boss?.dc;
-
-					if (!isExist(d, item, day)) {
-						const newItem = { ...item };
-						newItem.boss!.day = day;
-						d.push(newItem);
-						d = d.filter(
-							(item) =>
-								!(
-									char === item.char.name &&
-									boss === item.boss?.name &&
-									dc === item.boss?.dc &&
-									day !== item.boss?.day
-								)
-						);
-						order.subscribe((o) => {
-							d.sort((a, b) => o.indexOf(a.char.name) - o.indexOf(b.char.name));
-						});
-					}
-				});
-				localStorage.setItem('prev', JSON.stringify(d));
+				d = handleDropEnd(d, items, day);
 			}
 		});
 		return d;
@@ -239,6 +218,7 @@ function getCharsData(fulfilled: ItemType[], charArr: CharItemType[]) {
 export {
 	isCheckedChar,
 	isExist,
+	isCheckedItem,
 	dragStart,
 	dragDrop,
 	touchStart,
@@ -247,8 +227,7 @@ export {
 	openModal,
 	resetSelected,
 	handleCharCheckbox,
-	getCounterIdx,
-	isCheckedItem,
 	handleItemCheckbox,
+	getCounterIdx,
 	getCharsData
 };

@@ -27,8 +27,8 @@
 	{#if $showModal}
 		<Modal on:click={() => ($showModal = !$showModal)} />
 	{/if}
-	<div id='main' class="transition-colors duration-300" class:dark={$darkMode}>
-		<div
+	<div class="transition-colors duration-300" class:dark={$darkMode}>
+		<div id='main'
 			class="z-0 w-full min-w-[280px] min-h-[100vh] flex flex-col items-center
 					 bg-neutral-200 dark:bg-neutral-800 xl:px-0"
 		>

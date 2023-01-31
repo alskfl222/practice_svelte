@@ -3,7 +3,7 @@
 	import { data, char, charArr, order } from '$stores';
 	import { bossInfo, bosses, boss } from '$stores/boss';
 	import { showModal } from '$stores/modal';
-	import type { MapleDayType, BossItemType, BossDC, CharItemType, ItemType } from '$types';
+	import type { BossItemType, BossDC, CharItemType, ItemType } from '$types';
 	import { dayObj } from '$stores/calendar';
 
 	const bossNameArr = Object.keys(bossInfo);
@@ -89,28 +89,37 @@
 </script>
 
 <div
-	class="w-[80vw] max-w-[768px] min-h-[40vh] p-8 flex flex-col gap-4 rounded-2xl bg-white dark:bg-neutral-500"
+	class="w-[80vw] max-w-[768px] min-h-[40vh] max-h-[80vh] p-4 pb-8 flex flex-col gap-4
+				 rounded-2xl bg-white dark:bg-neutral-500 overflow-y-auto"
 >
 	<div
-		class="max-h-[300px] grid grid-cols-1 ss:grid-cols-2 md:grid-cols-3 place-items-center gap-2 overflow-y-auto"
+		class="min-h-[240px] max-h-[400px] p-4 grid grid-cols-1 ss:grid-cols-2 md:grid-cols-3 place-items-top gap-2
+					 rounded-2xl dark:bg-neutral-600 overflow-y-auto"
 	>
 		{#each Object.entries(bossInfo) as boss, idx}
 			<div
-				class="relative flex-none max-w-[240px] flex flex-col rounded-t-2xl overflow-hidden"
+				class="relative max-w-[240px] flex flex-col rounded-t-2xl"
 				on:click={() => selectBoss(idx)}
 			>
 				<div
-					class="relative border-2 overflow-hidden"
+					class="flex-none relative border-2 overflow-hidden"
 					class:rounded-2xl={idx !== selectedIdx}
+					class:rounded-t-2xl={idx === selectedIdx}
 					class:border-red-500={isExistBoss($bosses, boss[0])}
 				>
-					<img src={bossInfo[boss[0]].image} class="aspect-video object-cover" alt={boss[0]} />
-					<div class="absolute inset-0 px-6 py-4 flex items-end text-white overflow-hidden">
+					<img
+						src={bossInfo[boss[0]].image}
+						class="aspect-video object-cover"
+						class:rounded-2xl={idx !== selectedIdx}
+						class:rounded-t-2xl={idx === selectedIdx}
+						alt={boss[0]}
+					/>
+					<div class="absolute inset-0 px-6 py-4 flex items-end text-white">
 						<span class="text-lg font-semibold whitespace-nowrap drop-shadow-xs">{boss[0]}</span>
 					</div>
 				</div>
 				{#if selectedIdx === idx}
-					<div class="p-2 flex flex-col gap-2 border-x border-b rounded-b-2xl">
+					<div class="p-2 flex flex-col gap-2 border-x border-b rounded-b-2xl dark:bg-neutral-100">
 						{#each Object.entries(boss[1].dc) as values}
 							<div
 								class="p-2 border flex justify-between rounded-xl shadow"
@@ -133,7 +142,7 @@
 
 	<div
 		class="self-center w-full max-w-[240px] ss:mt-2 sm:mt-4 p-2 flex flex-col 
-					 items-center gap-2 border rounded-xl border-neutral-700"
+					 items-center gap-2 border rounded-xl border-neutral-700 dark:bg-neutral-100"
 	>
 		<div class="flex items-center gap-2">
 			<select
@@ -178,7 +187,7 @@
 
 	<div class="self-center w-full max-w-[240px]">
 		<button
-			class="w-full p-2 border rounded-xl border-neutral-700 hover:bg-neutral-500/30"
+			class="w-full p-2 border rounded-xl border-neutral-700 hover:bg-neutral-500/30 dark:bg-neutral-100"
 			on:click={() => addData($char, $bosses)}>추가</button
 		>
 	</div>
