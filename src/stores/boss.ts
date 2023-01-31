@@ -21,34 +21,123 @@ export const bossInfo: {
 		dc: BossDCType;
 	};
 } = {
-	a: {
+	시그너스: {
 		image: '/images/boss/a.jpeg',
 		dc: {
 			EASY: 100,
 			NORMAL: 200,
-			HARD: 300
 		}
 	},
-	b: {
+	힐라: {
 		image: '/images/boss/b.jpeg',
 		dc: {
-			NORMAL: 250,
+			HARD: 400
+		}
+	},
+	핑크빈: {
+		image: '/images/boss/c.jpeg',
+		dc: {
 			CHAOS: 400
 		}
 	},
-	c: {
-		image: '/images/boss/c.jpeg',
-		dc: {
-			NORMAL: 320,
-			HARD: 450
-		}
-	},
-	d: {
+	자쿰: {
 		image: '/images/boss/a.jpeg',
 		dc: {
-			EASY: 110,
-			NORMAL: 220,
-			HARD: 330
+			CHAOS: 500
+		}
+	},
+	피에르: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			CHAOS: 500
+		}
+	},
+	반반: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			CHAOS: 500
+		}
+	},
+	'블러디 퀸': {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			CHAOS: 500
+		}
+	},
+	벨룸: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			CHAOS: 500
+		}
+	},
+	매그너스: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			CHAOS: 500
+		}
+	},
+	파풀라투스: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			CHAOS: 500
+		}
+	},
+	스우: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			NORMAL: 600,
+			HARD: 5000
+		}
+	},
+	데미안: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			NORMAL: 600,
+			HARD: 5000
+		}
+	},
+	루시드: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			EASY: 400,
+			NORMAL: 600,
+			HARD: 5000
+		}
+	},
+	윌: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			EASY: 400,
+			NORMAL: 600,
+			HARD: 5000
+		}
+	},
+	'가디언 엔젤 슬라임': {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			NORMAL: 600,
+			CHAOS: 5000
+		}
+	},
+	더스크: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			NORMAL: 600,
+			CHAOS: 5000
+		}
+	},
+	듄켈: {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			NORMAL: 600,
+			HARD: 5000
+		}
+	},
+	'진 힐라': {
+		image: '/images/boss/a.jpeg',
+		dc: {
+			NORMAL: 600,
+			HARD: 5000
 		}
 	},
 	'검은 마법사': {
@@ -59,6 +148,13 @@ export const bossInfo: {
 		}
 	},
 	'선택받은 세렌': {
+		image: '/images/boss/c.jpeg',
+		dc: {
+			NORMAL: 100000000,
+			HARD: 250000000
+		}
+	},
+	'감시자 칼로스': {
 		image: '/images/boss/c.jpeg',
 		dc: {
 			NORMAL: 100000000,
