@@ -26,6 +26,34 @@ function isExist(data: ItemType[], item: ItemType, day: MapleDayType) {
 	);
 }
 
+function handleDropEnd(data: ItemType[], items: ItemType[], day: MapleDayType) {
+	items.forEach((item) => {
+		const char = item.char.name;
+		const boss = item.boss?.name;
+		const dc = item.boss?.dc;
+
+		if (!isExist(data, item, day)) {
+			const newItem = { ...item };
+			newItem.boss!.day = day;
+			data.push(newItem);
+		}
+		data = data.filter(
+			(item) =>
+				!(
+					char === item.char.name &&
+					boss === item.boss?.name &&
+					dc === item.boss?.dc &&
+					day !== item.boss?.day
+				)
+		);
+		order.subscribe((o) => {
+			data.sort((a, b) => o.indexOf(a.char.name) - o.indexOf(b.char.name));
+		});
+	});
+	localStorage.setItem('prev', JSON.stringify(data));
+	return data;
+}
+
 function dragStart(e: DragEvent, items: ItemType[]) {
 	e.dataTransfer?.setData('text/plain', JSON.stringify(items));
 }
@@ -36,30 +64,7 @@ function dragDrop(e: DragEvent, day: MapleDayType) {
 		const items = JSON.parse(dragData) as ItemType[];
 
 		if (items && items.length > 0) {
-			items.forEach((item) => {
-				const char = item.char.name;
-				const boss = item.boss?.name;
-				const dc = item.boss?.dc;
-
-				if (!isExist(d, item, day)) {
-					const newItem = { ...item };
-					newItem.boss!.day = day;
-					d.push(newItem);
-					d = d.filter(
-						(item) =>
-							!(
-								char === item.char.name &&
-								boss === item.boss?.name &&
-								dc === item.boss?.dc &&
-								day !== item.boss?.day
-							)
-					);
-					order.subscribe((o) => {
-						d.sort((a, b) => o.indexOf(a.char.name) - o.indexOf(b.char.name));
-					});
-				}
-			});
-			localStorage.setItem('prev', JSON.stringify(d));
+			d = handleDropEnd(d, items, day);
 		}
 		return d;
 	});
@@ -136,30 +141,7 @@ function touchEnd(e: TouchEvent) {
 			const items = JSON.parse(t) as ItemType[];
 
 			if (items && items.length > 0) {
-				items.forEach((item) => {
-					const char = item.char.name;
-					const boss = item.boss?.name;
-					const dc = item.boss?.dc;
-
-					if (!isExist(d, item, day)) {
-						const newItem = { ...item };
-						newItem.boss!.day = day;
-						d.push(newItem);
-						d = d.filter(
-							(item) =>
-								!(
-									char === item.char.name &&
-									boss === item.boss?.name &&
-									dc === item.boss?.dc &&
-									day !== item.boss?.day
-								)
-						);
-						order.subscribe((o) => {
-							d.sort((a, b) => o.indexOf(a.char.name) - o.indexOf(b.char.name));
-						});
-					}
-				});
-				localStorage.setItem('prev', JSON.stringify(d));
+				d = handleDropEnd(d, items, day);
 			}
 		});
 		return d;
@@ -247,5 +229,5 @@ export {
 	handleCharCheckbox,
 	handleItemCheckbox,
 	getCounterIdx,
-	getCharsData,
+	getCharsData
 };

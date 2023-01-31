@@ -31,7 +31,6 @@
 		if (selected.day !== day || selected.char !== char) selected = { day, char };
 		else selected = { day: 'x', char: undefined };
 	}
-
 </script>
 
 <svelte:head>
@@ -78,7 +77,10 @@
 									class="p-1 border rounded-xl hover:bg-neutral-300/30"
 									on:click={() => handleSelected(day, charArr[0].char.name)}
 									on:dragstart={(e) => dragStart(e, charArr)}
-									on:touchstart={(e) => touchStart(e, charArr)}
+									on:touchstart={(e) => {
+										handleSelected(day, charArr[0].char.name);
+										touchStart(e, charArr);
+									}}
 									on:touchmove={(e) => touchMove(e)}
 									on:touchend={(e) => touchEnd(e)}
 								>
