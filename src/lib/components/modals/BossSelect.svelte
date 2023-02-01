@@ -93,7 +93,7 @@
 				 rounded-2xl bg-white dark:bg-neutral-500 overflow-y-auto"
 >
 	<div
-		class="min-h-[240px] max-h-[400px] p-4 grid grid-cols-1 ss:grid-cols-2 md:grid-cols-3 place-items-top gap-2
+		class="min-h-[240px] max-h-[400px] p-4 grid grid-cols-1 ss:grid-cols-2 md:grid-cols-3 gap-2
 					 rounded-2xl dark:bg-neutral-600 overflow-y-auto"
 	>
 		{#each Object.entries(bossInfo) as boss, idx}
