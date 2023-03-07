@@ -1,5 +1,5 @@
-// import adapterStatic from '@sveltejs/adapter-static';
-import adapter from '@sveltejs/adapter-node'
+import adapterStatic from '@sveltejs/adapter-static';
+// import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -8,9 +8,11 @@ const config = {
 
 	kit: {
 		// adapter: adapterStatic({
-		// 	strict: false
+		// fallback: 'index.html'
 		// }),
-		adapter: adapter(),
+		// prerender: { entries: [] },
+		adapter: adapterStatic({ strict: false }),
+		// adapter: adapter(),
 		alias: {
 			$stores: 'src/stores',
 			$types: 'src/types',

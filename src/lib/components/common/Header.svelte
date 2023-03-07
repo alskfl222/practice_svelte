@@ -1,20 +1,19 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { darkMode } from '$stores/mode';
 	import Toggle from './Toggle.svelte';
 
 	let innerWidth: number = 0;
-
 	let show = false;
-
-	function selectOption(opt: string) {
-		show = false;
-		const href = `/${opt}`;
-		window.location.href = href;
-	}
 
 	const selectedStyle = 'text-3xl font-bold dark:text-neutral-200';
 	const normalStyle = 'text-lg dark:text-neutral-200';
+
+	function routeToPage(route: string, replaceState: boolean = false) {
+		goto(`/${route}`, { replaceState });
+		show = false;
+	}
 
 	$: if ($darkMode) {
 		localStorage.setItem('darkMode', 'true');
@@ -49,7 +48,7 @@
 								<li
 									class="relative h-[40px] px-3 flex items-center justify-between hover:bg-neutral-500 hover:dark:bg-neutral-200
 							 				hover:text-white dark:text-white hover:dark:text-neutral-700"
-									on:click={() => selectOption(opt)}
+									on:click={() => routeToPage(opt)}
 								>
 									{#if opt === 'calendar'}
 										<i class="fa-solid fa-calendar" /><span>일정</span>
